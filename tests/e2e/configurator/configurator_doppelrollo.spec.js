@@ -1,6 +1,6 @@
 import { argosScreenshot } from "@argos-ci/playwright";
 import { test, expect } from '@playwright/test';
-import { ignoreMenuContainer } from '../../support/helpers'
+import { ignoreMenuContainer, ignoreFreshChat } from '../../support/helpers'
 
 let scrollToBottom = require("scroll-to-bottomjs");
 
@@ -10,6 +10,7 @@ test.describe('Integration test with visual testing - doppelrollo configurator',
 
         await page.goto('/doppelrollo/doppelrollo-konfigurator');
         await ignoreMenuContainer(page);
+        await ignoreFreshChat(page);
         await page.evaluate(scrollToBottom);
 
     });
