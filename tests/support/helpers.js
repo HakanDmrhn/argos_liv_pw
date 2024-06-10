@@ -18,3 +18,19 @@ export async function ignoreMenuContainer(page) {
         console.log('menu container does NOT exist: ' + exist_Menu)
     }
 }
+
+
+// --------------------------------------------------------------------------------------------//
+// --------------------------------------- FRESHCHAT ------------------------------------------//
+// --------------------------------------------------------------------------------------------//
+
+export async function ignoreFreshChat(page) {
+
+    const freshChat = page.locator('#fc_frame')
+    await freshChat.waitFor()  // wait for freshChat-Icon to be visible
+
+    await page.evaluate(() => {
+        const freshChatElement = document.querySelector('#fc_frame');
+        freshChatElement.setAttribute('data-visual-test', 'transparent'); // you can choose between transparent, removed, blackout
+    });
+}
