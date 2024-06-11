@@ -34,3 +34,26 @@ export async function ignoreFreshChat(page) {
         freshChatElement.setAttribute('data-visual-test', 'transparent'); // you can choose between transparent, removed, blackout
     });
 }
+
+
+// --------------------------------------------------------------------------------------------//
+// --------------------------------------- YOUTUBE --------------------------------------------//
+// --------------------------------------------------------------------------------------------//
+
+export async function ignoreYoutube(page) {
+
+    // selector .video
+    const exist_youtube_b = await page.locator('.video').count();
+
+    if (exist_youtube_b > 0) { // if this element exists
+
+        console.log('Element .video does exist: ' + exist_youtube_b)
+        await page.evaluate(() => {
+            const youTubeVideo_b = document.querySelector('.video');
+            youTubeVideo_b.setAttribute('data-visual-test', 'transparent');  // you can choose between transparent, removed, blackout
+        });
+    }
+    else {
+        console.log('Element .video does not exist: ' + exist_youtube_b)
+    }
+}
