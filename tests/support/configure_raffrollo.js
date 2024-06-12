@@ -1,23 +1,20 @@
-import {add2Cart} from "./checkout"
+import { add2Cart } from "./checkout"
 
-module.exports = {
+export async function configure_raffrollo(page) {
 
-  configure_raffrollo: async function configure_raffrollo() {
-
-    //load configurator
-    await page.goto('/raffrollo/yuna-9260');
-    await page.getByText(/Raffrollo auf Maß konfigurieren/).first().click();
+  //load configurator
+  await page.goto('/raffrollo/yuna-9260');
+  await page.getByText(/Raffrollo auf Maß konfigurieren/).first().click();
 
 
-    //input height and weight
-    await page.locator('#hoehe_in_mm input').fill('250');
-    await page.locator('#breite_in_mm input').fill('120');
+  //input height and weight
+  await page.locator('#hoehe_in_mm input').fill('250');
+  await page.locator('#breite_in_mm input').fill('120');
 
-    // input quantity 
-    await page.locator('#qty').clear();
-    await page.locator('#qty').fill('2');
+  // input quantity 
+  await page.locator('#qty').clear();
+  await page.locator('#qty').fill('2');
 
-    //add to cart
-    checkOut.add2Cart();
-  }
-};
+  //add to cart
+  await add2Cart(page);
+}

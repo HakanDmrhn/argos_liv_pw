@@ -1,19 +1,26 @@
-module.exports = {
+export async function configure_zubehoer_rollo(page) {
 
-    configure_zubehoer_rollo: async function configure_zubehoer_rollo() {
+    //load zubehör page
+    await page.goto('/bedienstab-rollo-dachfenster');
 
-        //load zubehör page
-        await page.goto('/bedienstab-rollo-dachfenster');
-        await page.FIXME_wait('@js_minify');
-        await page.waitForTimeout(1000);
+    // Warte auf die Antwort für js-Dateien und überprüfe den Statuscode 200
+    // sonst entsteht JS-Error: opConfig not defined
+    await Promise.all([
+        page.waitForResponse(response =>
+            response.url().includes('/skin/frontend/delphinus/default/js_minify/')
+            && response.status() === 200, { timeout: 3000 })
+    ]);
 
-        //select size
-        await page.getByText(/Länge wählen/).first().FIXME_siblings('select').selectOption({ label: '100 cm' });
+    // promise not sufficient here!
+    // workaround
+    // await this.page.waitForTimeout(2000);
 
-        // input quantity 
-        await page.locator('#qty').clear();
-        await page.locator('#qty').fill('1');
-        
-        await page.locator('.cart-container > button').click({ force: true });
-    }
-};
+    //select size
+    await page.locator('.last select').selectOption({ label: '100 cm' });
+
+    // input quantity 
+    await page.locator('#qty').clear();
+    await page.locator('#qty').fill('1');
+
+    await page.locator('.cart-container > button').click();
+}

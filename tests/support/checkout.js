@@ -1,3 +1,9 @@
+
+import { ignoreFreshChat } from './helpers'
+import { expect, test } from '@playwright/test';
+import { argosScreenshot } from "@argos-ci/playwright";
+
+
 const data =
 {
     "login": "guest",
@@ -16,7 +22,6 @@ const data =
     "shipping": "new",
     "prefix2": "geschaeftskunde",
     "company_name2": "Chaimag Ltd",
-    "vatID_2": "BG201794665",
     "prefix_business2": "Herr",
     "first_name2": "Mirco",
     "last_name2": "Yanar",
@@ -38,117 +43,137 @@ export async function add2Cart(page) {
 
 export async function checkOut(page) {
 
-    //take snapshot of cart
-    await page.waitForTimeout(3000);
-    await page.FIXME_should("url.contain", '/checkout/cart');
+    // check correct URL --> is cart loaded?
+    await expect(page).toHaveURL(new RegExp('/checkout/cart'));
 
-    page.FIXME_argosScreenshot(
-        'Alle Produkte im Warenkorb', {
+    // take argos screenshot
+    await argosScreenshot(page, 'Alle Produkte im Warenkorb', {
         viewports: [
-            "iphone-6", // Use device preset for iphone-6
-            { width: 1280, height: 1024 } // Specify dimensions directly
+            "macbook-16", // Use device preset for macbook-16 --> 1536 x 960
+            "iphone-6" // Use device preset for iphone-6 --> 375x667
         ]
     });
+
 
     //proceed to checkout 
     await page.getByText(/zur Kasse gehen/).first().click();
 
     //set billing address information & and take snapshot
-    setBillingData(data.prefix, data.company_name, data.vatID, data.prefix_business, data.first_name, data.last_name, data.email, data.street, data.postal_code, data.city, data.phone, data.state);
-    page.FIXME_argosScreenshot('checkout: Rechnungsinformation', {
+    await setBillingData(page, data.company_name, data.vatID, data.first_name, data.last_name, data.email, data.street, data.postal_code, data.city, data.phone, data.state);
+
+    // take argos screenshot Rechnungsinformation
+    await argosScreenshot(page, 'checkout - Rechnungsinformation', {
         viewports: [
-            "iphone-6", // Use device preset for iphone-6
-            { width: 1280, height: 1024 } // Specify dimensions directly
+            "macbook-16", // Use device preset for macbook-16 --> 1536 x 960
+            "iphone-6" // Use device preset for iphone-6 --> 375x667
         ]
     });
 
     //select 'An andere Adresse verschicken' and go on
     await page.locator('input[title="An andere Adresse verschicken"]').check();
     await page.locator('#billing-buttons-container > button[title="Weiter"]').click();
-    await page.locator('#billing-buttons-container > button[title="Weiter"]')// .waitForTimeout(5000);
 
     //set shipping address information  & and take snapshot
-    setShippingData(data.prefix2, data.company_name2, data.vatID_2, data.prefix_business2, data.first_name2, data.last_name2, data.street2, data.postal_code2, data.city2, data.phone2, data.state2);
-    page.FIXME_argosScreenshot('checkout: Versandinformation', {
+    await setShippingData(page, data.company_name2, data.vatID_2, data.first_name2, data.last_name2, data.street2, data.postal_code2, data.city2, data.phone2, data.state2);
+
+    // take argos screenshot Versandinformation
+    await argosScreenshot(page, 'checkout - Versandinformation', {
         viewports: [
-            "iphone-6", // Use device preset for iphone-6
-            { width: 1280, height: 1024 } // Specify dimensions directly
+            "macbook-16", // Use device preset for macbook-16 --> 1536 x 960
+            "iphone-6" // Use device preset for iphone-6 --> 375x667
         ]
     });
 
     // click 'Weiter'
     await page.locator('#shipping-buttons-container button').click();
-    await page.locator('#shipping-buttons-container button')//.waitForTimeout(2000);
 
 
-    //take snapshot of checkout: Versandkosten
-    page.FIXME_argosScreenshot('checkout: Versandkosten', {
+    // take argos screenshot Versandkosten
+    await argosScreenshot(page, 'checkout - Versandkosten', {
         viewports: [
-            "iphone-6", // Use device preset for iphone-6
-            { width: 1280, height: 1024 } // Specify dimensions directly
+            "macbook-16", // Use device preset for macbook-16 --> 1536 x 960
+            "iphone-6" // Use device preset for iphone-6 --> 375x667
         ]
     });
 
-    //Click "Weiter"
-    await page.locator('#opc-shipping_method > .step.a-item > form > .buttons-set > button').click();
-    await page.locator('#opc-shipping_method > .step.a-item > form > .buttons-set > button').waitForTimeout(2000);
+    // Button "Weiter" @Versandkosten
+    await expect(page.locator('#co-shipping-method-form > .buttons-set > .button')).toBeVisible()// Warte bis WEITER-Button sichtbar ist
+    await page.locator('#co-shipping-method-form > .buttons-set > .button').click()// Warte bis WEITER-Button sichtbar ist
+
+    // Code an dieser Stelle zeitweise zu schnell
+    // workaround:
+    // Warte auf die Antwort für js-Dateien-Request und überprüfe den Statuscode 200
+    // abhängig von Rechnungsanschrift und Versandanschrift kann die URL variieren: 
+    // /checkout/onepage/saveShippingMethod oder /checkout/onepage/saveBilling
+    // um beides abzudecken nur '/checkout/onepage/save'
+
+    await Promise.all([
+        page.waitForResponse(response =>
+            response.url().includes('/checkout/onepage/save')
+            && response.status() === 200, { timeout: 5000 }
+        && console.log('RESPONSE RECEIVED')
+        )
+    ]);
 
 
-    //take snapshot of checkout: Zahlungsinformation
-    page.FIXME_argosScreenshot('checkout: Zahlungsinformation', {
+    // take argos screenshot Zahlungsinformation
+    await argosScreenshot(page, 'checkout - Zahlungsinformation', {
         viewports: [
-            "iphone-6", // Use device preset for iphone-6
-            { width: 1280, height: 1024 } // Specify dimensions directly
+            "macbook-16", // Use device preset for macbook-16 --> 1536 x 960
+            "iphone-6" // Use device preset for iphone-6 --> 375x667
         ]
     });
 
     //Click "Weiter"
     await page.locator('#payment-buttons-container button').click();
-    await page.locator('#payment-buttons-container button').waitForTimeout(2000);
 
-    //take snapshot of checkout: Bestellübersicht
-    page.FIXME_argosScreenshot(
-        'checkout: Bestellübersicht', {
+    // take argos screenshot Bestellübersicht
+    await argosScreenshot(page, 'checkout - Bestellübersicht', {
         viewports: [
-            "iphone-6", // Use device preset for iphone-6
-            { width: 1280, height: 1024 } // Specify dimensions directly
+            "macbook-16", // Use device preset for macbook-16 --> 1536 x 960
+            "iphone-6" // Use device preset for iphone-6 --> 375x667
         ]
     });
-    await page.waitForTimeout(2000);
 }
 
 export async function emptyCart(page) {
 
-    await page.waitForTimeout(2000);
+    // await page.waitForTimeout(2000);
     // click cart icon and delete articles  + take snapshots before and after
     await page.locator('.smallcartdiv').click();
 
-    // page.FIXME_argosScreenshot(
+    // ignore FreshChat
+    await ignoreFreshChat(page)
 
-    //     'Warenkorb leeren', {
-    //     viewports: [
-    //         "iphone-6", // Use device preset for iphone-6
-    //         { width: 1280, height: 1024 } // Specify dimensions directly
-    //     ]
-    // });
+    // take argos screenshot full cart
+    await argosScreenshot(page, 'checkout - Warenkorb leeren', {
+        viewports: [
+            "macbook-16", // Use device preset for macbook-16 --> 1536 x 960
+            "iphone-6" // Use device preset for iphone-6 --> 375x667
+        ]
+    });
 
-    // deleteProducts();
+    await deleteProducts(page);
 
-    // page.FIXME_argosScreenshot('Warenkorb geleert', {
-    //     viewports: [
-    //         "iphone-6", // Use device preset for iphone-6
-    //         { width: 1280, height: 1024 } // Specify dimensions directly
-    //     ]
-    // });
+
+    // take argos screenshot full cart
+    await argosScreenshot(page, 'checkout - Warenkorb geleert', {
+        viewports: [
+            "macbook-16", // Use device preset for macbook-16 --> 1536 x 960
+            "iphone-6" // Use device preset for iphone-6 --> 375x667
+        ]
+    });
 
 }
 
-async function setBillingData(prefixA, company, vatID, prefixB, firstName, lastName, email, street, postalCode, city, phone, state) {
+async function setBillingData(page, company, vatID, firstName, lastName, email, street, postalCode, city, phone, state) {
 
-    await page.locator('#input_box_prefix').locator(":scope > *").check();
+    await page.locator('#billing_anrede_geschaeftskunde').click()
     await page.locator('[id="billing:company"]').fill(company);
     await page.locator('[id="billing:vat_id"]').fill(vatID);
-    await page.locator('label[for="billing[prefix]"] + .input-box').locator(":scope > *").check();
+
+    // set prefix of contact person, if user is a company
+    await page.locator('.anrede_frau[name="billing\\[prefix\\]"]').check()
     await page.locator('[id="billing:firstname"]').fill(firstName);
     await page.locator('[id="billing:lastname"]').fill(lastName);
     await page.locator('[id="billing:email"]').fill(email);
@@ -156,39 +181,34 @@ async function setBillingData(prefixA, company, vatID, prefixB, firstName, lastN
     await page.locator('[id="billing:postcode"]').fill(postalCode);
     await page.locator('[id="billing:city"]').fill(city);
     await page.locator('[id="billing:telephone"]').fill(phone);
-    await page.locator('[id="billing:country_id"]').FIXME_select(state);
+    await page.selectOption('[id="billing:country_id"]', state)
 }
 
-async function setShippingData(prefixA, company, vatID, prefixB, firstName, lastName, street, postalCode, city, phone, state) {
+async function setShippingData(page, company, vatID, firstName, lastName, street, postalCode, city, phone, state) {
 
-    await page.locator('label[for="shipping_prefix"] + #input_box_prefix').locator(":scope > *").check();
+    await page.locator('#shipping_anrede_geschaeftskunde').click()
     await page.locator('[id="shipping:company"]').fill(company);
-    await page.locator('[id="shipping:vat_id"]').fill(vatID);
-    await page.locator('.field.shipping_name-prefix.name-prefix > .input-box').locator(":scope > *").check();
+    // await page.locator('[id="shipping:vat_id"]').fill(vatID);  //Bulgarische VAT-ID macht oft Verifizierungsprobleme, was zum Abbruch führt
+
+    // set prefix of contact person, if user is a company
+    await page.locator('.anrede_herr[name="shipping\\[prefix\\]"]').check()
     await page.locator('[id="shipping:firstname"]').fill(firstName);
     await page.locator('[id="shipping:lastname"]').fill(lastName);
     await page.locator('[id="shipping:street1"]').fill(street);
     await page.locator('[id="shipping:postcode"]').fill(postalCode);
     await page.locator('[id="shipping:city"]').fill(city);
     await page.locator('[id="shipping:telephone"]').fill(phone);
-    await page.locator('[id="shipping:country_id"]').FIXME_select(state);
+    await page.selectOption('[id="shipping:country_id"]', state)
 
 }
 
-function deleteProducts() {
-    //delete articles from cart (recursively)
-    const deleteArticle = async () => {
-        const $body = page.locator('body');
-        const isVisible = (async () => {
-            $body.locator('.remove-item').FIXME_is(':visible');
-            return $body.locator('.remove-item');
-        })();
-        if (isVisible) {
-            await $body.getByText(/Artikel entfernen/).first().click();
+async function deleteProducts(page) {
 
-            deleteArticle();
-        }
+    await page.locator('.smallcartdiv').click()
 
-    };
-    deleteArticle();
+    // bei mehreren produkten --> zB Kissen Sets
+    while (await page.isVisible('.remove-item')) {  // solange das Element sichtbar ist
+        // Klicke auf das Element mit der Klasse 'remove-item'
+        await page.locator('.remove-item').first().click(); // entferne immer das erste element
+    }
 }

@@ -1,8 +1,6 @@
 import {add2Cart} from "./checkout"
 
-module.exports = {
-
-  configure_jalousie: async function configure_jalousie() {
+export async function configure_jalousie(page) {
 
     //load configurator
     await page.goto('/jalousie/jalousie-konfigurator?lamellengroesse=16mm');
@@ -15,7 +13,6 @@ module.exports = {
     await page.locator('#configurator-price-cart > .add-to-cart input').clear();
     await page.locator('#configurator-price-cart > .add-to-cart input').fill('2');
 
-    //add to cart
-    checkOut.add2Cart();
+     //add to cart
+     await add2Cart(page);
   }
-};
