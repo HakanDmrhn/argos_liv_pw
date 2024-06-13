@@ -1,0 +1,9 @@
+{
+  "URLS": [
+    "/sonderauftrag",
+    "/aenderungsauftrag-breite",
+    "/aenderungsauftrag-schnurlaenge",
+    "/reparaturauftrag-schnur-ersetzen",
+    "/zusatzauftrag-laengere-fuehrungsschnuere"
+  ]
+}

@@ -43,6 +43,9 @@ export async function add2Cart(page) {
 
 export async function checkOut(page) {
 
+    //----------------------- CHECK URL OF CART --------------------------------//
+    //--------------------------------------------------------------------------//
+
     // check correct URL --> is cart loaded?
     await expect(page).toHaveURL(new RegExp('/checkout/cart'));
 
@@ -58,7 +61,14 @@ export async function checkOut(page) {
     //proceed to checkout 
     await page.getByText(/zur Kasse gehen/).first().click();
 
-    //set billing address information & and take snapshot
+
+    //----------------------- CHECK URL OF CHECKOUT ----------------------------//
+    //--------------------------------------------------------------------------//
+
+    // check correct URL --> is cart loaded?
+    await expect(page).toHaveURL(new RegExp('/checkout/onepage'));
+
+    //set billing address information in Rechnungsinformation
     await setBillingData(page, data.company_name, data.vatID, data.first_name, data.last_name, data.email, data.street, data.postal_code, data.city, data.phone, data.state);
 
     // take argos screenshot Rechnungsinformation
@@ -73,7 +83,20 @@ export async function checkOut(page) {
     await page.locator('input[title="An andere Adresse verschicken"]').check();
     await page.locator('#billing-buttons-container > button[title="Weiter"]').click();
 
-    //set shipping address information  & and take snapshot
+
+
+
+    //------------------------------- CHECK REQUEST ----------------------------//
+    //--------------------------------------------------------------------------//
+    await Promise.all([
+        page.waitForResponse(response =>
+            response.url().includes('/checkout/onepage/saveBilling')
+            && response.status() === 200, { timeout: 2000 }
+        && console.log('RESPONSE RECEIVED - /checkout/onepage/saveBilling')
+        )
+    ]);
+
+    //set shipping address information
     await setShippingData(page, data.company_name2, data.vatID_2, data.first_name2, data.last_name2, data.street2, data.postal_code2, data.city2, data.phone2, data.state2);
 
     // take argos screenshot Versandinformation
@@ -88,6 +111,20 @@ export async function checkOut(page) {
     await page.locator('#shipping-buttons-container button').click();
 
 
+
+
+
+    //------------------------------- CHECK REQUEST ----------------------------//
+    //--------------------------------------------------------------------------//
+    await Promise.all([
+        page.waitForResponse(response =>
+            response.url().includes('/checkout/onepage/saveShipping')
+            && response.status() === 200, { timeout: 2000 }
+        && console.log('RESPONSE RECEIVED - /checkout/onepage/saveShipping')
+        )
+    ]);
+
+
     // take argos screenshot Versandkosten
     await argosScreenshot(page, 'checkout - Versandkosten', {
         viewports: [
@@ -97,24 +134,30 @@ export async function checkOut(page) {
     });
 
     // Button "Weiter" @Versandkosten
-    await expect(page.locator('#co-shipping-method-form > .buttons-set > .button')).toBeVisible()// Warte bis WEITER-Button sichtbar ist
-    await page.locator('#co-shipping-method-form > .buttons-set > .button').click()// Warte bis WEITER-Button sichtbar ist
+    await expect(page.locator('#co-shipping-method-form > .buttons-set > .button')).toBeVisible()  // Warte bis WEITER-Button sichtbar ist
+    await page.locator('#co-shipping-method-form > .buttons-set > .button').click()  // und klicke dann
 
-    // Code an dieser Stelle zeitweise zu schnell
-    // workaround:
-    // Warte auf die Antwort für js-Dateien-Request und überprüfe den Statuscode 200
-    // abhängig von Rechnungsanschrift und Versandanschrift kann die URL variieren: 
-    // /checkout/onepage/saveShippingMethod oder /checkout/onepage/saveBilling
-    // um beides abzudecken nur '/checkout/onepage/save'
+
+
+
+    //------------------------------- CHECK REQUEST ----------------------------//
+    //--------------------------------------------------------------------------//
 
     await Promise.all([
         page.waitForResponse(response =>
-            response.url().includes('/checkout/onepage/save')
-            && response.status() === 200, { timeout: 5000 }
-        && console.log('RESPONSE RECEIVED')
+            response.url().includes('/checkout/onepage/saveShippingMethod')
+            && response.status() === 200, { timeout: 2000 }
+        && console.log('RESPONSE RECEIVED - /checkout/onepage/saveShippingMethod')
         )
     ]);
 
+
+    // WARTE AUF RESSOURCEN BEVOR AUFNAHME GEMACHT WIRD
+    // warte bis Images der vier verfügbaren Zahlungsarten sichtbar sind
+    await page.locator('dt[class="ppp bankpayment"] img').waitFor();
+    await page.locator('dt[class="ppp paypal ppp-selected"] img').waitFor();
+    await page.locator('dt[class="ppp card"] img').waitFor();
+    // await page.locator('dt[class="ppp sofort"] img').waitFor();
 
     // take argos screenshot Zahlungsinformation
     await argosScreenshot(page, 'checkout - Zahlungsinformation', {
@@ -126,6 +169,19 @@ export async function checkOut(page) {
 
     //Click "Weiter"
     await page.locator('#payment-buttons-container button').click();
+
+
+
+    //------------------------------- CHECK REQUEST ----------------------------//
+    //--------------------------------------------------------------------------//
+
+    await Promise.all([
+        page.waitForResponse(response =>
+            response.url().includes('/checkout/onepage/savePayment')
+            && response.status() === 200, { timeout: 2000 }
+        && console.log('RESPONSE RECEIVED - /checkout/onepage/savePayment')
+        )
+    ]);
 
     // take argos screenshot Bestellübersicht
     await argosScreenshot(page, 'checkout - Bestellübersicht', {
@@ -141,6 +197,12 @@ export async function emptyCart(page) {
     // await page.waitForTimeout(2000);
     // click cart icon and delete articles  + take snapshots before and after
     await page.locator('.smallcartdiv').click();
+
+    //----------------------- CHECK URL OF CART --------------------------------//
+    //--------------------------------------------------------------------------//
+
+    // check correct URL --> is cart loaded?
+    await expect(page).toHaveURL(new RegExp('/checkout/cart'));
 
     // ignore FreshChat
     await ignoreFreshChat(page)

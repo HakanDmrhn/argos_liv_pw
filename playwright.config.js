@@ -14,10 +14,10 @@ require('dotenv').config();  // --> npm install dotenv --save-dev ))
 module.exports = defineConfig({
   testDir: './tests',
   /* Maximum time one test can run. -page load timeout- 30 seconds */
-  timeout: 240 * 1000,
+  timeout: 2 * 60 * 1000,
   /* Maximum time expect assertion can run -by default 5000ms- */
   expect: {
-    timeout: 60 * 1000,
+    timeout: 1 * 60 * 1000,
   },
   /* Run tests in files in parallel */
   fullyParallel: true,
