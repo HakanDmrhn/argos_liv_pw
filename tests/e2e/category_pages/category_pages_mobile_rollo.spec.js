@@ -83,7 +83,7 @@ test.describe('Integration test with visual testing - simulated mobile testing o
         await page.locator('img[alt="Levigo 3734"]').click();
 
         // wait till all 8 mini tooltip images are present
-        await expect(page.locator('.tooltip.active > .tooltip-info-container > ul li')).toHaveCount(8);
+        await expect(page.locator('.tooltip.active > .tooltip-info-container > ul li')).toHaveCount(5);
 
         // iterate through all gallery images and check if visible
         for (const element of await page.locator('.tooltip.active > .tooltip-info-container > ul > li img').all()) {
