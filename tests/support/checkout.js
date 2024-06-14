@@ -49,6 +49,9 @@ export async function checkOut(page) {
     // check correct URL --> is cart loaded?
     await expect(page).toHaveURL(new RegExp('/checkout/cart'));
 
+    // ignore freshchat
+    await ignoreFreshChat(page);
+
     // take argos screenshot
     await argosScreenshot(page, 'Alle Produkte im Warenkorb', {
         viewports: [
@@ -70,6 +73,9 @@ export async function checkOut(page) {
 
     //set billing address information in Rechnungsinformation
     await setBillingData(page, data.company_name, data.vatID, data.first_name, data.last_name, data.email, data.street, data.postal_code, data.city, data.phone, data.state);
+
+    // ignore freshchat
+    await ignoreFreshChat(page);
 
     // take argos screenshot Rechnungsinformation
     await argosScreenshot(page, 'checkout - Rechnungsinformation', {
@@ -99,6 +105,9 @@ export async function checkOut(page) {
     //set shipping address information
     await setShippingData(page, data.company_name2, data.vatID_2, data.first_name2, data.last_name2, data.street2, data.postal_code2, data.city2, data.phone2, data.state2);
 
+    // ignore freshchat
+    await ignoreFreshChat(page);
+
     // take argos screenshot Versandinformation
     await argosScreenshot(page, 'checkout - Versandinformation', {
         viewports: [
@@ -124,6 +133,8 @@ export async function checkOut(page) {
         )
     ]);
 
+    // ignore freshchat
+    await ignoreFreshChat(page);
 
     // take argos screenshot Versandkosten
     await argosScreenshot(page, 'checkout - Versandkosten', {
@@ -159,6 +170,8 @@ export async function checkOut(page) {
     await page.locator('dt[class="ppp card"] img').waitFor();
     // await page.locator('dt[class="ppp sofort"] img').waitFor();
 
+    // ignore freshchat
+    await ignoreFreshChat(page);
     // take argos screenshot Zahlungsinformation
     await argosScreenshot(page, 'checkout - Zahlungsinformation', {
         viewports: [
@@ -182,6 +195,9 @@ export async function checkOut(page) {
         && console.log('RESPONSE RECEIVED - /checkout/onepage/savePayment')
         )
     ]);
+
+    // ignore freshchat
+    await ignoreFreshChat(page);
 
     // take argos screenshot Bestellübersicht
     await argosScreenshot(page, 'checkout - Bestellübersicht', {
@@ -217,6 +233,9 @@ export async function emptyCart(page) {
 
     await deleteProducts(page);
 
+
+    // ignore freshchat
+    await ignoreFreshChat(page);
 
     // take argos screenshot full cart
     await argosScreenshot(page, 'checkout - Warenkorb geleert', {
