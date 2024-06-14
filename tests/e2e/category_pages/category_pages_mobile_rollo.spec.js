@@ -25,7 +25,7 @@ test.describe('Integration test with visual testing - simulated mobile testing o
         //------------------------------ Basic DimOut 3040 ------------------------------------//
 
         // activate tooltip of Basic DimOut 3040
-        await page.locator('img[alt="rollo Basic DimOut 3040"]').click();
+        await page.locator('img[alt="Basic DimOut 3040"]').click();
 
         // wait till all 5 mini tooltip images are present
         await expect(page.locator('.tooltip.active > .tooltip-info-container > ul li')).toHaveCount(5);
