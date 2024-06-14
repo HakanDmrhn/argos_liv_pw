@@ -40,7 +40,7 @@ test.describe('Integration test with visual testing - hover on rollo category pa
         //------------------------------ ROLLO Triangolo 3882 -----------------------//
 
         // activate tooltip of Triangolo 3882
-        await page.locator('img[alt="Triangolo 3882"]').hover();
+        await page.locator('img[alt="Rollo Triangolo 3882"]').hover();
 
         // wait till all 5 mini tooltip images are present
         await expect(page.locator('.tooltip:visible > .tooltip-info-container > ul li')).toHaveCount(5);
