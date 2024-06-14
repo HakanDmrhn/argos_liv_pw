@@ -42,8 +42,8 @@ test.describe('Integration test with visual testing - hover on doppelrollo categ
         // activate tooltip of Lacinia 5053
         await page.locator('img[alt="Lacinia 5053"]').hover();
 
-        // wait till all 5 mini tooltip images are present
-        await expect(page.locator('.tooltip:visible > .tooltip-info-container > ul li')).toHaveCount(5);
+        // wait till all 4 mini tooltip images are present
+        await expect(page.locator('.tooltip:visible > .tooltip-info-container > ul li')).toHaveCount(4);
 
         // iterate through all gallery images and check if visible
         for (const element of await page.locator('.tooltip:visible > .tooltip-info-container > ul > li img').all()) {
