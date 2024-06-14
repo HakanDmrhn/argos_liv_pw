@@ -25,7 +25,7 @@ test.describe('Integration test with visual testing - simulated mobile testing o
         //------------------------------ Zadar 9021 ------------------------------------//
 
         // activate tooltip of Zadar 9021
-        await page.locator('img[alt="raffrollo Zadar 9021"]').click();
+        await page.locator('img[alt="Zadar 9021"]').click();
 
         // wait till all 4 mini tooltip images are present
         await expect(page.locator('.tooltip.active > .tooltip-info-container > ul li')).toHaveCount(4);
