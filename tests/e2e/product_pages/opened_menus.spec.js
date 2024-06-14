@@ -1,6 +1,6 @@
 import { test } from '@playwright/test';
 import { argosScreenshot } from "@argos-ci/playwright";
-import { ignoreFreshChat, ignoreYoutube } from '../support/helpers'
+import { ignoreFreshChat, ignoreYoutube } from '../../support/helpers'
 let scrollToBottom = require("scroll-to-bottomjs");
 
 
@@ -42,7 +42,7 @@ test.describe('Integration test with visual testing - opened menus', function ()
             fullPage: false,
             disableHover: false
         });
-    });
+    })
 
     test('opened menus - Rollo', async function ({ page }) {
 
@@ -83,7 +83,7 @@ test.describe('Integration test with visual testing - opened menus', function ()
             fullPage: false,
             disableHover: false
         });
-    });
+    })
 
     test('opened menus - Doppelrollo', async function ({ page }) {
 
@@ -103,7 +103,7 @@ test.describe('Integration test with visual testing - opened menus', function ()
             fullPage: false,
             disableHover: false
         });
-    });
+    })
 
     test('opened menus - Vorhänge', async function ({ page }) {
 
@@ -151,7 +151,7 @@ test.describe('Integration test with visual testing - opened menus', function ()
             fullPage: false,
             disableHover: false
         });
-    });
+    })
 
     test('opened menus - Schiebegardinen', async function ({ page }) {
 
@@ -178,7 +178,7 @@ test.describe('Integration test with visual testing - opened menus', function ()
             fullPage: false,
             disableHover: false
         });
-    });
+    })
 
     test('opened menus - Raffrollos', async function ({ page }) {
 
@@ -219,5 +219,5 @@ test.describe('Integration test with visual testing - opened menus', function ()
             fullPage: false,
             disableHover: false
         });
-    });
+    })
 });
