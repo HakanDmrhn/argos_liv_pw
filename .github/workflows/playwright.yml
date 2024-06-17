@@ -1,6 +1,77 @@
 name: Playwright Tests LIV
 on:
   workflow_dispatch: # Manually trigger the workflow
+    inputs:
+      TEST_FILE:
+        description: 'Select the test file to run'
+        required: true
+        type: choice
+        options:
+          - ALL
+          - category_pages_diverse.spec.js
+          - category_pages_doppelrollo.spec.js
+          - category_pages_hover_doppelrollo.spec.js
+          - category_pages_hover_plissee.spec.js
+          - category_pages_hover_raffrollo.spec.js
+          - category_pages_hover_rollo.spec.js
+          - category_pages_hover_schiebegardine.spec.js
+          - category_pages_hover_vorhaenge.spec.js
+          - category_pages_mobile_doppelrollo.spec.js
+          - category_pages_mobile_plissee.spec.js
+          - category_pages_mobile_raffrollo.spec.js
+          - category_pages_mobile_rollo.spec.js
+          - category_pages_mobile_schiebegardinen.spec.js
+          - category_pages_plissee.spec.js
+          - category_pages_raffrollo.spec.js
+          - category_pages_rollo.spec.js
+          - category_pages_schiebegardinen.spec.js
+          - category_pages_vorhaenge.spec.js
+          - cms_prio1_diverse.spec.js
+          - cms_prio1_plissee.spec.js
+          - cms_prio1_diverse_II.spec.js
+          - cms_prio1_rollo.spec.js
+          - cms_prio1_doppelrollo.spec.js
+          - cms_prio1_vorhaenge.spec.js
+          - cms_prio1_jalousie.spec.js
+          - cms_prio2_diverse.spec.js
+          - cms_prio2_raffrollo.spec.js
+          - cms_prio2_insektenschutz.spec.js
+          - cms_prio2_rollo.spec.js
+          - cms_prio2_plissee.spec.js
+          - cms_prio2_schiebegardinen.spec.js
+          - cms_prio3_diverse.spec.js
+          - configurator_doppelrollo.spec.js
+          - configurator_fliegengitter.spec.js
+          - configurator_holzjalousie.spec.js
+          - configurator_insektenschutzrollo.spec.js
+          - configurator_jalousie.spec.js
+          - configurator_plissee_dachfenster.spec.js
+          - configurator_plissee_rechteckige.spec.js
+          - configurator_plissee_sonderformen.spec.js
+          - configurator_raffrollo.spec.js
+          - configurator_rollo.spec.js
+          - configurator_schiebegardinen.spec.js
+          - gallery_images_doppelrollo.spec.js
+          - gallery_images_raffrollo.spec.js
+          - gallery_images_holzjalousie.spec.js 
+          - gallery_images_rollo.spec.js
+          - gallery_images_jalousie.spec.js  
+          - gallery_images_schiebegardine.spec.js
+          - gallery_images_plissee.spec.js   
+          - gallery_images_zubehoer.spec.js
+          - full_order_process.spec.js
+          - opened_menus.spec.js  
+          - product_pages_rollo.spec.js
+          - product_pages_doppelrollo.spec.js 
+          - product_pages_schiebegardinen.spec.js
+          - product_pages_insektenschutz.spec.js 
+          - product_pages_service.spec.js
+          - product_pages_kissenhuellen.spec.js 
+          - product_pages_vorhaenge.spec.js
+          - product_pages_plissee.spec.js  
+          - product_pages_zubehoer.spec.js
+          - product_pages_raffrollo.spec.js
+
   schedule:
     - cron: '00 01 * * 1-5' # Schedule to run every day at 1:00 AM from Monday to Friday (aktuell deutsche Zeit - 2 Stunden)
 
