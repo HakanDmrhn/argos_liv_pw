@@ -80,7 +80,7 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event_name == 'workflow_dispatch' # run only manually
     container:
-      image: mcr.microsoft.com/playwright:v1.44.0-jammy
+      image: mcr.microsoft.com/playwright:v1.44.1-jammy
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-node@v4
@@ -104,7 +104,7 @@ jobs:
       runs-on: ubuntu-latest
       if: github.event_name == 'schedule' # run only scheduled
       container:
-        image: mcr.microsoft.com/playwright:v1.44.0-jammy
+        image: mcr.microsoft.com/playwright:v1.44.1-jammy
       steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
