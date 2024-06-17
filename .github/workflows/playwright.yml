@@ -71,7 +71,6 @@ on:
           - product_pages_plissee.spec.js  
           - product_pages_zubehoer.spec.js
           - product_pages_raffrollo.spec.js
-
   schedule:
     - cron: '00 01 * * 1-5' # Schedule to run every day at 1:00 AM from Monday to Friday (aktuell deutsche Zeit - 2 Stunden)
 
@@ -90,7 +89,12 @@ jobs:
     - name: Install dependencies
       run: npm ci
     - name: Run Playwright tests - manually
-      run: npx playwright test
+      run: |
+        if [ "${{ github.event.inputs.TEST_FILE }}" = "ALL" ]; then
+          npx playwright test
+        else
+          npx playwright test ${{ github.event.inputs.TEST_FILE }}
+        fi
       env: 
         BASE_URL: ${{ secrets.BASE_URL }}
         ARGOS_TOKEN: ${{ secrets.ARGOS_TOKEN }}
