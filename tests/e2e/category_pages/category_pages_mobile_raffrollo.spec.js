@@ -48,11 +48,11 @@ test.describe('Integration test with visual testing - simulated mobile testing o
 
 
         //-------------------------------- TOOLTIP ---------------------------------------//
-        //------------------------------ Cocco 9010 --------------------------------------//
+        //------------------------------ Chiave 9099 --------------------------------------//
 
 
-        // activate tooltip of Cocco 9010
-        await page.locator('img[alt="Cocco 9010"]').click();
+        // activate tooltip of Chiave 9099
+        await page.locator('img[alt="Chiave 9099"]').click();
 
         // wait till all 4 mini tooltip images are present
         await expect(page.locator('.tooltip.active > .tooltip-info-container > ul li')).toHaveCount(4);
@@ -63,24 +63,24 @@ test.describe('Integration test with visual testing - simulated mobile testing o
         }
 
         // take argos screenshot
-        await argosScreenshot(page, 'mobile view raffrollo - active tooltip - Cocco 9010', { fullPage: false });
+        await argosScreenshot(page, 'mobile view raffrollo - active tooltip - Chiave 9099', { fullPage: false });
 
-        // deactivate tooltip of Cocco 9010
+        // deactivate tooltip of Chiave 90990
         await page.locator('div.tooltip.active').click();
 
         // take argos screenshot
-        await argosScreenshot(page, 'mobile view raffrollo - tooltip closed - Cocco 9010', { fullPage: false });
+        await argosScreenshot(page, 'mobile view raffrollo - tooltip closed - Chiave 9099', { fullPage: false });
 
 
 
 
 
         //-------------------------------- TOOLTIP ---------------------------------------//
-        //------------------------------ Dillio 9071 --------------------------------------//
+        //------------------------------ Gola 9015 --------------------------------------//
 
 
-        // activate tooltip of Dillio 9071
-        await page.locator('img[alt="Dillio 9071"]').click();
+        // activate tooltip of Gola 9015
+        await page.locator('img[alt="Gola 9015"]').click();
 
         // wait till all 4 mini tooltip images are present
         await expect(page.locator('.tooltip.active > .tooltip-info-container > ul li')).toHaveCount(4);
@@ -91,12 +91,12 @@ test.describe('Integration test with visual testing - simulated mobile testing o
         }
 
         // take argos screenshot
-        await argosScreenshot(page, 'mobile view raffrollo - active tooltip - Dillio 9071', { fullPage: false });
+        await argosScreenshot(page, 'mobile view raffrollo - active tooltip - Gola 9015', { fullPage: false });
 
-        // deactivate tooltip of Dillio 9071
+        // deactivate tooltip of Gola 9015
         await page.locator('div.tooltip.active').click();
 
         // take argos screenshot
-        await argosScreenshot(page, 'mobile view raffrollo - tooltip closed - Dillio 9071', { fullPage: false });
+        await argosScreenshot(page, 'mobile view raffrollo - tooltip closed - Gola 9015', { fullPage: false });
     });
 });
