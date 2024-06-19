@@ -66,7 +66,7 @@ test.describe('Integration test with visual testing - hover on vorhaenge categor
         //------------------------------ Lavello Vorhang Rose-- ---------------------------//
 
         // activate tooltip of Lavello Vorhang Rose (9th child of colors)
-        await page.locator("li:nth-of-type(14) > div.item__colors > label>>nth=8").click()
+        await page.locator("li:nth-of-type(13) > div.item__colors > label>>nth=8").click()
 
         // take argos screenshot of tooltip
         await argosScreenshot(page, 'hover - Lavello Vorhang Rose', {
