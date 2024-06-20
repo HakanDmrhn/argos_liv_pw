@@ -8,14 +8,10 @@ export async function ignoreMenuContainer(page) {
 
     if (exist_Menu > 0) { // if this element exists
 
-        console.log('menu container does exist: ' + exist_Menu)
         await page.evaluate(() => {
             const menuContainer = document.querySelector('#nav-menu-container');
             menuContainer.setAttribute('data-visual-test', 'transparent');  // you can choose between transparent, removed, blackout
         });
-    }
-    else {
-        console.log('menu container does NOT exist: ' + exist_Menu)
     }
 }
 
@@ -47,13 +43,9 @@ export async function ignoreYoutube(page) {
 
     if (exist_youtube_b > 0) { // if this element exists
 
-        console.log('Element .video does exist: ' + exist_youtube_b)
         await page.evaluate(() => {
             const youTubeVideo_b = document.querySelector('.video');
             youTubeVideo_b.setAttribute('data-visual-test', 'transparent');  // you can choose between transparent, removed, blackout
         });
-    }
-    else {
-        console.log('Element .video does not exist: ' + exist_youtube_b)
     }
 }
