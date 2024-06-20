@@ -6,6 +6,7 @@ export async function configure_kissenhuelle(page) {
   await page.goto('/kissenhuelle/bosco');
 
   //change color
+  await page.getByText(/Lavendel/).first().waitFor() // this is needed since code runs too fast here
   await page.getByText(/Lavendel/).first().click();
 
   //select size
