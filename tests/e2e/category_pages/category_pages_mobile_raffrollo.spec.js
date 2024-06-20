@@ -25,6 +25,7 @@ test.describe('Integration test with visual testing - simulated mobile testing o
         //------------------------------ Zadar 9021 ------------------------------------//
 
         // activate tooltip of Zadar 9021
+        await page.locator('img[alt="Zadar 9021"]').scrollIntoViewIfNeeded();
         await page.locator('img[alt="Zadar 9021"]').click();
 
         // wait till all 4 mini tooltip images are present
@@ -52,6 +53,7 @@ test.describe('Integration test with visual testing - simulated mobile testing o
 
 
         // activate tooltip of Chiave 9099
+        await page.locator('img[alt="Chiave 9099"]').scrollIntoViewIfNeeded();
         await page.locator('img[alt="Chiave 9099"]').click();
 
         // wait till all 4 mini tooltip images are present
@@ -80,6 +82,7 @@ test.describe('Integration test with visual testing - simulated mobile testing o
 
 
         // activate tooltip of Gola 9015
+        await page.locator('img[alt="Gola 9015"]').scrollIntoViewIfNeeded();
         await page.locator('img[alt="Gola 9015"]').click();
 
         // wait till all 4 mini tooltip images are present

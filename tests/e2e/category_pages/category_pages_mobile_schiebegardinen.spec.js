@@ -25,6 +25,7 @@ test.describe('Integration test with visual testing - simulated mobile testing o
         //------------------------------ Schiebegardine Ukko 7330 ------------------------//
 
         // activate tooltip of Schiebegardine Ukko 7330
+        await page.locator('img[alt="Schiebegardine Ukko 7330"]').scrollIntoViewIfNeeded();
         await page.locator('img[alt="Schiebegardine Ukko 7330"]').click();
 
         // wait till all 5 mini tooltip images are present
@@ -52,6 +53,7 @@ test.describe('Integration test with visual testing - simulated mobile testing o
 
 
         // activate tooltip of Schiebegardine Bonito 7336
+        await page.locator('img[alt="Schiebegardine Bonito 7336"]').scrollIntoViewIfNeeded();
         await page.locator('img[alt="Schiebegardine Bonito 7336"]').click();
 
         // wait till all 5 mini tooltip images are present
@@ -80,6 +82,7 @@ test.describe('Integration test with visual testing - simulated mobile testing o
 
 
         // activate tooltip of Schiebegardine Naru 7297
+        await page.locator('img[alt="Schiebegardine Naru 7297"]').scrollIntoViewIfNeeded();
         await page.locator('img[alt="Schiebegardine Naru 7297"]').click();
 
         // wait till all 5 mini tooltip images are present

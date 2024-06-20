@@ -25,7 +25,7 @@ test.describe('Integration test with visual testing - simulated mobile testing o
         //------------------------------ RAYURE 5001 ------------------------------------//
 
         // activate tooltip of Rayure 5001
-        // await page.locator('img[alt="Rayure 5001"]').scrollIntoViewIfNeeded();
+        await page.locator('img[alt="Rayure 5001"]').scrollIntoViewIfNeeded();
         await page.locator('img[alt="Rayure 5001"]').click();
 
         // wait till all 4 mini tooltip images are present
@@ -53,7 +53,7 @@ test.describe('Integration test with visual testing - simulated mobile testing o
 
 
         // activate tooltip of Juste 5104
-        // await page.locator('img[alt="Juste 5104"]').scrollIntoViewIfNeeded();
+        await page.locator('img[alt="Juste 5104"]').scrollIntoViewIfNeeded();
         await page.locator('img[alt="Juste 5104"]').click();
 
         // wait till all 5 mini tooltip images are present
@@ -82,7 +82,7 @@ test.describe('Integration test with visual testing - simulated mobile testing o
 
 
         // activate tooltip of Amelio 5105
-        // await page.locator('img[alt="Amelio 5105"]').scrollIntoViewIfNeeded();
+        await page.locator('img[alt="Amelio 5105"]').scrollIntoViewIfNeeded();
         await page.locator('img[alt="Amelio 5105"]').click();
 
         // wait till all 3 mini tooltip images are present

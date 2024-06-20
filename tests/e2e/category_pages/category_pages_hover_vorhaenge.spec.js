@@ -17,6 +17,8 @@ test.describe('Integration test with visual testing - hover on vorhaenge categor
         //------------------------------------- TOOLTIP -----------------------------------//
         //------------------------------ Sorrento Vorhang Farbe Rose ---------------------------//
 
+        await page.locator("li:nth-of-type(20").scrollIntoViewIfNeeded()
+
         // activate tooltip of Sorrento Vorhang Rose (8th child of colors)
         await page.locator("li:nth-of-type(20) > div.item__colors > label>>nth=7").click()
 
@@ -31,6 +33,8 @@ test.describe('Integration test with visual testing - hover on vorhaenge categor
         //------------------------------------- TOOLTIP -----------------------------------//
         //------------------------------ Vorhang Velvet Farbe Jade ---------------------------//
 
+        await page.locator("li:nth-of-type(9)").scrollIntoViewIfNeeded()
+        
         // activate tooltip of Vorhang Velvet Jade (10th child of colors)
         await page.locator("li:nth-of-type(9) > div.item__colors > label>>nth=9").click()
 
@@ -43,6 +47,8 @@ test.describe('Integration test with visual testing - hover on vorhaenge categor
 
         //------------------------------------- TOOLTIP -----------------------------------//
         //------------------------------ Dacoda Verdunklungsvorhang Farbe Gelb ---------------------//
+
+        await page.locator("li:nth-of-type(3)").scrollIntoViewIfNeeded()
 
         // activate tooltip of Vorhang Dacoda Verdunklungsvorhang Gelb (9th child of colors)
         await page.locator("li:nth-of-type(3) > div.item__colors > label>>nth=8").click()
@@ -65,6 +71,8 @@ test.describe('Integration test with visual testing - hover on vorhaenge categor
         //------------------------------------- TOOLTIP -----------------------------------//
         //------------------------------ Lavello Vorhang Rose-- ---------------------------//
 
+        await page.locator("li:nth-of-type(13)").scrollIntoViewIfNeeded()
+
         // activate tooltip of Lavello Vorhang Rose (9th child of colors)
         await page.locator("li:nth-of-type(13) > div.item__colors > label>>nth=8").click()
 
@@ -79,6 +87,8 @@ test.describe('Integration test with visual testing - hover on vorhaenge categor
         //------------------------------------- TOOLTIP -----------------------------------//
         //------------------------------ Bovino Vorhang Hellgelb ---------------------------//
 
+        await page.locator("li:nth-of-type(13)").scrollIntoViewIfNeeded()
+
         // activate tooltip of Bovino Vorhang Hellgelb (4th child of colors)
         await page.locator("li:nth-of-type(13) > div.item__colors > label>>nth=3").click()
 
@@ -91,6 +101,8 @@ test.describe('Integration test with visual testing - hover on vorhaenge categor
          //------------------------------------- TOOLTIP -----------------------------------//
         //------------------------------ Tazio Verdunklungsvorhang Orange ---------------------//
 
+        await page.locator("li:nth-of-type(4)").scrollIntoViewIfNeeded()
+
         // activate tooltip of Tazio Verdunklungsvorhang Orange (9th child of colors)
         await page.locator("li:nth-of-type(4) > div.item__colors > label>>nth=8").click()
 
@@ -99,8 +111,5 @@ test.describe('Integration test with visual testing - hover on vorhaenge categor
             fullPage: false,
             disableHover: false
         });
-
-
-
     });
 });

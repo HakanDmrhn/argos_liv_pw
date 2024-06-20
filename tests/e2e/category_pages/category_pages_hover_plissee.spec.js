@@ -18,6 +18,7 @@ test.describe('Integration test with visual testing - hover on plissee category 
         //------------------------------ Plissee Color Breeze 1740 -----------------------//
 
         // activate tooltip of Color Breeze 1740
+        await page.locator('img[alt="Color Breeze 1740"]').scrollIntoViewIfNeeded();
         await page.locator('img[alt="Color Breeze 1740"]').hover();
 
         // wait till all 5 mini tooltip images are present
@@ -40,6 +41,7 @@ test.describe('Integration test with visual testing - hover on plissee category 
         //------------------------------ PLISSEE Cielo Perl 1904 -----------------------//
 
         // activate tooltip of Cielo Perl 1904
+        await page.locator('img[alt="Cielo Perl 1904"]').scrollIntoViewIfNeeded();
         await page.locator('img[alt="Cielo Perl 1904"]').hover();
 
         // wait till all 5 mini tooltip images are present

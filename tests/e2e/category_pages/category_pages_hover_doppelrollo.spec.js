@@ -18,6 +18,7 @@ test.describe('Integration test with visual testing - hover on doppelrollo categ
         //------------------------------ doppelrollo Acorda 5090 -----------------------//
 
         // activate tooltip of Acorda 5090
+        await page.locator('img[alt="Acorda 5090"]').scrollIntoViewIfNeeded();
         await page.locator('img[alt="Acorda 5090"]').hover();
 
         // wait till all 5 mini tooltip images are present
@@ -40,6 +41,7 @@ test.describe('Integration test with visual testing - hover on doppelrollo categ
         //------------------------------ doppelrollo Lacinia 5053 -----------------------//
 
         // activate tooltip of Lacinia 5053
+        await page.locator('img[alt="Lacinia 5053"]').scrollIntoViewIfNeeded();
         await page.locator('img[alt="Lacinia 5053"]').hover();
 
         // wait till all 4 mini tooltip images are present

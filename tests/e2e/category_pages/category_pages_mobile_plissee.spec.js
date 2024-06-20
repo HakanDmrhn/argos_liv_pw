@@ -25,6 +25,7 @@ test.describe('Integration test with visual testing - simulated mobile testing o
         //------------------------------ Ambience 4477 Rot ------------------------------------//
 
         // activate tooltip of Ambience 4477 Rot
+        await page.locator('img[alt="Plissee Ambience 4477 Rot"]').scrollIntoViewIfNeeded();
         await page.locator('img[alt="Plissee Ambience 4477 Rot"]').click();
 
         // wait till all 5 mini tooltip images are present
@@ -52,6 +53,7 @@ test.describe('Integration test with visual testing - simulated mobile testing o
 
 
         // activate tooltip of Color Breeze 4678
+        await page.locator('img[alt="Color Breeze 4678"]').scrollIntoViewIfNeeded();
         await page.locator('img[alt="Color Breeze 4678"]').click();
 
         // wait till all 5 mini tooltip images are present
@@ -80,6 +82,7 @@ test.describe('Integration test with visual testing - simulated mobile testing o
 
 
         // activate tooltip of Wabe Glow 2161
+        await page.locator('img[alt="Wabe Glow 2161"]').scrollIntoViewIfNeeded();
         await page.locator('img[alt="Wabe Glow 2161"]').click();
 
         // wait till all 5 mini tooltip images are present

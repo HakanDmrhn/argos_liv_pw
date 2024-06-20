@@ -25,6 +25,7 @@ test.describe('Integration test with visual testing - simulated mobile testing o
         //------------------------------ Basic DimOut 3040 ------------------------------------//
 
         // activate tooltip of Basic DimOut 3040
+        await page.locator('img[alt="Basic DimOut 3040"]').scrollIntoViewIfNeeded();
         await page.locator('img[alt="Basic DimOut 3040"]').click();
 
         // wait till all 5 mini tooltip images are present
@@ -52,6 +53,7 @@ test.describe('Integration test with visual testing - simulated mobile testing o
 
 
         // activate tooltip of Basic Dimout 3686
+        await page.locator('img[alt="Basic Dimout 3686"]').scrollIntoViewIfNeeded();
         await page.locator('img[alt="Basic Dimout 3686"]').click();
 
         // wait till all 5 mini tooltip images are present
@@ -80,6 +82,7 @@ test.describe('Integration test with visual testing - simulated mobile testing o
 
 
         // activate tooltip of Levigo 3734
+        await page.locator('img[alt="Levigo 3734"]').scrollIntoViewIfNeeded();
         await page.locator('img[alt="Levigo 3734"]').click();
 
         // wait till all 8 mini tooltip images are present

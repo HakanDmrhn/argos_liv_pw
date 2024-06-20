@@ -18,6 +18,7 @@ test.describe('Integration test with visual testing - hover on rollo category pa
         //------------------------------ ROLLO Basic DimOut 3025 -----------------------//
 
         // activate tooltip of Basic DimOut 3025
+        await page.locator('img[alt="Basic DimOut 3025"]').scrollIntoViewIfNeeded();
         await page.locator('img[alt="Basic DimOut 3025"]').hover();
 
         // wait till all 5 mini tooltip images are present
@@ -40,6 +41,7 @@ test.describe('Integration test with visual testing - hover on rollo category pa
         //------------------------------ ROLLO Triangolo 3882 -----------------------//
 
         // activate tooltip of Triangolo 3882
+        await page.locator('img[alt="Rollo Triangolo 3882"]').scrollIntoViewIfNeeded();
         await page.locator('img[alt="Rollo Triangolo 3882"]').hover();
 
         // wait till all 5 mini tooltip images are present
