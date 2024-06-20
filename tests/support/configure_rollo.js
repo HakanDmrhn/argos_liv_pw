@@ -8,6 +8,7 @@ export async function configure_rollo(page) {
 
 
   //select rollo type
+  await page.getByText(/mit Kassette/).first().waitFor() // this is needed since code runs too fast here
   await page.getByText(/mit Kassette/).first().click();
 
   //input height and weight
