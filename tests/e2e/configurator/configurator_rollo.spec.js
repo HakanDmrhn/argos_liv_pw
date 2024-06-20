@@ -178,6 +178,7 @@ test.describe('Integration test with visual testing - rollo configurator', funct
 
 
         // ******************* Mini-Rollo wählen *******************
+        await page.locator('.tab_description').getByText(/Mini-Rollos/).first().waitFor();
         await page.locator('.tab_description').getByText(/Mini-Rollos/).first().click();
         // take argos screenshot
         await argosScreenshot(page, 'Mini-Rollo - LUX', {
@@ -263,6 +264,7 @@ test.describe('Integration test with visual testing - rollo configurator', funct
 
 
         // ******************* Dachfenster-Rollos wählen *******************
+        await page.locator('.tab_description').getByText(/Dachfensterrollos/).first().waitFor();
         await page.locator('.tab_description').getByText(/Dachfensterrollos/).first().click();
         // take argos screenshot
         await argosScreenshot(page, 'Dachfensterrollos', {
@@ -288,7 +290,10 @@ test.describe('Integration test with visual testing - rollo configurator', funct
         await page.locator('span').getByText(/Velux/).first().click();
         await expect(page.locator('.dfselect_wrapper > :nth-child(1) select')).toBeEnabled();
         await page.locator('.dfselect_wrapper > :nth-child(1) select').selectOption({ label: 'anderes Produkt' });
-        // await page.locator('.dfselect_wrapper > :nth-child(1) select').waitForTimeout(1000);
+        
+        // wait for falztyp pictures
+        await page.locator('#falztyp .options_list.two_options_row').waitFor()
+
         // take argos screenshot
         await argosScreenshot(page, 'DF-Rollo - Velux - anderes Produkt', {
             viewports: [
@@ -303,7 +308,10 @@ test.describe('Integration test with visual testing - rollo configurator', funct
         await page.locator('.dfselect_wrapper > :nth-child(1) select').selectOption({ label: 'GDL' });
         await expect(page.locator('.dfselect_wrapper > :nth-child(2) select')).toBeEnabled();
         await page.locator('.dfselect_wrapper > :nth-child(2) select').selectOption({ label: 'anderer Typ' });
-        // await page.locator('.dfselect_wrapper > :nth-child(2) select').waitForTimeout(1000);
+
+        // wait for falztyp pictures
+        await page.locator('#falztyp .options_list.two_options_row').waitFor()
+
         // take argos screenshot
         await argosScreenshot(page, 'DF-Rollo - Velux - anderer Typ', {
             viewports: [
