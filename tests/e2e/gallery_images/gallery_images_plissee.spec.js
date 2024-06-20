@@ -11,6 +11,7 @@ test.describe('Integration test with visual testing - image popups Plissee-Konfi
         await ignoreFreshChat(page);
 
 
+        await page.locator('#big-img').waitFor();
         await page.locator('#big-img').click();
         await expect(page.locator('.lightbox_wrapper')).toBeVisible();
         // take argos screenshot
