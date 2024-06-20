@@ -66,6 +66,8 @@ test.describe('Integration test with visual testing - image popups Plissee-Konfi
         await page.goto('/plissee/plissee-konfigurator');
         await ignoreFreshChat(page);
 
+        // scroll the big image into view
+        await page.locator('div.box').scrollIntoViewIfNeeded();
 
         await page.locator('.images a').first().click();
         await expect(page.locator('.lightbox_wrapper')).toBeVisible();

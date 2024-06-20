@@ -45,6 +45,8 @@ test.describe('Integration test with visual testing - image popups Rollo-Konfigu
         await page.goto('/rollo/rollo-konfigurator');
         await ignoreFreshChat(page);
 
+        // scroll the big image into view
+        await page.locator('div.box').scrollIntoViewIfNeeded();
 
         await page.locator('.images a').last().click();
         await expect(page.locator('.lightbox_wrapper')).toBeVisible();

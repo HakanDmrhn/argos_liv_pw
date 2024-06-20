@@ -20,6 +20,9 @@ test.describe('Integration test with visual testing - gallery images Jalousie-Ko
         await ignoreMenuContainer(page);
         await ignoreFreshChat(page);
 
+        // scroll the big image into view
+        await page.locator('img#bigImage').scrollIntoViewIfNeeded();
+
         await page.locator('dd:nth-of-type(2) li:nth-of-type(1) > img').click();
         // take argos screenshot
         await argosScreenshot(page, '1st image of Jalousie-Konfigurator gallery 16 mm', {
@@ -54,6 +57,9 @@ test.describe('Integration test with visual testing - gallery images Jalousie-Ko
         await ignoreMenuContainer(page);
         await ignoreFreshChat(page);
 
+        // scroll the big image into view
+        await page.locator('img#bigImage').scrollIntoViewIfNeeded();
+
         await page.locator('dd:nth-of-type(2) li:nth-of-type(1) > img').click();
         // take argos screenshot
         await argosScreenshot(page, '1st image of Jalousie-Konfigurator gallery 25 mm', {
@@ -87,6 +93,9 @@ test.describe('Integration test with visual testing - gallery images Jalousie-Ko
         await page.evaluate(scrollToBottom);
         await ignoreMenuContainer(page);
         await ignoreFreshChat(page);
+
+        // scroll the big image into view
+        await page.locator('img#bigImage').scrollIntoViewIfNeeded();
 
         await page.locator('dd:nth-of-type(2) li:nth-of-type(1) > img').click();
         // take argos screenshot
