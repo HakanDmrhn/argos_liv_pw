@@ -9,7 +9,8 @@ export async function configure_doppelrollo(page) {
 
 
     //select rollo type
-    await page.getByText(/Doppelrollo mit Kassette/).first().click({ force: true });
+    await page.getByText(/Doppelrollo mit Kassette/).first().waitFor() // this is needed since code runs too fast here
+    await page.getByText(/Doppelrollo mit Kassette/).first().click();
 
     //input height and weight
     await page.locator('#hoehe input').fill('1500');
