@@ -199,6 +199,9 @@ export async function checkOut(page) {
     // ignore freshchat
     await ignoreFreshChat(page);
 
+    // wait for Paypal-Button
+    await page.locator('iframe.component-frame.visible').waitFor()
+
     // take argos screenshot Bestellübersicht
     await argosScreenshot(page, 'checkout - Bestellübersicht', {
         viewports: [
@@ -291,5 +294,6 @@ async function deleteProducts(page) {
     while (await page.isVisible('.remove-item')) {  // solange das Element sichtbar ist
         // Klicke auf das Element mit der Klasse 'remove-item'
         await page.locator('.remove-item').first().click(); // entferne immer das erste element
+        await page.waitForTimeout(500); 
     }
 }
