@@ -6,6 +6,7 @@ export async function configure_holzjalousie(page) {
     await page.goto('/jalousie/holz-jalousie-konfigurator?lamellengroesse=50mm');
 
     //change lamellen color
+    await page.getByText(/Natural Mahagoni 6523/).first().waitFor() // this is needed since code runs too fast here
     await page.getByText(/Natural Mahagoni 6523/).first().click();
 
     //input height and weight
