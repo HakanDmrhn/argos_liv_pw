@@ -289,6 +289,7 @@ async function setShippingData(page, company, vatID, firstName, lastName, street
 async function deleteProducts(page) {
 
     await page.locator('.smallcartdiv').click()
+    await page.locator('.remove-item').first().waitFor()
 
     // bei mehreren produkten --> zB Kissen Sets
     while (await page.isVisible('.remove-item')) {  // solange das Element sichtbar ist
