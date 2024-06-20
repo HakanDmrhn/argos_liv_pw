@@ -167,7 +167,9 @@ test.describe('Integration test with visual testing - opened menus', function ()
         // go to tab 'Vorhänge'
         await page.locator("li.nav-6 span").click()
 
-        await page.evaluate(scrollToBottom);
+        // await page.evaluate(scrollToBottom); // --> leads to error on github - unknown reason
+        // workaround;
+        await page.locator('h1').filter({ hasText: 'Vorhänge: Der Klassiker der Fensterdekoration' }).waitFor()
         await ignoreFreshChat(page);
         await ignoreYoutube(page);
 

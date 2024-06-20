@@ -13,6 +13,7 @@ test.describe('Integration test with visual testing - image popups Zubehör', fu
 
         await page.locator('#big-img').waitFor();
         await page.locator('#big-img').click();
+        
         await expect(page.locator('.lightbox_wrapper')).toBeVisible();
         // take argos screenshot
         await argosScreenshot(page, '1st popup image of wandwinkel', {
@@ -42,6 +43,7 @@ test.describe('Integration test with visual testing - image popups Zubehör', fu
 
         await page.locator('#big-img').waitFor();
         await page.locator('#big-img').click();
+
         await expect(page.locator('.lightbox_wrapper')).toBeVisible();
         // take argos screenshot
         await argosScreenshot(page, '1st popup image of gelenkklebeplatten', {
