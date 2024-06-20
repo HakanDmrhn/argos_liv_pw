@@ -9,8 +9,7 @@ export async function configure_schiebegardine(page) {
 
     //input height and weight
     await page.locator('#hoehe_in_mm input').fill('2800');
-    await page.locator(
-        '#breite_in_mm input').fill('1000');
+    await page.locator('#breite_in_mm input').fill('1000');
 
     // input quantity 
     await page.locator('#qty').clear();
