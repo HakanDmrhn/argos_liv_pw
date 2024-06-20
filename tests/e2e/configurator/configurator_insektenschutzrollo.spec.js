@@ -25,7 +25,7 @@ test.describe('Integration test with visual testing - Insektenschutzrollo config
 
 
         // ******************* Insektenschutzrollo - Mauer *******************
-        await page.locator('#configurator-options > :nth-child(3) > ul > :nth-child(3)').click({ force: true });
+        await page.locator('#configurator-options > :nth-child(3) > ul > :nth-child(3)').click();
         // take argos screenshot
         await argosScreenshot(page, 'Insektenschutzrollo - Mauer', {
             viewports: [
@@ -36,7 +36,7 @@ test.describe('Integration test with visual testing - Insektenschutzrollo config
 
 
         // ******************* Insektenschutzrollo - Fensterrahmen *******************
-        await page.locator('#configurator-options > :nth-child(3) > ul > :nth-child(2)').click({ force: true });
+        await page.locator('#configurator-options > :nth-child(3) > ul > :nth-child(2)').click();
         // take argos screenshot
         await argosScreenshot(page, 'Insektenschutzrollo - Fensterrahmen', {
             viewports: [
@@ -47,7 +47,7 @@ test.describe('Integration test with visual testing - Insektenschutzrollo config
 
 
         // ******************* Insektenschutzrollo - Klebemontage *******************
-        await page.locator('#configurator-options > :nth-child(3) > ul > :nth-child(3)').click({ force: true });
+        await page.locator('#configurator-options > :nth-child(3) > ul > :nth-child(3)').click();
         // take argos screenshot
         await argosScreenshot(page, 'Insektenschutzrollo - Klebemontage', {
             viewports: [
