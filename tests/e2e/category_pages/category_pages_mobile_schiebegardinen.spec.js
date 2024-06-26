@@ -31,7 +31,7 @@ test.describe('Integration test with visual testing - simulated mobile testing o
         // wait till all 5 mini tooltip images are present
         await expect(page.locator('.tooltip.active > .tooltip-info-container > ul li')).toHaveCount(5);
 
-        // iterate through all gallery images and check if visible
+        // iterate through all tooltip images and check if visible
         for (const element of await page.locator('.tooltip.active > .tooltip-info-container > ul > li img').all()) {
             await element.waitFor()
         }
@@ -59,7 +59,7 @@ test.describe('Integration test with visual testing - simulated mobile testing o
         // wait till all 5 mini tooltip images are present
         await expect(page.locator('.tooltip.active > .tooltip-info-container > ul li')).toHaveCount(5);
 
-        // iterate through all gallery images and check if visible
+        // iterate through all tooltip images and check if visible
         for (const element of await page.locator('.tooltip.active > .tooltip-info-container > ul > li img').all()) {
             await element.waitFor()
         }
@@ -88,7 +88,7 @@ test.describe('Integration test with visual testing - simulated mobile testing o
         // wait till all 5 mini tooltip images are present
         await expect(page.locator('.tooltip.active > .tooltip-info-container > ul li')).toHaveCount(5);
 
-        // iterate through all gallery images and check if visible
+        // iterate through all tooltip images and check if visible
         for (const element of await page.locator('.tooltip.active > .tooltip-info-container > ul > li img').all()) {
             await element.waitFor()
         }

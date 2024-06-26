@@ -24,7 +24,7 @@ test.describe('Integration test with visual testing - hover on plissee category 
         // wait till all 5 mini tooltip images are present
         await expect(page.locator('.tooltip:visible > .tooltip-info-container > ul li')).toHaveCount(5);
 
-        // iterate through all gallery images and check if visible
+        // iterate through all tooltip images and check if visible
         for (const element of await page.locator('.tooltip:visible > .tooltip-info-container > ul > li img').all()) {
             await element.waitFor()
         }
@@ -47,7 +47,7 @@ test.describe('Integration test with visual testing - hover on plissee category 
         // wait till all 5 mini tooltip images are present
         await expect(page.locator('.tooltip:visible > .tooltip-info-container > ul li')).toHaveCount(5);
 
-        // iterate through all gallery images and check if visible
+        // iterate through all tooltip images and check if visible
         for (const element of await page.locator('.tooltip:visible > .tooltip-info-container > ul > li img').all()) {
             await element.waitFor()
         }
