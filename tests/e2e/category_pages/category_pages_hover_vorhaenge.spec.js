@@ -11,39 +11,42 @@ test.describe('Integration test with visual testing - hover on vorhaenge categor
         // load category page
         await page.goto('/oesenschal');
         await page.evaluate(scrollToBottom);
+        // await page.waitForTimeout(2000);
+
         await ignoreFreshChat(page);
 
 
         //------------------------------------- TOOLTIP -----------------------------------//
         //------------------------------ Sorrento Vorhang Farbe Rose ---------------------------//
 
-        // await page.locator('img[alt="Sorrento Vorhang Weiß"]').scrollIntoViewIfNeeded()
+        const sorrentoVorhang = page.getByRole('link', { name: "Sorrento Vorhang Weiß" });
 
-        // // activate tooltip of Sorrento Vorhang Rose (6th child of colors)
-        // await page.locator('a[title="Sorrento Vorhang Weiß"]').locator('..')
-        // await page.locator("li:nth-of-type(20) > div.item__colors > label>>nth=7").click()
+        await sorrentoVorhang.scrollIntoViewIfNeeded()
 
-        // // take argos screenshot of tooltip
-        // await argosScreenshot(page, 'hover - Sorrento Vorhang Rose', {
-        //     fullPage: false,
-        //     disableHover: false
-        // });
+        await sorrentoVorhang.locator('..').locator('.item__colors > label>>nth=5').click() // ACHTUNG: Psotion der gewünschten Farbe Rose kann sich ändern
+
+        // take argos screenshot of tooltip
+        await argosScreenshot(page, 'hover - Sorrento Vorhang Rose', {
+            fullPage: false,
+            disableHover: false
+        });
 
 
 
         //------------------------------------- TOOLTIP -----------------------------------//
         //------------------------------ Vorhang Velvet Farbe Jade ---------------------------//
 
-        // await page.locator("li:nth-of-type(9)").scrollIntoViewIfNeeded()
-        
-        // // activate tooltip of Vorhang Velvet Jade (10th child of colors)
-        // await page.locator("li:nth-of-type(9) > div.item__colors > label>>nth=9").click()
+        const velvetVorhang = page.getByRole('link', { name: "Velvet Vorhang Weiß" });
 
-        // // take argos screenshot of tooltip
-        // await argosScreenshot(page, 'hover - Vorhang Velvet Jade', {
-        //     fullPage: false,
-        //     disableHover: false
-        // });
+        await velvetVorhang.scrollIntoViewIfNeeded()
+
+        await velvetVorhang.locator('..').locator('.item__colors > label>>nth=9').click() // ACHTUNG: Postion der gewünschten Farbe Jade kann sich ändern
+
+        // take argos screenshot of tooltip
+        await argosScreenshot(page, 'hover - Vorhang Velvet Jade', {
+            fullPage: false,
+            disableHover: false
+        });
     });
 
     test('hover on vorhaenge category page /vorhaenge-kinderzimmer', async function ({ page }) {
@@ -57,31 +60,33 @@ test.describe('Integration test with visual testing - hover on vorhaenge categor
         //------------------------------------- TOOLTIP -----------------------------------//
         //------------------------------ Lavello Vorhang Rose-- ---------------------------//
 
-        // await page.locator("li:nth-of-type(13)").scrollIntoViewIfNeeded()
+        const lavelloVorhang = page.getByRole('link', { name: "Lavello Vorhang Grün" });
 
-        // // activate tooltip of Lavello Vorhang Rose (9th child of colors)
-        // await page.locator("li:nth-of-type(13) > div.item__colors > label>>nth=8").click()
+        await lavelloVorhang.scrollIntoViewIfNeeded()
 
-        // // take argos screenshot of tooltip
-        // await argosScreenshot(page, 'hover - Lavello Vorhang Rose', {
-        //     fullPage: false,
-        //     disableHover: false
-        // });
+        await lavelloVorhang.locator('..').locator('.item__colors > label>>nth=8').click() // ACHTUNG: Postion der gewünschten Farbe Jade kann sich ändern
+
+        // take argos screenshot of tooltip
+        await argosScreenshot(page, 'hover - Lavello Vorhang Rose', {
+            fullPage: false,
+            disableHover: false
+        });
 
 
 
         //------------------------------------- TOOLTIP -----------------------------------//
         //------------------------------ Bovino Vorhang Hellgelb ---------------------------//
 
-        // await page.locator("li:nth-of-type(13)").scrollIntoViewIfNeeded()
+        const bovinoVorhang = page.getByRole('link', { name: "Bovino Vorhang Grün" });
 
-        // // activate tooltip of Bovino Vorhang Hellgelb (4th child of colors)
-        // await page.locator("li:nth-of-type(13) > div.item__colors > label>>nth=3").click()
+        await bovinoVorhang.scrollIntoViewIfNeeded()
 
-        // // take argos screenshot of tooltip
-        // await argosScreenshot(page, 'hover - Bovino Vorhang Hellgelb', {
-        //     fullPage: false,
-        //     disableHover: false
-        // });
+        await bovinoVorhang.locator('..').locator('.item__colors > label>>nth=3').click() // ACHTUNG: Postion der gewünschten Farbe Jade kann sich ändern
+
+        // take argos screenshot of tooltip
+        await argosScreenshot(page, 'hover - Bovino Vorhang Hellgelb', {
+            fullPage: false,
+            disableHover: false
+        });
     });
 });
