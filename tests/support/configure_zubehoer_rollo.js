@@ -4,10 +4,14 @@ export async function configure_zubehoer_rollo(page) {
     // Load zubehör page
     await page.goto('/bedienstab-rollo-dachfenster');
 
-    // Wait for the JS file to load by checking for an element that depends on it
-    await page.waitForResponse(response =>
-        response.url().includes('/skin/frontend/delphinus/default/js_minify/') && response.status() === 200
-    );
+   // Warte auf die Antwort für js-Dateien und überprüfe den Statuscode 200
+   // sonst entsteht JS-Error: opConfig not defined
+
+    await Promise.all([
+        page.waitForResponse(response =>
+            response.url().includes('/skin/frontend/delphinus/default/js_minify/')
+            && response.status() === 200, { timeout: 5000 })
+    ]);
 
     // Verify that the necessary elements are available and interact with them
     const sizeSelector = page.locator('.last select');
