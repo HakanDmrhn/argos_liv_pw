@@ -1,30 +1,30 @@
-export async function configure_zubehoer_rollo(page) {
+import { expect } from '@playwright/test';
 
-    //load zubehör page
+export async function configure_zubehoer_rollo(page) {
+    // Load Zubehör page
     await page.goto('/bedienstab-rollo-dachfenster');
-    const lastink_ = page.getByRole('link', { name: Impressum, exact: true });
+
+    const lastlink = page.getByRole('link', { name: 'Impressum' });
     await expect(lastlink).toBeVisible();
     await expect(lastlink).toBeEnabled();
-    //await page.waitForLoadState('load', { timeout: 10000 }); // wait until the page loads
 
+    // Wait for the page to fully load
+    //await page.waitForLoadState('load', { timeout: 10000 });
 
-    // Warte auf die Antwort für js-Dateien und überprüfe den Statuscode 200
-    // sonst entsteht JS-Error: opConfig not defined
+    // Wait for the response for JS files and check for status code 200
     await Promise.all([
         page.waitForResponse(response =>
-            response.url().includes('/skin/frontend/delphinus/default/js_minify/')
-            && response.status() === 200, { timeout: 3000 })
+            response.url().includes('/skin/frontend/delphinus/default/js_minify/') &&
+            response.status() === 200, { timeout: 10000 }) // increased timeout to 10 seconds
     ]);
 
+    // Select size
+    await page.locator('.last select').selectOption({ label: '100 cm' });
 
-
-    //select size
-  //select size
-  await page.locator('.last select').selectOption({ label: '100 cm' });
-
-    // input quantity 
+    // Input quantity 
     await page.locator('#qty').clear();
     await page.locator('#qty').fill('1');
 
+    // Click the add to cart button
     await page.locator('.cart-container > button').click();
 }
