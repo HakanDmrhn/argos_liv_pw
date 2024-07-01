@@ -2,7 +2,10 @@ export async function configure_zubehoer_rollo(page) {
 
     //load zubehör page
     await page.goto('/bedienstab-rollo-dachfenster');
-    await page.waitForLoadState('load', { timeout: 10000 }); // wait until the page loads
+    const lastink_ = page.getByRole('link', { name: Impressum, exact: true });
+    await expect(lastlink).toBeVisible();
+    await expect(lastlink).toBeEnabled();
+    //await page.waitForLoadState('load', { timeout: 10000 }); // wait until the page loads
 
 
     // Warte auf die Antwort für js-Dateien und überprüfe den Statuscode 200
@@ -13,15 +16,11 @@ export async function configure_zubehoer_rollo(page) {
             && response.status() === 200, { timeout: 3000 })
     ]);
 
-    // promise not sufficient here!
-    // workaround
-    // await this.page.waitForTimeout(2000);
+
 
     //select size
-    const Bedienstab = page.locator('.last select');
-    await Bedienstab.toBeVisible();
-    await Bedienstab.toBeEnabled();
-    await Bedienstab.selectOption({ label: '100 cm' });
+  //select size
+  await page.locator('.last select').selectOption({ label: '100 cm' });
 
     // input quantity 
     await page.locator('#qty').clear();
