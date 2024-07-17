@@ -1,7 +1,7 @@
 export async function configure_zubehoer_vorhang(page) {
 
   //load zubehör page
-  await page.goto('/gardinenstangen/zylinder2');
+  await page.goto('/gardinenstangen/zylinder2', { waitUntil: 'load' });
 
   // input quantity 
   await page.locator('#qty').clear();

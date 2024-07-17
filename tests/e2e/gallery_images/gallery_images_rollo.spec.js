@@ -7,7 +7,7 @@ test.describe('Integration test with visual testing - image popups Rollo-Konfigu
 
     test('argos snapshots of rollo gallery images - PDP', async function ({ page }) {
 
-        await page.goto('/rollo/blackout-reflex-3517');
+        await page.goto('/rollo/blackout-reflex-3517', { waitUntil: 'load' });
         await ignoreFreshChat(page);
 
 

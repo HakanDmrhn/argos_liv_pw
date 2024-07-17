@@ -10,7 +10,7 @@ test.describe('Integration test with visual testing - Insektenschutzrollo config
     test('Insektenschutzrollo', async function ({ page }) {
 
         // ******************* Insektenschutzrollo - Hauswand *******************
-        await page.goto("/insektenschutz/insektenschutz-rollo");
+        await page.goto("/insektenschutz/insektenschutz-rollo", { waitUntil: 'load' });
         await page.evaluate(scrollToBottom);
         await ignoreFreshChat(page);
         await ignoreYoutube(page);

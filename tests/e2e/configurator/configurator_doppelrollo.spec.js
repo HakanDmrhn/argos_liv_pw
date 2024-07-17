@@ -8,7 +8,7 @@ test.describe('Integration test with visual testing - doppelrollo configurator',
 
     test.beforeEach(async function ({ page }) {
 
-        await page.goto('/doppelrollo/doppelrollo-konfigurator');
+        await page.goto('/doppelrollo/doppelrollo-konfigurator', { waitUntil: 'load' });
         await page.evaluate(scrollToBottom);
         await ignoreMenuContainer(page);
         await ignoreFreshChat(page);

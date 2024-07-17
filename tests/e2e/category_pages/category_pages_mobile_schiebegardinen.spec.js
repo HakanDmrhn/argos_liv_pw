@@ -13,7 +13,7 @@ test.describe('Integration test with visual testing - simulated mobile testing o
         await page.setViewportSize({ width: 375, height: 667 });
 
         // load category page
-        await page.goto('/schiebegardinen/schiebegardinen-beige');
+        await page.goto('/schiebegardinen/schiebegardinen-beige', { waitUntil: 'load' });
         await page.evaluate(scrollToBottom);
         await ignoreFreshChat(page);
 

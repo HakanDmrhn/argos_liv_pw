@@ -8,7 +8,7 @@ test.describe('Integration test with visual testing - schiebegardinen configurat
 
     test.beforeEach(async function ({ page }) {
 
-        await page.goto('/schiebegardinen/schiebegardinen-konfigurator');
+        await page.goto('/schiebegardinen/schiebegardinen-konfigurator', { waitUntil: 'load' });
         await page.evaluate(scrollToBottom);
         await ignoreMenuContainer(page);
         await ignoreFreshChat(page);

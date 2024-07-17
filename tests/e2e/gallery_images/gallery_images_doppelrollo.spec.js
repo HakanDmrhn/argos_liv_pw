@@ -7,7 +7,7 @@ test.describe('Integration test with visual testing - image popups Doppelrollo-K
 
     test('argos snapshots of doppelrollo gallery images - PDP', async function ({ page }) {
 
-        await page.goto('/doppelrollo/remsa-5067');
+        await page.goto('/doppelrollo/remsa-5067', { waitUntil: 'load' });
         await ignoreFreshChat(page);
 
 

@@ -9,7 +9,7 @@ test.describe('Integration test with visual testing - hover on schiebegardine ca
     test('hover on schiebegardine category page', async function ({ page }) {
 
         // load category page
-        await page.goto('/schiebegardinen/schiebegardinen-blau');
+        await page.goto('/schiebegardinen/schiebegardinen-blau', { waitUntil: 'load' });
         await page.evaluate(scrollToBottom);
         await ignoreFreshChat(page);
 

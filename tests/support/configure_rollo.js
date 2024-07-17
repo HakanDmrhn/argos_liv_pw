@@ -3,7 +3,7 @@ import { add2Cart } from "./checkout"
 export async function configure_rollo(page) {
 
   //load configurator
-  await page.goto('/rollo/basic-3687');
+  await page.goto('/rollo/basic-3687', { waitUntil: 'load' });
   await page.getByText(/Rollo auf Maß konfigurieren/).first().click();
 
 

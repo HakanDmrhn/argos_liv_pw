@@ -1,7 +1,7 @@
 export async function configure_zubehoer_schiebegardinen(page) {
 
   //load zubehör page
-  await page.goto('/schiebegardine-magnetclip');
+  await page.goto('/schiebegardine-magnetclip', { waitUntil: 'load' });
 
   // input quantity 
   await page.locator('#qty').clear();

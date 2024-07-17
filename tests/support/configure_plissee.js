@@ -3,7 +3,7 @@ import { add2Cart } from "./checkout"
 export async function configure_plissee(page) {
 
   //load configurator
-  await page.goto('/plissee/lindura-1583');
+  await page.goto('/plissee/lindura-1583', { waitUntil: 'load' });
   await page.getByText(/Plissee auf Maß konfigurieren/).first().click();
 
 

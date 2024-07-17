@@ -3,7 +3,7 @@ import { add2Cart } from "./checkout"
 export async function configure_holzjalousie(page) {
 
     //load configurator
-    await page.goto('/jalousie/holz-jalousie-konfigurator?lamellengroesse=50mm');
+    await page.goto('/jalousie/holz-jalousie-konfigurator?lamellengroesse=50mm', { waitUntil: 'load' });
 
     //change lamellen color
     await page.getByText(/Natural Mahagoni 6523/).first().waitFor() // this is needed since code runs too fast here

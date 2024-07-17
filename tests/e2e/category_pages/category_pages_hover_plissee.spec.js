@@ -9,7 +9,7 @@ test.describe('Integration test with visual testing - hover on plissee category 
     test('hover on plissee category page', async function ({ page }) {
 
         // load category page
-        await page.goto('/plissee/plissee-gelb');
+        await page.goto('/plissee/plissee-gelb', { waitUntil: 'load' });
         await page.evaluate(scrollToBottom);
         await ignoreFreshChat(page);
 

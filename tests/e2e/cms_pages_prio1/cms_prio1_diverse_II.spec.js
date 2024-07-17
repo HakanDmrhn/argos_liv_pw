@@ -12,7 +12,7 @@ test.describe('Integration test with visual testing - Diverse CMS Prio1 pages (o
 
         test('Load page: ' + link + ' & take argos snapshot', async function ({ page }) {
 
-            await page.goto(link);
+            await page.goto(link, { waitUntil: 'load' });
             await page.evaluate(scrollToBottom);
             // await ignoreFreshChat(page);  // --> no FreshChat on branchen pages
             // await ignoreYoutube(page)

@@ -4,7 +4,7 @@ import {add2Cart} from "./checkout"
 export async function configure_doppelrollo(page) {
 
     //load configurator
-    await page.goto('/doppelrollo/rayure-5014');
+    await page.goto('/doppelrollo/rayure-5014', { waitUntil: 'load' });
     await page.getByText(/Doppelrollo auf Maß konfigurieren/).first().click();
 
 

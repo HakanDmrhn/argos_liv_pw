@@ -8,7 +8,7 @@ test.describe('Integration test with visual testing - jalousie configurator', fu
 
     test.beforeEach(async function ({ page }) {
 
-        await page.goto('/jalousie/jalousie-konfigurator');
+        await page.goto('/jalousie/jalousie-konfigurator', { waitUntil: 'load' });
     });
 
     test('Jalousie - 16mm', async function ({ page }) {

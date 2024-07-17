@@ -2,7 +2,7 @@ export async function configure_insektenrollo(page) {
 
 
   //load configurator
-  await page.goto('/insektenschutz/insektenschutz-rollo');
+  await page.goto('/insektenschutz/insektenschutz-rollo', { waitUntil: 'load' });
 
   //change color
   await page.getByText(/Eiche/).first().waitFor() // this is needed since code runs too fast here

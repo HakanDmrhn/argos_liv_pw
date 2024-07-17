@@ -9,7 +9,7 @@ test.describe('Integration test with visual testing - hover on vorhaenge categor
     test('hover on vorhaenge category page /oesenschal', async function ({ page }) {
 
         // load category page
-        await page.goto('/oesenschal');
+        await page.goto('/oesenschal', { waitUntil: 'load' });
         await page.evaluate(scrollToBottom);
         // await page.waitForTimeout(2000);
 

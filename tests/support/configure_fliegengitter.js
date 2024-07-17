@@ -2,7 +2,7 @@
 export async function configure_fliegengitter(page) {
 
   //load configurator
-  await page.goto('/insektenschutz/fliegengitter');
+  await page.goto('/insektenschutz/fliegengitter', { waitUntil: 'load' });
 
   //change color
   await page.getByText(/Goldeiche/).first().waitFor() // this is needed since code runs too fast here

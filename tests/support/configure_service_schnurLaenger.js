@@ -13,7 +13,7 @@ const data =
 export async function configure_service_laengereSchnur(page) {
 
     //load service page
-    await page.goto('/zusatzauftrag-laengere-fuehrungsschnuere');
+    await page.goto('/zusatzauftrag-laengere-fuehrungsschnuere', { waitUntil: 'load' });
 
     // input of data
     await page.locator("#configurator-options > dl > :nth-child(2) > .input-box > input").fill(data.produkt);

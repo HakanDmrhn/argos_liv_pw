@@ -9,7 +9,7 @@ test.describe('Integration test with visual testing - plissee configurator recht
 
     test('Plissee - rechteckige Plissees', async function ({ page }) {
 
-        await page.goto('/plissee/plissee-konfigurator');
+        await page.goto('/plissee/plissee-konfigurator', { waitUntil: 'load' });
 
         // ******************* rechteckige Fenster *******************
         await page.evaluate(scrollToBottom);

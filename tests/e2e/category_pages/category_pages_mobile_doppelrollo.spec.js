@@ -13,7 +13,7 @@ test.describe('Integration test with visual testing - simulated mobile testing o
         await page.setViewportSize({ width: 375, height: 667 });
 
         // load category page
-        await page.goto('/doppelrollo/alle-doppelrollos');
+        await page.goto('/doppelrollo/alle-doppelrollos', { waitUntil: 'load' });
         await page.evaluate(scrollToBottom);
         await ignoreFreshChat(page);
 

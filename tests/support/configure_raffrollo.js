@@ -3,7 +3,7 @@ import { add2Cart } from "./checkout"
 export async function configure_raffrollo(page) {
 
   //load configurator
-  await page.goto('/raffrollo/yuna-9260');
+  await page.goto('/raffrollo/yuna-9260', { waitUntil: 'load' });
   await page.getByText(/Raffrollo auf Maß konfigurieren/).first().click();
 
 

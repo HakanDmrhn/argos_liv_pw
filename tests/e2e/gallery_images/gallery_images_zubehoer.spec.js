@@ -7,7 +7,7 @@ test.describe('Integration test with visual testing - image popups Zubehör', fu
 
     test('argos snapshots of wandwinkel gallery images - PDP', async function ({ page }) {
 
-        await page.goto('/wandwinkel');
+        await page.goto('/wandwinkel', { waitUntil: 'load' });
         await ignoreFreshChat(page);
 
 

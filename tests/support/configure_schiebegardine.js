@@ -3,7 +3,7 @@ import { add2Cart } from "./checkout"
 export async function configure_schiebegardine(page) {
 
     //load configurator
-    await page.goto('/schiebegardinen/salomo-7346');
+    await page.goto('/schiebegardinen/salomo-7346', { waitUntil: 'load' });
     await page.getByText(/Schiebegardine auf Maß konfigurieren/).first().click();
 
 

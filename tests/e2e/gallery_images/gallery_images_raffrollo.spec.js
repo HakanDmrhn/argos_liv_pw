@@ -7,7 +7,7 @@ test.describe('Integration test with visual testing - image popups Raffrollo-Kon
 
     test('argos snapshots of raffrollo gallery images - PDP', async function ({ page }) {
 
-        await page.goto('/raffrollo/grada-9236');
+        await page.goto('/raffrollo/grada-9236', { waitUntil: 'load' });
         await ignoreFreshChat(page);
 
 

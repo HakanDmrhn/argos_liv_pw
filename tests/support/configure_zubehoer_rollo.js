@@ -2,7 +2,7 @@ import { expect } from '@playwright/test';
 
 export async function configure_zubehoer_rollo(page) {
     // Load Zubehör page
-    await page.goto('/bedienstab-rollo-dachfenster');
+    await page.goto('/bedienstab-rollo-dachfenster', { waitUntil: 'load' });
     
    // ensure that the page has fully loaded by waiting for one of the last elements in network traffick 
     const lastlink = page.getByRole('link', { name: 'Impressum' });

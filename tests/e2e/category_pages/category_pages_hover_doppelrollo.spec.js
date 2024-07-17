@@ -9,7 +9,7 @@ test.describe('Integration test with visual testing - hover on doppelrollo categ
     test('hover on doppelrollo category page', async function ({ page }) {
 
         // load category page
-        await page.goto('/doppelrollo/doppelrollo-grau');
+        await page.goto('/doppelrollo/doppelrollo-grau', { waitUntil: 'load' });
         await page.evaluate(scrollToBottom);
         await ignoreFreshChat(page);
 

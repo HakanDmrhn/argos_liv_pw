@@ -10,7 +10,7 @@ test.describe('Integration test with visual testing - opened menus', function ()
     test('opened menus - Plissee', async function ({ page }) {
 
         // load main page
-        await page.goto('/');
+        await page.goto('/', { waitUntil: 'load' });
         await page.evaluate(scrollToBottom);
         await ignoreFreshChat(page);
         await ignoreYoutube(page);
@@ -71,7 +71,7 @@ test.describe('Integration test with visual testing - opened menus', function ()
     test('opened menus - Rollo', async function ({ page }) {
 
         // load main page
-        await page.goto('/');
+        await page.goto('/', { waitUntil: 'load' });
 
         // go to tab 'Rollos'
         await page.locator("ol > li:nth-of-type(2) > a").click()
@@ -136,7 +136,7 @@ test.describe('Integration test with visual testing - opened menus', function ()
     test('opened menus - Doppelrollo', async function ({ page }) {
 
         // load main page
-        await page.goto('/');
+        await page.goto('/', { waitUntil: 'load' });
 
         // go to tab 'Doppelrollo'
         await page.locator("li.nav-3 span").click()
@@ -162,7 +162,7 @@ test.describe('Integration test with visual testing - opened menus', function ()
     test('opened menus - Vorhänge', async function ({ page }) {
 
         // load main page
-        await page.goto('/');
+        await page.goto('/', { waitUntil: 'load' });
 
         // go to tab 'Vorhänge'
         await page.locator("li.nav-6 span").click()
@@ -285,7 +285,7 @@ test.describe('Integration test with visual testing - opened menus', function ()
     test('opened menus - Schiebegardinen', async function ({ page }) {
 
         // load main page
-        await page.goto('/');
+        await page.goto('/', { waitUntil: 'load' });
 
         // go to tab 'Schiebegardinen'
         await page.locator("li.nav-7 span").click()
@@ -323,7 +323,7 @@ test.describe('Integration test with visual testing - opened menus', function ()
     test('opened menus - Raffrollos', async function ({ page }) {
 
         // load main page
-        await page.goto('/');
+        await page.goto('/', { waitUntil: 'load' });
 
         // go to tab 'Raffrollos'
         await page.locator("ol > li:nth-of-type(8) span").click()

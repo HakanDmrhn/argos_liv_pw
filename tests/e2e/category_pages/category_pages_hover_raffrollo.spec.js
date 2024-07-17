@@ -9,7 +9,7 @@ test.describe('Integration test with visual testing - hover on raffrollo categor
     test('hover on raffrollo category page', async function ({ page }) {
 
         // load category page
-        await page.goto('/raffrollo/raffrollo-beige');
+        await page.goto('/raffrollo/raffrollo-beige', { waitUntil: 'load' });
         await page.evaluate(scrollToBottom);
         await ignoreFreshChat(page);
 

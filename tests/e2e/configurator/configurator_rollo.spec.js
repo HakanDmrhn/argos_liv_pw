@@ -8,7 +8,7 @@ test.describe('Integration test with visual testing - rollo configurator', funct
 
     test.beforeEach(async function ({ page }) {
 
-        await page.goto('/rollo/rollo-konfigurator');
+        await page.goto('/rollo/rollo-konfigurator', { waitUntil: 'load' });
         await ignoreMenuContainer(page);
         await ignoreFreshChat(page);
         await page.evaluate(scrollToBottom);

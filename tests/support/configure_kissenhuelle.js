@@ -3,7 +3,7 @@ import { add2Cart } from "./checkout"
 export async function configure_kissenhuelle(page) {
 
   //load configurator
-  await page.goto('/kissenhuelle/bosco');
+  await page.goto('/kissenhuelle/bosco', { waitUntil: 'load' });
 
   //change color
   await page.getByText(/Lavendel/).first().waitFor() // this is needed since code runs too fast here

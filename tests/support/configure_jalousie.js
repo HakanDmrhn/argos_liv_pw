@@ -1,4 +1,4 @@
-import {add2Cart} from "./checkout"
+import {add2Cart} from "./checkout, { waitUntil: 'load' }"
 
 export async function configure_jalousie(page) {
 
