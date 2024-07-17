@@ -2,18 +2,20 @@
   "name": "argos_liv_pw",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test": "playwright test"
+  },
   "keywords": [],
-  "author": "",
+  "author": "Hilal Bulut",
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@argos-ci/playwright": "^3.4.0",
     "@playwright/test": "^1.45.2",
-    "@types/node": "^20.14.10"
+    "@types/node": "^20.14.10",
+    "dotenv": "^16.4.5"
   },
   "dependencies": {
-    "@argos-ci/playwright": "^3.4.0",
-    "dotenv": "^16.4.5",
     "scroll-to-bottomjs": "^1.1.0"
   }
 }
