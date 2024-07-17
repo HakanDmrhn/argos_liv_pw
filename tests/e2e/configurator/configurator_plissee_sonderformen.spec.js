@@ -9,6 +9,7 @@ test.describe('Integration test with visual testing - plissee configurator speci
     test('Plissee - Sonderformen', async function ({ page }) {
 
         await page.goto('/plissee/plissee-konfigurator', { waitUntil: 'load' });
+        await page.waitForFunction(() => document.fonts.ready);
 
         // ******************* Sonderformen *******************
         // change to tab Sonderformen

@@ -9,6 +9,7 @@ test.describe('Integration test with visual testing - plissee configurator dachf
     test('Plissee - Dachfensterplissees', async function ({ page }) {
 
         await page.goto('/plissee/plissee-konfigurator', { waitUntil: 'load' });
+        await page.waitForFunction(() => document.fonts.ready);
 
         // ******************* Dachfensterplissees *******************
         // change to tab Dachfenster

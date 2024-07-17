@@ -8,6 +8,7 @@ test.describe('Integration test with visual testing - image popups Plissee-Konfi
     test('argos snapshots of plissee gallery images - PDP', async function ({ page }) {
 
         await page.goto('/plissee/basis-object-1504', { waitUntil: 'load' });
+        await page.waitForFunction(() => document.fonts.ready);
         await ignoreFreshChat(page);
 
 

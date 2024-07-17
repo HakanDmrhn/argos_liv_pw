@@ -14,6 +14,7 @@ test.describe('Integration test with visual testing - Vorhänge product pages', 
 
             await page.goto(link, { waitUntil: 'load' });
             await page.evaluate(scrollToBottom);
+            await page.waitForFunction(() => document.fonts.ready);
             await ignoreFreshChat(page);
             await ignoreYoutube(page)
 

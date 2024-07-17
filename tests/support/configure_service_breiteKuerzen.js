@@ -11,6 +11,7 @@ export async function configure_service_breiteKuerzen(page) {
 
   //load service page
   await page.goto('/aenderungsauftrag-breite', { waitUntil: 'load' });
+  await page.waitForFunction(() => document.fonts.ready);
 
   // input of data
   await page.locator("#configurator-options > dl > :nth-child(2) > .input-box > input").fill(data.bestellnummer);

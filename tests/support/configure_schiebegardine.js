@@ -4,6 +4,7 @@ export async function configure_schiebegardine(page) {
 
     //load configurator
     await page.goto('/schiebegardinen/salomo-7346', { waitUntil: 'load' });
+    await page.waitForFunction(() => document.fonts.ready);
     await page.getByText(/Schiebegardine auf Maß konfigurieren/).first().click();
 
 

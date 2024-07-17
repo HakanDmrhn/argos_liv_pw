@@ -11,6 +11,7 @@ test.describe('Integration test with visual testing - hover on rollo category pa
         // load category page
         await page.goto('/rollo/rollo-beige', { waitUntil: 'load' });
         await page.evaluate(scrollToBottom);
+        await page.waitForFunction(() => document.fonts.ready);
         await ignoreFreshChat(page);
 
 

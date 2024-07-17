@@ -9,6 +9,7 @@ test.describe('Integration test with visual testing - gallery images Holzjalousi
     test.beforeEach(async function ({ page }) {
 
         await page.goto('/jalousie/holz-jalousie-konfigurator', { waitUntil: 'load' });
+        await page.waitForFunction(() => document.fonts.ready);
     });
 
     test('argos snapshots of product picture galleries - holzjalousie 25 mm', async function ({ page }) {

@@ -4,6 +4,7 @@ export async function configure_vorhang(page) {
 
     //load configurator
     await page.goto('/vorhaenge/dekoschal/bovino', { waitUntil: 'load' });
+    await page.waitForFunction(() => document.fonts.ready);
 
     //change color
     await page.locator('.color-title').getByText(/Rot/).first().waitFor() // this is needed since code runs too fast here

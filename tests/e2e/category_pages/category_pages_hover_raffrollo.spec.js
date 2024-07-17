@@ -11,6 +11,7 @@ test.describe('Integration test with visual testing - hover on raffrollo categor
         // load category page
         await page.goto('/raffrollo/raffrollo-beige', { waitUntil: 'load' });
         await page.evaluate(scrollToBottom);
+        await page.waitForFunction(() => document.fonts.ready);
         await ignoreFreshChat(page);
 
 

@@ -9,6 +9,7 @@ test.describe('Integration test with visual testing - jalousie configurator', fu
     test.beforeEach(async function ({ page }) {
 
         await page.goto('/jalousie/holz-jalousie-konfigurator', { waitUntil: 'load' });
+        await page.waitForFunction(() => document.fonts.ready);
     });
 
     test('Holzjalousie - 25mm', async function ({ page }) {

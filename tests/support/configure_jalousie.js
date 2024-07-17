@@ -1,9 +1,10 @@
-import {add2Cart} from "./checkout, { waitUntil: 'load' }"
+import { add2Cart } from "./checkout"
 
 export async function configure_jalousie(page) {
 
     //load configurator
-    await page.goto('/jalousie/jalousie-konfigurator?lamellengroesse=16mm');
+    await page.goto('/jalousie/jalousie-konfigurator?lamellengroesse=16mm', { waitUntil: 'load' });
+    await page.waitForFunction(() => document.fonts.ready);
 
     //input height and weight
     await page.locator('#hoehe_in_mm input').fill('1800');

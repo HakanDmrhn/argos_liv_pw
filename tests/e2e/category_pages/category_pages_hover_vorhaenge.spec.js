@@ -11,8 +11,7 @@ test.describe('Integration test with visual testing - hover on vorhaenge categor
         // load category page
         await page.goto('/oesenschal', { waitUntil: 'load' });
         await page.evaluate(scrollToBottom);
-        // await page.waitForTimeout(2000);
-
+        await page.waitForFunction(() => document.fonts.ready);
         await ignoreFreshChat(page);
 
 

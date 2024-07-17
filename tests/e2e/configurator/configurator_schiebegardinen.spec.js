@@ -12,6 +12,7 @@ test.describe('Integration test with visual testing - schiebegardinen configurat
         await page.evaluate(scrollToBottom);
         await ignoreMenuContainer(page);
         await ignoreFreshChat(page);
+        await page.waitForFunction(() => document.fonts.ready);
 
     });
 

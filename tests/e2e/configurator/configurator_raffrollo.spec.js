@@ -12,6 +12,7 @@ test.describe('Integration test with visual testing - raffrollo configurator', f
         await ignoreMenuContainer(page);
         await ignoreFreshChat(page);
         await page.evaluate(scrollToBottom);
+        await page.waitForFunction(() => document.fonts.ready);
 
     });
 

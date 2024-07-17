@@ -11,6 +11,7 @@ test.describe('Integration test with visual testing - hover on doppelrollo categ
         // load category page
         await page.goto('/doppelrollo/doppelrollo-grau', { waitUntil: 'load' });
         await page.evaluate(scrollToBottom);
+        await page.waitForFunction(() => document.fonts.ready);
         await ignoreFreshChat(page);
 
 

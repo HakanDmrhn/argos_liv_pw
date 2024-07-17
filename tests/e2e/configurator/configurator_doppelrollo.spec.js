@@ -10,6 +10,7 @@ test.describe('Integration test with visual testing - doppelrollo configurator',
 
         await page.goto('/doppelrollo/doppelrollo-konfigurator', { waitUntil: 'load' });
         await page.evaluate(scrollToBottom);
+        await page.waitForFunction(() => document.fonts.ready);
         await ignoreMenuContainer(page);
         await ignoreFreshChat(page);
 
@@ -142,6 +143,7 @@ test.describe('Integration test with visual testing - doppelrollo configurator',
         await page.locator('#type-selector-top > ul > :nth-child(3)').click();
 
         await page.evaluate(scrollToBottom);
+        await page.waitForFunction(() => document.fonts.ready);
         await ignoreMenuContainer(page)
 
         // take argos screenshot

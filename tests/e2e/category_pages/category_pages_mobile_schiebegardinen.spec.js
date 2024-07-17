@@ -15,6 +15,7 @@ test.describe('Integration test with visual testing - simulated mobile testing o
         // load category page
         await page.goto('/schiebegardinen/schiebegardinen-beige', { waitUntil: 'load' });
         await page.evaluate(scrollToBottom);
+        await page.waitForFunction(() => document.fonts.ready);
         await ignoreFreshChat(page);
 
         // take argos screenshot

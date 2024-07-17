@@ -11,6 +11,7 @@ test.describe('Integration test with visual testing - hover on schiebegardine ca
         // load category page
         await page.goto('/schiebegardinen/schiebegardinen-blau', { waitUntil: 'load' });
         await page.evaluate(scrollToBottom);
+        await page.waitForFunction(() => document.fonts.ready);
         await ignoreFreshChat(page);
 
 

@@ -11,6 +11,7 @@ test.describe('Integration test with visual testing - hover on plissee category 
         // load category page
         await page.goto('/plissee/plissee-gelb', { waitUntil: 'load' });
         await page.evaluate(scrollToBottom);
+        await page.waitForFunction(() => document.fonts.ready);
         await ignoreFreshChat(page);
 
 

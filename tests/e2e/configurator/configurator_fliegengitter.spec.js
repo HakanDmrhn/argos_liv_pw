@@ -12,6 +12,7 @@ test.describe('Integration test with visual testing - Fliegengitter configurator
         // ******************* Fliegengitter - Farbe Weiß *******************
         await page.goto("/insektenschutz/fliegengitter", { waitUntil: 'load' });
         await page.evaluate(scrollToBottom);
+        await page.waitForFunction(() => document.fonts.ready);
         await ignoreFreshChat(page);
 
 

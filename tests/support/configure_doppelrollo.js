@@ -5,6 +5,7 @@ export async function configure_doppelrollo(page) {
 
     //load configurator
     await page.goto('/doppelrollo/rayure-5014', { waitUntil: 'load' });
+    await page.waitForFunction(() => document.fonts.ready);
     await page.getByText(/Doppelrollo auf Maß konfigurieren/).first().click();
 
 
