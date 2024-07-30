@@ -76,11 +76,11 @@ on:
 
 jobs:
   manual-playwright-run-ubuntu:
-    timeout-minutes: 90
+    timeout-minutes: 40
     runs-on: ubuntu-latest
     if: github.event_name == 'workflow_dispatch' # run only manually
     container:
-      image: mcr.microsoft.com/playwright:v1.45.0-noble
+      image: mcr.microsoft.com/playwright:v1.45.3-noble
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-node@v4
@@ -100,11 +100,11 @@ jobs:
         ARGOS_TOKEN: ${{ secrets.ARGOS_TOKEN }}
 
   scheduled-playwright-run-ubuntu:
-      timeout-minutes: 90
+      timeout-minutes: 40
       runs-on: ubuntu-latest
       if: github.event_name == 'schedule' # run only scheduled
       container:
-        image: mcr.microsoft.com/playwright:v1.45.0-noble
+        image: mcr.microsoft.com/playwright:v1.45.3-noble
       steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
