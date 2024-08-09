@@ -117,7 +117,7 @@ test.describe('Integration test with visual testing - plissee configurator dachf
         // --------------------------------------------------------------------------------------------------
 
         // select Bedienstab
-        await page.locator('div[options-property="bedienstab"] > ul > :nth-child(2)').click();
+        await page.locator('div[options-property="bedienstabComfort"] > ul > :nth-child(2)').click();
         // take argos screenshot
         await argosScreenshot(page, 'Plissee Dachfenster - Bedienstab', {
             viewports: [
