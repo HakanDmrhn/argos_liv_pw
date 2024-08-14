@@ -1,14 +1,13 @@
 import { argosScreenshot } from "@argos-ci/playwright";
 import { test } from '@playwright/test';
 import { ignoreFreshChat, ignoreYoutube } from '../../support/helpers';
-var data = require("../../fixtures/product_pages_zubehoer.json");
-var pages = data.URLS;
+
 let scrollToBottom = require("scroll-to-bottomjs");
 
 
 // Define search terms for each page
 const productSearchTerms = {
-    "/klemmtraeger": "klemmtraeger",
+    "/klemmtraeger": "klemmträger",
     "/gardinenstangen/kegel": "kegel",
     "/aenderungsauftrag-breite": "breite",
     "/schiebegardinen/mica-7342": "mica",
@@ -52,7 +51,7 @@ test.describe('Integration test with visual testing - search function', function
             await page.fill('#search', searchTerm);
            
             // Submit the form
-            await page.click('form#searchForm button[type="submit"]');
+            await page.getByRole('button', { name: 'Suchen' }).click();
             await page.waitForFunction(() => document.fonts.ready);
 
             // take argos screenshot
@@ -65,3 +64,4 @@ test.describe('Integration test with visual testing - search function', function
         });
     });
 });
+
