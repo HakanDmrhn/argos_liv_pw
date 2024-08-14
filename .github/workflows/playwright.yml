@@ -92,7 +92,7 @@ jobs:
     - name: Run Playwright tests - manually
       run: |
         if [ "${{ github.event.inputs.TEST_FILE }}" = "ALL" ]; then
-          npx playwright test
+          npx playwright test --workers=2
         else
           npx playwright test ${{ github.event.inputs.TEST_FILE }}
         fi
