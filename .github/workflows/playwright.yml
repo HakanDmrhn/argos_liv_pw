@@ -104,8 +104,6 @@ jobs:
       env: 
         BASE_URL: ${{ secrets.BASE_URL }}
         ARGOS_TOKEN: ${{ secrets.ARGOS_TOKEN }}
-        ARGOS_PARALLEL_TOTAL: ${{ matrix.shardTotal }}
-        ARGOS_PARALLEL_INDEX: ${{ matrix.shardIndex }}
 
   scheduled-playwright-run-ubuntu:
       timeout-minutes: 90
