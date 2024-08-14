@@ -77,13 +77,8 @@ on:
 
 jobs:
   manual-playwright-run-ubuntu:
-    timeout-minutes: 45
+    timeout-minutes: 90
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        shardIndex: [1, 2, 3, 4]
-        shardTotal: [4]
     if: github.event_name == 'workflow_dispatch' # run only manually
     container:
       image: mcr.microsoft.com/playwright:v1.46.0-noble
