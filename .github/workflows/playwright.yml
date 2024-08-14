@@ -71,6 +71,7 @@ on:
           - product_pages_plissee.spec.js  
           - product_pages_zubehoer.spec.js
           - product_pages_raffrollo.spec.js
+          - searchform.spec.js
   schedule:
     - cron: '00 01 * * 1-5' # Schedule to run every day at 1:00 AM from Monday to Friday (aktuell deutsche Zeit - 2 Stunden)
 
@@ -80,7 +81,7 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event_name == 'workflow_dispatch' # run only manually
     container:
-      image: mcr.microsoft.com/playwright:v1.45.0-noble
+      image: mcr.microsoft.com/playwright:v1.46.0-noble
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-node@v4
@@ -91,7 +92,7 @@ jobs:
     - name: Run Playwright tests - manually
       run: |
         if [ "${{ github.event.inputs.TEST_FILE }}" = "ALL" ]; then
-          npx playwright test
+          npx playwright test --workers=2
         else
           npx playwright test ${{ github.event.inputs.TEST_FILE }}
         fi
@@ -104,7 +105,7 @@ jobs:
       runs-on: ubuntu-latest
       if: github.event_name == 'schedule' # run only scheduled
       container:
-        image: mcr.microsoft.com/playwright:v1.45.0-noble
+        image: mcr.microsoft.com/playwright:v1.46.0-noble
       steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

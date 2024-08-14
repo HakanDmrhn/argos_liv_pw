@@ -10,7 +10,6 @@ import { configure_fliegengitter } from "../../support/configure_fliegengitter";
 import { configure_vorhang } from "../../support/configure_vorhang";
 import { configure_schiebegardine } from "../../support/configure_schiebegardine";
 import { configure_raffrollo } from "../../support/configure_raffrollo";
-import { configure_kissenhuelle } from "../../support/configure_kissenhuelle";
 import { configure_muster } from "../../support/configure_muster";
 import { configure_zubehoer_plissee } from "../../support/configure_zubehoer_plissee";
 import { configure_zubehoer_schiebegardinen } from "../../support/configure_zubehoer_schiebegardinen";
@@ -35,7 +34,6 @@ test.describe('Integration test with visual testing - order process incl. all pr
     await configure_holzjalousie(page);
     await configure_insektenrollo(page);
     await configure_fliegengitter(page);
-    await configure_kissenhuelle(page);
     await configure_muster(page);
     await configure_raffrollo(page);
     await configure_schiebegardine(page); //es wird ein einzelpaneel konfiguriert
