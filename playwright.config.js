@@ -47,7 +47,7 @@ module.exports = defineConfig({
   ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
-    userAgent: 'testing_agent',
+    userAgent: 'testing_agent_visual',
     baseURL: process.env.BASE_URL,
     video: "on",
     // Setting to capture screenshot only when a test fails.
@@ -61,16 +61,19 @@ module.exports = defineConfig({
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
+      userAgent: 'testing_agent_visual'
     },
 
     // {
     //   name: 'firefox',
     //   use: { ...devices['Desktop Firefox'] },
+    //   userAgent: 'testing_agent_visual'
     // },
 
     // {
     //   name: 'webkit',
     //   use: { ...devices['Desktop Safari'] },
+    //   userAgent: 'testing_agent_visual'
     // },
 
     /* Test against mobile viewports. */
@@ -81,6 +84,7 @@ module.exports = defineConfig({
     // {
     //   name: 'Mobile Safari',
     //   use: { ...devices['iPhone 12'] },
+    //   userAgent: 'testing_agent_visual'
     // },
 
     /* Test against branded browsers. */
