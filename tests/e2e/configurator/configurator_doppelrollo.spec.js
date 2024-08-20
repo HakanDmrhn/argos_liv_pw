@@ -125,9 +125,6 @@ test.describe('Integration test with visual testing - doppelrollo configurator',
         // ******************* Doppelrollo Mini mit Kassette zum Kleben *******************
         await page.locator('#type-selector-top > ul > :nth-child(2)').click();
 
-        await page.evaluate(scrollToBottom);
-        await ignoreMenuContainer(page)
-
         // take argos screenshot
         await argosScreenshot(page, 'Doppelrollo mini mit Kassette zum Kleben', {
             viewports: [
@@ -137,14 +134,12 @@ test.describe('Integration test with visual testing - doppelrollo configurator',
         });
     });
 
+
     test('Doppelrollo ohne Kassette', async function ({ page }) {
 
         // ******************* Doppelrollo ohne Kassette *******************
         await page.locator('#type-selector-top > ul > :nth-child(3)').click();
 
-        await page.evaluate(scrollToBottom);
-        await page.waitForFunction(() => document.fonts.ready);
-        await ignoreMenuContainer(page)
 
         // take argos screenshot
         await argosScreenshot(page, 'Doppelrollo ohne Kassette', {
@@ -242,9 +237,6 @@ test.describe('Integration test with visual testing - doppelrollo configurator',
 
         // ******************* Doppelrollo mit Kassette *******************
         await page.locator('#type-selector-top > ul > :nth-child(4)').click();
-
-        await page.evaluate(scrollToBottom);
-        await ignoreMenuContainer(page)
 
         // take argos screenshot
         await argosScreenshot(page, 'Doppelrollo - mit Kassette', {
