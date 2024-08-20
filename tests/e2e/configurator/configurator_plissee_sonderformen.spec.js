@@ -15,9 +15,9 @@ test.describe('Integration test with visual testing - plissee configurator speci
         // change to tab Sonderformen
         await page.locator('.tabs > :nth-child(3)').click();
         await page.evaluate(scrollToBottom);
+        await page.waitForFunction(() => document.fonts.ready);
         await ignoreMenuContainer(page);
         await ignoreFreshChat(page);
-
         // --------------------------------------------------------------------------------------------------
 
         // preselected type is FDS3 

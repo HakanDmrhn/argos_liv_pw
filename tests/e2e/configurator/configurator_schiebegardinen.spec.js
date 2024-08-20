@@ -10,9 +10,9 @@ test.describe('Integration test with visual testing - schiebegardinen configurat
 
         await page.goto('/schiebegardinen/schiebegardinen-konfigurator', { waitUntil: 'load' });
         await page.evaluate(scrollToBottom);
+        await page.waitForFunction(() => document.fonts.ready);
         await ignoreMenuContainer(page);
         await ignoreFreshChat(page);
-        await page.waitForFunction(() => document.fonts.ready);
 
     });
 

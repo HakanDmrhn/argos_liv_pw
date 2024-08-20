@@ -9,10 +9,10 @@ test.describe('Integration test with visual testing - raffrollo configurator', f
     test.beforeEach(async function ({ page }) {
 
         await page.goto('/raffrollo/raffrollo-konfigurator', { waitUntil: 'load' });
-        await ignoreMenuContainer(page);
-        await ignoreFreshChat(page);
         await page.evaluate(scrollToBottom);
         await page.waitForFunction(() => document.fonts.ready);
+        await ignoreMenuContainer(page);
+        await ignoreFreshChat(page);
 
     });
 
