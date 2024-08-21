@@ -11,6 +11,12 @@ test.describe('Integration test with visual testing - doppelrollo configurator',
         await page.goto('/doppelrollo/doppelrollo-konfigurator', { waitUntil: 'load' });
         await page.evaluate(scrollToBottom);
         await page.waitForFunction(() => document.fonts.ready);
+
+        // ensure that the page has fully loaded by waiting for one of the last elements in network traffic
+        const lastlink = page.getByRole('link', { name: 'Impressum' });
+        await expect(lastlink).toBeVisible();
+        await expect(lastlink).toBeEnabled();
+        
         await ignoreMenuContainer(page);
         await ignoreFreshChat(page);
 

@@ -6,8 +6,13 @@ export async function configure_doppelrollo(page) {
     //load configurator
     await page.goto('/doppelrollo/rayure-5014', { waitUntil: 'load' });
     await page.waitForFunction(() => document.fonts.ready);
-    await page.getByText(/Doppelrollo auf Maß konfigurieren/).first().click();
+    
+    // ensure that the page has fully loaded by waiting for one of the last elements in network traffic
+    const lastlink = page.getByRole('link', { name: 'Impressum' });
+    await expect(lastlink).toBeVisible();
+    await expect(lastlink).toBeEnabled();
 
+    await page.getByText(/Doppelrollo auf Maß konfigurieren/).first().click();
 
     //select rollo type
     await page.getByText(/Doppelrollo mit Kassette/).first().waitFor() // this is needed since code runs too fast here
