@@ -42,6 +42,7 @@ test.describe('Integration test with visual testing - search function', function
            
             // Submit the form
             await page.getByRole('button', { name: 'Suchen' }).click();
+            await page.evaluate(scrollToBottom);
             await page.waitForFunction(() => document.fonts.ready);
             await ignoreFreshChat(page);
             await ignoreYoutube(page);
