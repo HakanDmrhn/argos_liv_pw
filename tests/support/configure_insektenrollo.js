@@ -1,5 +1,6 @@
-export async function configure_insektenrollo(page) {
+import { expect } from '@playwright/test';
 
+export async function configure_insektenrollo(page) {
 
   //load configurator
   await page.goto('/insektenschutz/insektenschutz-rollo', { waitUntil: 'load' });

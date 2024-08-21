@@ -1,3 +1,5 @@
+import { expect } from '@playwright/test';
+
 const data =
 {
   "bestellnummer": "200000001",

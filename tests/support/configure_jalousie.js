@@ -1,4 +1,6 @@
-import { add2Cart } from "./checkout"
+import { add2Cart } from "./checkout";
+import { expect } from '@playwright/test';
+
 
 export async function configure_jalousie(page) {
 

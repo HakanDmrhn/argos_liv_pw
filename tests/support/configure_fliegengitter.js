@@ -1,3 +1,4 @@
+import { expect } from '@playwright/test';
 
 export async function configure_fliegengitter(page) {
 
