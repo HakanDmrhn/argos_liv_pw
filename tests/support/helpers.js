@@ -22,15 +22,16 @@ export async function ignoreMenuContainer(page) {
 
 export async function ignoreFreshChat(page) {
 
-    const freshChat = page.locator('#fc_frame')
-    await freshChat.waitFor()  // wait for freshChat-Icon to be visible
+    const exist_freshChat = await page.locator('#fc_frame').count()
 
-    await page.evaluate(() => {
-        const freshChatElement = document.querySelector('#fc_frame');
-        freshChatElement.setAttribute('data-visual-test', 'transparent'); // you can choose between transparent, removed, blackout
-    });
+    if (exist_freshChat > 0) { // if this element exists
+
+        await page.evaluate(() => {
+          const freshChatElement = document.querySelector('#fc_frame');
+          freshChatElement.setAttribute('data-visual-test', 'transparent'); // you can choose between transparent, removed, blackout
+        });
+    }
 }
-
 
 // --------------------------------------------------------------------------------------------//
 // --------------------------------------- YOUTUBE --------------------------------------------//

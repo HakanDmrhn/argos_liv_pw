@@ -35,6 +35,7 @@ test.describe('Integration test with visual testing - search function', function
             await page.waitForFunction(() => document.fonts.ready);
             await ignoreFreshChat(page);
             await ignoreYoutube(page);
+            await ignoreMenuContainer(page);
             
             // Enter the search term into the input field
             await page.fill('#search', searchTerm);
@@ -42,6 +43,9 @@ test.describe('Integration test with visual testing - search function', function
             // Submit the form
             await page.getByRole('button', { name: 'Suchen' }).click();
             await page.waitForFunction(() => document.fonts.ready);
+            await ignoreFreshChat(page);
+            await ignoreYoutube(page);
+            await ignoreMenuContainer(page);
 
             // take argos screenshot
             await argosScreenshot(page, link, {
