@@ -73,14 +73,13 @@ test.describe('Integration test with visual testing - opened menus', function ()
 
         // load main page
         await page.goto('/', { waitUntil: 'load' });
+        await page.evaluate(scrollToBottom);
         await page.waitForFunction(() => document.fonts.ready);
+        await ignoreFreshChat(page);
+        await ignoreYoutube(page);
 
         // go to tab 'Rollos'
         await page.locator("ol > li:nth-of-type(2) > a").click()
-
-        await page.evaluate(scrollToBottom);
-        await ignoreFreshChat(page);
-        await ignoreYoutube(page);
 
         await page.locator("#colors > a").hover()
 
@@ -139,15 +138,13 @@ test.describe('Integration test with visual testing - opened menus', function ()
 
         // load main page
         await page.goto('/', { waitUntil: 'load' });
-        await page.waitForFunction(() => document.fonts.ready);
-
-        // go to tab 'Doppelrollo'
-        await page.locator("li.nav-3 span").click()
-
         await page.evaluate(scrollToBottom);
+        await page.waitForFunction(() => document.fonts.ready);
         await ignoreFreshChat(page);
         await ignoreYoutube(page);
 
+        // go to tab 'Doppelrollo'
+        await page.locator("li.nav-3 span").click()
         await page.locator("#colors > a").hover()
 
         // iterate through all menu images and check if visible before taking screenshot
@@ -166,16 +163,22 @@ test.describe('Integration test with visual testing - opened menus', function ()
 
         // load main page
         await page.goto('/', { waitUntil: 'load' });
+        await page.evaluate(scrollToBottom);
         await page.waitForFunction(() => document.fonts.ready);
+        await ignoreFreshChat(page);
+        await ignoreYoutube(page);
 
         // go to tab 'Vorhänge'
         await page.locator("li.nav-6 span").click()
+        await page.evaluate(scrollToBottom);
+        await page.waitForFunction(() => document.fonts.ready);
+        await ignoreFreshChat(page);
+        await ignoreYoutube(page);
 
         // await page.evaluate(scrollToBottom); // --> leads to error on github - unknown reason
         // workaround;
         await page.locator('h1').filter({ hasText: 'Vorhänge: Der Klassiker der Fensterdekoration' }).waitFor()
-        await ignoreFreshChat(page);
-        await ignoreYoutube(page);
+
 
         //-------------------------- VORHÄNGE ----------------------------------
         //----------------------------------------------------------------------

@@ -21,6 +21,10 @@ test.describe('Integration test with visual testing - gallery images Holzjalousi
         // ******************* Holzjalousie 25mm *******************
         await page.locator('.blinds-type > ul > :nth-child(1)').click();
 
+        await page.evaluate(scrollToBottom);
+        await ignoreMenuContainer(page);
+        await ignoreFreshChat(page);
+
         // scroll the big image into view
         await page.locator('img#bigImage').scrollIntoViewIfNeeded();
 
@@ -41,6 +45,10 @@ test.describe('Integration test with visual testing - gallery images Holzjalousi
 
         // ******************* Holzjalousie 50mm *******************
         await page.locator('.blinds-type > ul > :nth-child(2)').click();
+
+        await page.evaluate(scrollToBottom);
+        await ignoreMenuContainer(page);
+        await ignoreFreshChat(page);
 
         // scroll the big image into view
         await page.locator('img#bigImage').scrollIntoViewIfNeeded();
