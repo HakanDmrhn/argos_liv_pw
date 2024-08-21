@@ -1,6 +1,7 @@
 import { argosScreenshot } from "@argos-ci/playwright";
 import { test, expect } from '@playwright/test';
-import { ignoreFreshChat, ignoreMenuContainer } from '../../support/helpers';
+import { ignoreFreshChat, ignoreYoutube, ignoreMenuContainer } from '../../support/helpers';
+
 let scrollToBottom = require("scroll-to-bottomjs");
 
 
@@ -9,17 +10,16 @@ test.describe('Integration test with visual testing - gallery images Holzjalousi
     test.beforeEach(async function ({ page }) {
 
         await page.goto('/jalousie/holz-jalousie-konfigurator', { waitUntil: 'load' });
+        await page.evaluate(scrollToBottom);
         await page.waitForFunction(() => document.fonts.ready);
+        await ignoreMenuContainer(page);
+        await ignoreFreshChat(page);
     });
 
     test('argos snapshots of product picture galleries - holzjalousie 25 mm', async function ({ page }) {
 
         // ******************* Holzjalousie 25mm *******************
         await page.locator('.blinds-type > ul > :nth-child(1)').click();
-
-        await page.evaluate(scrollToBottom);
-        await ignoreMenuContainer(page);
-        await ignoreFreshChat(page);
 
         // scroll the big image into view
         await page.locator('img#bigImage').scrollIntoViewIfNeeded();
@@ -41,10 +41,6 @@ test.describe('Integration test with visual testing - gallery images Holzjalousi
 
         // ******************* Holzjalousie 50mm *******************
         await page.locator('.blinds-type > ul > :nth-child(2)').click();
-
-        await page.evaluate(scrollToBottom);
-        await ignoreMenuContainer(page);
-        await ignoreFreshChat(page);
 
         // scroll the big image into view
         await page.locator('img#bigImage').scrollIntoViewIfNeeded();

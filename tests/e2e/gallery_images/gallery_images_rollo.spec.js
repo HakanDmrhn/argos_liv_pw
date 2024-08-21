@@ -1,6 +1,8 @@
 import { argosScreenshot } from "@argos-ci/playwright";
 import { test, expect } from '@playwright/test';
-import { ignoreFreshChat, ignoreYoutube } from '../../support/helpers';
+import { ignoreFreshChat, ignoreYoutube, ignoreMenuContainer } from '../../support/helpers';
+
+let scrollToBottom = require("scroll-to-bottomjs");
 
 
 test.describe('Integration test with visual testing - image popups Rollo-Konfigurator', function () {
@@ -8,7 +10,9 @@ test.describe('Integration test with visual testing - image popups Rollo-Konfigu
     test('argos snapshots of rollo gallery images - PDP', async function ({ page }) {
 
         await page.goto('/rollo/blackout-reflex-3517', { waitUntil: 'load' });
+        await page.evaluate(scrollToBottom);
         await page.waitForFunction(() => document.fonts.ready);
+        await ignoreMenuContainer(page);
         await ignoreFreshChat(page);
 
 
@@ -45,6 +49,9 @@ test.describe('Integration test with visual testing - image popups Rollo-Konfigu
     test('argos snapshots of rollo picture galleries - Konfigurator', async function ({ page }) {
 
         await page.goto('/rollo/rollo-konfigurator');
+        await page.evaluate(scrollToBottom);
+        await page.waitForFunction(() => document.fonts.ready);
+        await ignoreMenuContainer(page);
         await ignoreFreshChat(page);
 
         // scroll the big image into view
