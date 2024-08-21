@@ -13,6 +13,8 @@ test.describe('Integration test with visual testing - hover on plissee category 
         await page.evaluate(scrollToBottom);
         await page.waitForFunction(() => document.fonts.ready);
         await ignoreFreshChat(page);
+        await ignoreYoutube(page);
+        await ignoreMenuContainer(page);
 
 
         //------------------------------------- TOOLTIP -----------------------------------//

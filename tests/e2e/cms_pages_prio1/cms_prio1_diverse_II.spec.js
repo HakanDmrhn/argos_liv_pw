@@ -1,6 +1,6 @@
 import { argosScreenshot } from "@argos-ci/playwright";
 import { test } from '@playwright/test';
-import { ignoreFreshChat, ignoreYoutube } from '../../support/helpers';
+import { ignoreFreshChat, ignoreYoutube, ignoreMenuContainer } from '../../support/helpers';
 var data = require("../../fixtures/cms_prio1_diverse_II.json");
 var pages = data.URLS;
 let scrollToBottom = require("scroll-to-bottomjs");
@@ -15,8 +15,9 @@ test.describe('Integration test with visual testing - Diverse CMS Prio1 pages (o
             await page.goto(link, { waitUntil: 'load' });
             await page.evaluate(scrollToBottom);
             await page.waitForFunction(() => document.fonts.ready);
-            // await ignoreFreshChat(page);  // --> no FreshChat on branchen pages
-            // await ignoreYoutube(page)
+            await ignoreFreshChat(page);
+            await ignoreYoutube(page);
+            await ignoreMenuContainer(page);
 
             // take argos screenshot
             await argosScreenshot(page, link, {

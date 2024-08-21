@@ -16,7 +16,8 @@ test.describe('Integration test with visual testing - Schiebegardinen category p
             await page.evaluate(scrollToBottom);
             await page.waitForFunction(() => document.fonts.ready);
             await ignoreFreshChat(page);
-            await ignoreYoutube(page)
+            await ignoreYoutube(page);
+            await ignoreMenuContainer(page);
 
             // take argos screenshot
             await argosScreenshot(page, link, {
