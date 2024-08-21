@@ -15,7 +15,6 @@ test.describe('Integration test with visual testing - Doppelrollo CMS Prio1 page
             await page.goto(link, { waitUntil: 'load' });
             await page.evaluate(scrollToBottom);
             await page.waitForFunction(() => document.fonts.ready);
-            await ignoreFreshChat(page);
             await ignoreYoutube(page)
 
             // take argos screenshot
