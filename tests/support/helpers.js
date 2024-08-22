@@ -38,16 +38,25 @@ export async function ignoreMenuContainer(page) {
 export async function ignoreFreshChat(page) {
     try {
         // Define a locator for the FreshChat iframe
-        const freshChat = page.locator('#fc_frame');
+        const freshChatLocator = page.locator('#fc_frame');
 
         // Wait for the iframe to be visible
-        await freshChat.waitFor({ state: 'visible' });
+        await freshChatLocator.waitFor({ state: 'visible' });
+
+        // Wait for the fc_logo.png image request to complete
+        await Promise.all([
+            page.waitForResponse(response =>
+                response.url().includes('fc_logo.png') && response.status() === 200,
+                { timeout: 10000 } // Adjust timeout as needed
+            )
+        ]);
 
         // Evaluate the page context to modify the iframe attribute
         await page.evaluate(() => {
             const freshChatElement = document.querySelector('#fc_frame');
             if (freshChatElement) {
-                freshChatElement.setAttribute('data-visual-test', 'transparent'); // Set attribute to 'transparent'
+                // Set attribute to 'transparent' or other desired value
+                freshChatElement.setAttribute('data-visual-test', 'transparent');
             } else {
                 console.warn('FreshChat element not found.');
             }
@@ -56,6 +65,7 @@ export async function ignoreFreshChat(page) {
         console.error('An error occurred while trying to ignore FreshChat:', error);
     }
 }
+
 
 
 // --------------------------------------------------------------------------------------------//
