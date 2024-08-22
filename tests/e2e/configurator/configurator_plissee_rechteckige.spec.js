@@ -1,6 +1,6 @@
 import { argosScreenshot } from "@argos-ci/playwright";
-import { test } from '@playwright/test';
-import { ignoreFreshChat, ignoreMenuContainer } from '../../support/helpers'
+import { test, expect } from '@playwright/test';
+import { ignoreFreshChat, ignoreYoutube, ignoreMenuContainer } from '../../support/helpers';
 
 let scrollToBottom = require("scroll-to-bottomjs");
 
@@ -9,11 +9,10 @@ test.describe('Integration test with visual testing - plissee configurator recht
 
     test('Plissee - rechteckige Plissees', async function ({ page }) {
 
-        await page.goto('/plissee/plissee-konfigurator', { waitUntil: 'load' });
-        await page.waitForFunction(() => document.fonts.ready);
-
         // ******************* rechteckige Fenster *******************
+        await page.goto('/plissee/plissee-konfigurator', { waitUntil: 'load' });
         await page.evaluate(scrollToBottom);
+        await page.waitForFunction(() => document.fonts.ready);
         await ignoreMenuContainer(page);
         await ignoreFreshChat(page);
 

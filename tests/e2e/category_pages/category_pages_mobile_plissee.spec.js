@@ -1,6 +1,6 @@
 import { argosScreenshot } from "@argos-ci/playwright";
 import { test, expect } from '@playwright/test';
-import { ignoreFreshChat, ignoreYoutube } from '../../support/helpers';
+import { ignoreFreshChat, ignoreYoutube, ignoreMenuContainer } from '../../support/helpers';
 let scrollToBottom = require("scroll-to-bottomjs");
 
 
@@ -17,6 +17,8 @@ test.describe('Integration test with visual testing - simulated mobile testing o
         await page.evaluate(scrollToBottom);
         await page.waitForFunction(() => document.fonts.ready);
         await ignoreFreshChat(page);
+        await ignoreYoutube(page);
+        await ignoreMenuContainer(page);
 
         // take argos screenshot
         await argosScreenshot(page, 'mobile view plissee - /plissee/plissee-rot');

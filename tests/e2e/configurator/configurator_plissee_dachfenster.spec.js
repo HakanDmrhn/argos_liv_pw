@@ -1,6 +1,6 @@
 import { argosScreenshot } from "@argos-ci/playwright";
-import { test } from '@playwright/test';
-import { ignoreFreshChat, ignoreMenuContainer } from '../../support/helpers'
+import { test, expect } from '@playwright/test';
+import { ignoreFreshChat, ignoreYoutube, ignoreMenuContainer } from '../../support/helpers';
 
 let scrollToBottom = require("scroll-to-bottomjs");
 
@@ -9,7 +9,16 @@ test.describe('Integration test with visual testing - plissee configurator dachf
     test('Plissee - Dachfensterplissees', async function ({ page }) {
 
         await page.goto('/plissee/plissee-konfigurator', { waitUntil: 'load' });
+        await page.evaluate(scrollToBottom);
         await page.waitForFunction(() => document.fonts.ready);
+        await ignoreMenuContainer(page);
+        await ignoreFreshChat(page);
+        await ignoreYoutube(page);
+
+        // ensure that the page has fully loaded by waiting for one of the last elements in network traffic
+        const lastlink = page.getByRole('link', { name: 'Impressum' });
+        await expect(lastlink).toBeVisible();
+        await expect(lastlink).toBeEnabled();
 
         // ******************* Dachfensterplissees *******************
         // change to tab Dachfenster

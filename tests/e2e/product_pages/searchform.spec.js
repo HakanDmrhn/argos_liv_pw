@@ -1,6 +1,6 @@
 import { argosScreenshot } from "@argos-ci/playwright";
 import { test } from '@playwright/test';
-import { ignoreFreshChat, ignoreYoutube } from '../../support/helpers';
+import { ignoreFreshChat, ignoreYoutube, ignoreMenuContainer } from '../../support/helpers';
 
 let scrollToBottom = require("scroll-to-bottomjs");
 
@@ -31,28 +31,22 @@ test.describe('Integration test with visual testing - search function', function
         test(`Load page: ${link} - Enter search term "${searchTerm}" and take Argos snapshot`, async function ({ page }) {
             // visit url
             await page.goto(link, { waitUntil: 'load' });
+            await page.evaluate(scrollToBottom);
             await page.waitForFunction(() => document.fonts.ready);
-
-            // Hier wird die Seite nach unten gescrollt um zu gewährleisten, dass alle Bilder geladen wurden
-            // await page.evaluate(() => {
-            //     window.scrollTo(0, document.body.scrollHeight);
-            // });
-            // --> dieser Schritt dauert ca 20 ms und ist wohlmöglich zu schnell (fehlende Bilder)
-            // --> stattdessen scrollToBottom verwenden (s.u.)
-
-            // Hier wird die Seite nach unten gescrollt um zu gewährleisten, dass alle Bilder geladen wurden
-            await page.evaluate(scrollToBottom); // --> scroll dauert ca 1,5 sec 
-            // blackout FreshChat
-            await ignoreFreshChat(page)
-            // blackout YouTube
-            await ignoreYoutube(page)
+            await ignoreFreshChat(page);
+            await ignoreYoutube(page);
+            await ignoreMenuContainer(page);
             
             // Enter the search term into the input field
             await page.fill('#search', searchTerm);
            
             // Submit the form
             await page.getByRole('button', { name: 'Suchen' }).click();
+            await page.evaluate(scrollToBottom);
             await page.waitForFunction(() => document.fonts.ready);
+            await ignoreFreshChat(page);
+            await ignoreYoutube(page);
+            await ignoreMenuContainer(page);
 
             // take argos screenshot
             await argosScreenshot(page, link, {

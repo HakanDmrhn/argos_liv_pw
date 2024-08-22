@@ -1,6 +1,6 @@
 import { argosScreenshot } from "@argos-ci/playwright";
-import { test } from '@playwright/test';
-import { ignoreFreshChat, ignoreMenuContainer } from '../../support/helpers'
+import { test, expect } from '@playwright/test';
+import { ignoreFreshChat, ignoreMenuContainer, ignoreYouTube } from '../../support/helpers'
 
 let scrollToBottom = require("scroll-to-bottomjs");
 
@@ -10,9 +10,9 @@ test.describe('Integration test with visual testing - schiebegardinen configurat
 
         await page.goto('/schiebegardinen/schiebegardinen-konfigurator', { waitUntil: 'load' });
         await page.evaluate(scrollToBottom);
+        await page.waitForFunction(() => document.fonts.ready);
         await ignoreMenuContainer(page);
         await ignoreFreshChat(page);
-        await page.waitForFunction(() => document.fonts.ready);
 
     });
 

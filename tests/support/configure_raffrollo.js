@@ -1,10 +1,15 @@
-import { add2Cart } from "./checkout"
+import { add2Cart } from "./checkout";
+import { expect } from '@playwright/test';
 
 export async function configure_raffrollo(page) {
 
   //load configurator
   await page.goto('/raffrollo/yuna-9260', { waitUntil: 'load' });
   await page.waitForFunction(() => document.fonts.ready);
+  // ensure that the page has fully loaded by waiting for one of the last elements in network traffic
+  const lastlink = page.getByRole('link', { name: 'Impressum' });
+  await expect(lastlink).toBeVisible();
+  await expect(lastlink).toBeEnabled();
   await page.getByText(/Raffrollo auf Maß konfigurieren/).first().click();
 
 

@@ -3,6 +3,7 @@ import { ignoreFreshChat } from './helpers'
 import { expect, test } from '@playwright/test';
 import { argosScreenshot } from "@argos-ci/playwright";
 
+let scrollToBottom = require("scroll-to-bottomjs");
 
 const data =
 {
@@ -63,6 +64,9 @@ export async function checkOut(page) {
 
     //proceed to checkout 
     await page.getByText(/zur Kasse gehen/).first().click();
+    await page.waitForFunction(() => document.fonts.ready);
+    await page.evaluate(scrollToBottom);
+    await ignoreFreshChat(page);
 
 
     //----------------------- CHECK URL OF CHECKOUT ----------------------------//
@@ -216,6 +220,9 @@ export async function emptyCart(page) {
     // await page.waitForTimeout(2000);
     // click cart icon and delete articles  + take snapshots before and after
     await page.locator('.smallcartdiv').click();
+    await page.waitForFunction(() => document.fonts.ready);
+    await page.evaluate(scrollToBottom);
+    await ignoreFreshChat(page);
 
     //----------------------- CHECK URL OF CART --------------------------------//
     //--------------------------------------------------------------------------//
@@ -223,8 +230,6 @@ export async function emptyCart(page) {
     // check correct URL --> is cart loaded?
     await expect(page).toHaveURL(new RegExp('/checkout/cart'));
 
-    // ignore FreshChat
-    await ignoreFreshChat(page)
 
     // take argos screenshot full cart
     await argosScreenshot(page, 'checkout - Warenkorb leeren', {

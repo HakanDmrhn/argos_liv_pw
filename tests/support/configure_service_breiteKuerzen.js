@@ -1,3 +1,5 @@
+import { expect } from '@playwright/test';
+
 const data =
 {
   "bestellnummer": "200000001",
@@ -11,6 +13,10 @@ export async function configure_service_breiteKuerzen(page) {
 
   //load service page
   await page.goto('/aenderungsauftrag-breite', { waitUntil: 'load' });
+  // ensure that the page has fully loaded by waiting for one of the last elements in network traffic
+  const lastlink = page.getByRole('link', { name: 'Impressum' });
+  await expect(lastlink).toBeVisible();
+  await expect(lastlink).toBeEnabled();
   await page.waitForFunction(() => document.fonts.ready);
 
   // input of data
