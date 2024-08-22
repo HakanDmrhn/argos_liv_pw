@@ -15,7 +15,9 @@ test.describe('Integration test with visual testing - Vorhänge CMS Prio1 pages'
             await page.goto(link, { waitUntil: 'load' });
             await page.evaluate(scrollToBottom);
             await page.waitForFunction(() => document.fonts.ready);
-            await ignoreYoutube(page)
+            await ignoreFreshChat(page);
+            await ignoreYoutube(page);
+            await ignoreMenuContainer(page);
 
             // take argos screenshot
             await argosScreenshot(page, link, {
