@@ -80,6 +80,10 @@ test.describe('Integration test with visual testing - opened menus', function ()
 
         // go to tab 'Rollos'
         await page.locator("ol > li:nth-of-type(2) > a").click()
+        await page.evaluate(scrollToBottom);
+        await page.waitForFunction(() => document.fonts.ready);
+        await ignoreFreshChat(page);
+        await ignoreYoutube(page);
 
         await page.locator("#colors > a").hover()
 
@@ -145,6 +149,10 @@ test.describe('Integration test with visual testing - opened menus', function ()
 
         // go to tab 'Doppelrollo'
         await page.locator("li.nav-3 span").click()
+        await page.evaluate(scrollToBottom);
+        await page.waitForFunction(() => document.fonts.ready);
+        await ignoreFreshChat(page);
+        await ignoreYoutube(page);
         await page.locator("#colors > a").hover()
 
         // iterate through all menu images and check if visible before taking screenshot
@@ -299,6 +307,7 @@ test.describe('Integration test with visual testing - opened menus', function ()
         await page.locator("li.nav-7 span").click()
 
         await page.evaluate(scrollToBottom);
+        await page.waitForFunction(() => document.fonts.ready);
         await ignoreFreshChat(page);
         await ignoreYoutube(page);
 
