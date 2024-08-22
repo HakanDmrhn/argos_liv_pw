@@ -64,6 +64,7 @@ export async function checkOut(page) {
 
     //proceed to checkout 
     await page.getByText(/zur Kasse gehen/).first().click();
+    await page.waitForFunction(() => document.fonts.ready);
     await page.evaluate(scrollToBottom);
     await ignoreFreshChat(page);
 
@@ -219,8 +220,8 @@ export async function emptyCart(page) {
     // await page.waitForTimeout(2000);
     // click cart icon and delete articles  + take snapshots before and after
     await page.locator('.smallcartdiv').click();
-    await page.evaluate(scrollToBottom);
     await page.waitForFunction(() => document.fonts.ready);
+    await page.evaluate(scrollToBottom);
     await ignoreFreshChat(page);
 
     //----------------------- CHECK URL OF CART --------------------------------//
