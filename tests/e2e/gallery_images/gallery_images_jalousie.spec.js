@@ -20,6 +20,10 @@ test.describe('Integration test with visual testing - gallery images Jalousie-Ko
 
         // ******************* Jalousie 16mm *******************
         await page.locator('.blinds-type > ul > :nth-child(1)').click();
+        await page.evaluate(scrollToBottom);
+        await page.waitForFunction(() => document.fonts.ready);
+        await ignoreMenuContainer(page);
+        await ignoreFreshChat(page);
 
         // scroll the big image into view
         await page.locator('img#bigImage').scrollIntoViewIfNeeded();
