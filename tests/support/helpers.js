@@ -37,25 +37,33 @@ export async function ignoreMenuContainer(page) {
 
 export async function ignoreFreshChat(page) {
     try {
-        // Define a locator for the FreshChat iframe
+        console.log('Starting ignoreFreshChat function');
+
+        // Locate the FreshChat frame element
         const freshChat = page.locator('#fc_frame');
+        
+        // Wait for the FreshChat frame to be visible
+        await freshChat.waitFor();
+        console.log('FreshChat frame is visible');
 
-        // Wait for the iframe to be visible
-        await freshChat.waitFor({ state: 'visible' });
-
-        // Evaluate the page context to modify the iframe attribute
+        // Evaluate the page to set the attribute
         await page.evaluate(() => {
             const freshChatElement = document.querySelector('#fc_frame');
             if (freshChatElement) {
-                freshChatElement.setAttribute('data-visual-test', 'transparent'); // Set attribute to 'transparent'
+                freshChatElement.setAttribute('data-visual-test', 'transparent'); // You can choose between transparent, removed, blackout
+                console.log('FreshChat frame attribute set to "transparent"');
             } else {
-                console.warn('FreshChat element not found.');
+                console.warn('FreshChat frame element not found during evaluation');
             }
         });
+
     } catch (error) {
-        console.error('An error occurred while trying to ignore FreshChat:', error);
+        // Log the error and rethrow it if needed
+        console.error('An error occurred in ignoreFreshChat function', error);
+        throw error;
     }
 }
+
 
 
 // --------------------------------------------------------------------------------------------//
@@ -64,6 +72,8 @@ export async function ignoreFreshChat(page) {
 
 export async function ignoreYoutube(page) {
     try {
+        console.log('Starting ignoreYoutube function');
+        
         // Define a locator for YouTube video elements
         const youtubeLocator = page.locator('.video');
 
