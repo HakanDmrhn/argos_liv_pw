@@ -13,6 +13,7 @@ test.describe('Integration test with visual testing - image popups Raffrollo-Kon
         await page.waitForFunction(() => document.fonts.ready);
         await ignoreMenuContainer(page);
         await ignoreFreshChat(page);
+        await ignoreYoutube(page);
 
         await page.locator('#big-img').waitFor();
         await page.locator('#big-img').click();
