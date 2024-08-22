@@ -3,6 +3,7 @@ import { ignoreFreshChat } from './helpers'
 import { expect, test } from '@playwright/test';
 import { argosScreenshot } from "@argos-ci/playwright";
 
+let scrollToBottom = require("scroll-to-bottomjs");
 
 const data =
 {
