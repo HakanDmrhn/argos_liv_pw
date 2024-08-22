@@ -40,29 +40,37 @@ export async function ignoreFreshChat(page) {
         console.log('Starting ignoreFreshChat function');
 
         // Locate the FreshChat frame element
-        const freshChat = page.locator('#fc_frame');
-        
-        // Wait for the FreshChat frame to be visible
-        await freshChat.waitFor();
-        console.log('FreshChat frame is visible');
+        const freshChatLocator = page.locator('#fc_frame');
 
-        // Evaluate the page to set the attribute
-        await page.evaluate(() => {
-            const freshChatElement = document.querySelector('#fc_frame');
-            if (freshChatElement) {
-                freshChatElement.setAttribute('data-visual-test', 'transparent'); // You can choose between transparent, removed, blackout
-                console.log('FreshChat frame attribute set to "transparent"');
-            } else {
-                console.warn('FreshChat frame element not found during evaluation');
-            }
-        });
+        // Wait for the FreshChat frame to appear
+        await freshChatLocator.waitFor({ state: 'attached' });
 
+        // Check if exists
+        const exists = await freshChatLocator.count() > 0;
+        if (exists) {
+            console.log('FreshChat frame is visible');
+
+            // Evaluate the page to set the attribute
+            await page.evaluate(() => {
+                const freshChatElement = document.querySelector('#fc_frame');
+                if (freshChatElement) {
+                    freshChatElement.setAttribute('data-visual-test', 'transparent'); // You can choose between transparent, removed, blackout
+                    console.log('FreshChat frame attribute set to "transparent"');
+                } else {
+                    console.warn('FreshChat frame element not found during evaluation');
+                }
+            });
+
+        } else {
+            console.log('FreshChat frame not found on the page');
+        }
     } catch (error) {
         // Log the error and rethrow it if needed
         console.error('An error occurred in ignoreFreshChat function', error);
         throw error;
     }
 }
+
 
 
 
