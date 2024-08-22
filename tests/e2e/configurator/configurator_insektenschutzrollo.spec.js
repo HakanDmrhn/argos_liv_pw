@@ -1,5 +1,5 @@
 import { argosScreenshot } from "@argos-ci/playwright";
-import { test } from '@playwright/test';
+import { test, expect } from '@playwright/test';
 import { ignoreFreshChat, ignoreYoutube } from '../../support/helpers'
 
 let scrollToBottom = require("scroll-to-bottomjs");
