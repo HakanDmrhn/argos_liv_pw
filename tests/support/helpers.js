@@ -42,9 +42,6 @@ export async function ignoreFreshChat(page) {
         // Locate the FreshChat frame element
         const freshChatLocator = page.locator('#fc_frame');
 
-        // Wait for the FreshChat frame to appear
-        await freshChatLocator.waitFor({ state: 'attached' });
-
         // Check if exists
         const exists = await freshChatLocator.count() > 0;
         if (exists) {
@@ -54,22 +51,22 @@ export async function ignoreFreshChat(page) {
             await page.evaluate(() => {
                 const freshChatElement = document.querySelector('#fc_frame');
                 if (freshChatElement) {
-                    freshChatElement.setAttribute('data-visual-test', 'transparent'); // You can choose between transparent, removed, blackout
+                    // Set attribute for visual test
+                    freshChatElement.setAttribute('data-visual-test', 'transparent'); // Options: 'transparent', 'removed', 'blackout'
                     console.log('FreshChat frame attribute set to "transparent"');
                 } else {
                     console.warn('FreshChat frame element not found during evaluation');
                 }
             });
-
         } else {
             console.log('FreshChat frame not found on the page');
         }
     } catch (error) {
-        // Log the error and rethrow it if needed
-        console.error('An error occurred in ignoreFreshChat function', error);
+        console.error('An error occurred in ignoreFreshChat function:', error);
         throw error;
     }
 }
+
 
 
 
