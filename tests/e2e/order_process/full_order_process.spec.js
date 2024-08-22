@@ -23,7 +23,7 @@ import { configure_service_laengereSchnur } from "../../support/configure_servic
 
 test.describe('Integration test with visual testing - order process incl. all product groups', function () {
 
-  test('pdp2checkout: configure products and go 2 checkout', async function ({ page }) {
+  test('pdp2checkout: configure products and go to checkout', async function ({ page }) {
 
     test.setTimeout(4 * 60 * 1000);  // set test timeout to 4 minutes as this test is a little bit long
 
