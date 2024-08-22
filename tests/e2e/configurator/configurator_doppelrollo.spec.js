@@ -2,6 +2,7 @@ import { argosScreenshot } from "@argos-ci/playwright";
 import { test, expect } from '@playwright/test';
 import { ignoreFreshChat, ignoreYoutube, ignoreMenuContainer } from '../../support/helpers';
 
+
 let scrollToBottom = require("scroll-to-bottomjs");
 
 test.describe('Integration test with visual testing - doppelrollo configurator', function () {
@@ -11,18 +12,14 @@ test.describe('Integration test with visual testing - doppelrollo configurator',
         await page.goto('/doppelrollo/doppelrollo-konfigurator', { waitUntil: 'load' });
         await page.evaluate(scrollToBottom);
         await page.waitForFunction(() => document.fonts.ready);
-        await ignoreFreshChat(page);
-        await ignoreYoutube(page);
         await ignoreMenuContainer(page);
-   
-    });
+        await ignoreFreshChat(page);
 
+    });
 
     test('Doppelrollo Mini zum Klemmen', async function ({ page }) {
 
         // ******************* Doppelrollo Mini zum Klemmen *******************
-        await page.locator('#type-selector-top > ul > :nth-child(1)').click();
-        await ignoreMenuContainer(page);
 
         // take argos screenshot
         await argosScreenshot(page, 'Doppelrollo mini zum Klemmen', {
@@ -34,7 +31,6 @@ test.describe('Integration test with visual testing - doppelrollo configurator',
 
         // ******************* Doppelrollo-Farbe & Eigenschaften wählen *******************
         await page.locator('.configurator-button-subsection').click();
-        await ignoreMenuContainer(page);
         // take argos screenshot
         await argosScreenshot(page, 'Doppelrollo - mini - Stoff ändern', {
             viewports: [
@@ -129,7 +125,9 @@ test.describe('Integration test with visual testing - doppelrollo configurator',
 
         // ******************* Doppelrollo Mini mit Kassette zum Kleben *******************
         await page.locator('#type-selector-top > ul > :nth-child(2)').click();
-        await ignoreMenuContainer(page);
+
+        await page.evaluate(scrollToBottom);
+        await ignoreMenuContainer(page)
 
         // take argos screenshot
         await argosScreenshot(page, 'Doppelrollo mini mit Kassette zum Kleben', {
@@ -140,13 +138,14 @@ test.describe('Integration test with visual testing - doppelrollo configurator',
         });
     });
 
-
     test('Doppelrollo ohne Kassette', async function ({ page }) {
 
         // ******************* Doppelrollo ohne Kassette *******************
         await page.locator('#type-selector-top > ul > :nth-child(3)').click();
-        await ignoreMenuContainer(page);
 
+        await page.evaluate(scrollToBottom);
+        await page.waitForFunction(() => document.fonts.ready);
+        await ignoreMenuContainer(page)
 
         // take argos screenshot
         await argosScreenshot(page, 'Doppelrollo ohne Kassette', {
@@ -244,7 +243,9 @@ test.describe('Integration test with visual testing - doppelrollo configurator',
 
         // ******************* Doppelrollo mit Kassette *******************
         await page.locator('#type-selector-top > ul > :nth-child(4)').click();
-        await ignoreMenuContainer(page);
+
+        await page.evaluate(scrollToBottom);
+        await ignoreMenuContainer(page)
 
         // take argos screenshot
         await argosScreenshot(page, 'Doppelrollo - mit Kassette', {
