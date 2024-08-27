@@ -1,6 +1,6 @@
 import { argosScreenshot } from "@argos-ci/playwright";
 import { test, expect } from '@playwright/test';
-import { ignoreFreshChat, ignoreYoutube, ignoreMenuContainer } from '../../support/helpers';
+import { ignoreFreshChat, ignoreYoutube, ignoreMenuContainer, checkButtonAvailability } from '../../support/helpers';
 
 
 let scrollToBottom = require("scroll-to-bottomjs");
@@ -12,6 +12,7 @@ test.describe('Integration test with visual testing - doppelrollo configurator',
         await page.goto('/doppelrollo/doppelrollo-konfigurator', { waitUntil: 'load' });
         await page.evaluate(scrollToBottom);
         await page.waitForFunction(() => document.fonts.ready);
+        await checkButtonAvailability(page);
         await ignoreMenuContainer(page);
         await ignoreFreshChat(page);
 
