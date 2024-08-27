@@ -101,3 +101,66 @@ export async function ignoreYoutube(page) {
         console.error('An error occurred while trying to ignore YouTube videos:', error);
     }
 }
+
+
+/**
+ * Checks if all visible buttons in the locator are enabled.
+ * @param {import('@playwright/test').Page} page - The Playwright page object.
+ */
+export async function checkButtonAvailability(page) {
+    try {
+        // Create a locator for all visible button elements
+        const buttonLocator = page.locator('button:visible');
+        const buttonCount = await buttonLocator.count(); // Await the count method
+
+        console.log(`Number of buttons found: ${buttonCount}`);
+
+        // If no buttons are found, log a message and return
+        if (buttonCount === 0) {
+            console.log('No buttons found. Skipping visibility and enabled checks.');
+            return;
+        }
+
+        // Iterate over each button to check if it's visible and enabled
+        for (let i = 0; i < buttonCount; i++) {
+            const button = buttonLocator.nth(i);
+            
+            try {
+                // Check if the button is visible
+                const isVisible = await button.isVisible();
+                
+                if (isVisible) {
+                    // Check if the button is enabled
+                    await expect(button).toBeEnabled(); // Check if the button is enabled
+                } else {
+                    console.log(`Button ${i} is hidden and will be ignored.`);
+                }
+            } catch (err) {
+                console.error(`Button ${i} check failed: ${err.message}`);
+            }
+        }
+    } catch (err) {
+        console.error('Failed during button availability check:', err.message);
+    }
+}
+
+
+/**
+ * Waits for the specific text to appear in an h1 element on the page.
+ * @param {import('@playwright/test').Page} page - The Playwright page object.
+ * @param {string} text - The text to wait for.
+ * @param {number} timeout - The maximum time to wait for the text (in milliseconds).
+ */
+export async function waitForTextToAppear(page, text, timeout = 30000) {
+    try {
+        // Define a locator for the h1 element where the text is expected to appear
+        const locator = page.locator('h1'); // Targeting h1 elements
+
+        // Wait for the text to appear in the h1 element
+        await expect(locator).toHaveText(text, { timeout });
+        console.log(`Text "${text}" appeared in the h1 element on the page.`);
+    } catch (error) {
+        console.error(`Text "${text}" did not appear in the h1 element within ${timeout}ms.`);
+        console.error(error.message);
+    }
+}

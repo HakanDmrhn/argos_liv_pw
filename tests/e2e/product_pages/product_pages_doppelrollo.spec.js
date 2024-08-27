@@ -1,6 +1,6 @@
 import { argosScreenshot } from "@argos-ci/playwright";
 import { test } from '@playwright/test';
-import { ignoreFreshChat, ignoreYoutube } from '../../support/helpers';
+import { ignoreFreshChat, ignoreYoutube, checkButtonAvailability } from '../../support/helpers';
 var data = require("../../fixtures/product_pages_doppelrollo.json");
 var pages = data.URLS;
 let scrollToBottom = require("scroll-to-bottomjs");
@@ -15,6 +15,7 @@ test.describe('Integration test with visual testing - Doppelrollo product pages'
             await page.goto(link, { waitUntil: 'load' });
             await page.evaluate(scrollToBottom);
             await page.waitForFunction(() => document.fonts.ready);
+            await checkButtonAvailability(page);
             await ignoreFreshChat(page);
             await ignoreYoutube(page)
 
