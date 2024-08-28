@@ -22,6 +22,7 @@ test.describe('Integration test with visual testing - doppelrollo configurator',
         await page.evaluate(scrollToBottom);
         await checkButtonAvailability(page);
         await ignoreMenuContainer(page);
+        await ignoreFreshChat(page);
 
         // take argos screenshot
         await argosScreenshot(page, 'Doppelrollo mini zum Klemmen', {
@@ -133,6 +134,7 @@ test.describe('Integration test with visual testing - doppelrollo configurator',
         await page.evaluate(scrollToBottom);
         await checkButtonAvailability(page);
         await ignoreMenuContainer(page);
+        await ignoreFreshChat(page);
 
         // take argos screenshot
         await argosScreenshot(page, 'Doppelrollo mini mit Kassette zum Kleben', {
@@ -152,6 +154,7 @@ test.describe('Integration test with visual testing - doppelrollo configurator',
         await page.evaluate(scrollToBottom);
         await checkButtonAvailability(page);
         await ignoreMenuContainer(page);
+        await ignoreFreshChat(page);
 
         // take argos screenshot
         await argosScreenshot(page, 'Doppelrollo ohne Kassette', {
@@ -254,6 +257,7 @@ test.describe('Integration test with visual testing - doppelrollo configurator',
         await page.evaluate(scrollToBottom);
         await checkButtonAvailability(page);
         await ignoreMenuContainer(page);
+        await ignoreFreshChat(page);
 
         // take argos screenshot
         await argosScreenshot(page, 'Doppelrollo - mit Kassette', {
