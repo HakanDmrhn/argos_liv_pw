@@ -10,20 +10,16 @@ test.describe('Integration test with visual testing - doppelrollo configurator',
     test.beforeEach(async function ({ page }) {
 
         await page.goto('/doppelrollo/doppelrollo-konfigurator', { waitUntil: 'load' });
-        await page.evaluate(scrollToBottom);
-        await page.waitForFunction(() => document.fonts.ready);
-        await checkButtonAvailability(page);
-        await ignoreMenuContainer(page);
-        await ignoreFreshChat(page);
 
     });
+
 
     test('Doppelrollo Mini zum Klemmen', async function ({ page }) {
 
         // ******************* Doppelrollo Mini zum Klemmen *******************
 
-        await page.evaluate(scrollToBottom);
         await page.waitForFunction(() => document.fonts.ready);
+        await page.evaluate(scrollToBottom);
         await checkButtonAvailability(page);
         await ignoreMenuContainer(page);
 
@@ -128,13 +124,13 @@ test.describe('Integration test with visual testing - doppelrollo configurator',
 
     });
 
+
     test('Doppelrollo Mini mit Kassette zum Kleben', async function ({ page }) {
 
         // ******************* Doppelrollo Mini mit Kassette zum Kleben *******************
         await page.locator('#type-selector-top > ul > :nth-child(2)').click();
-
-        await page.evaluate(scrollToBottom);
         await page.waitForFunction(() => document.fonts.ready);
+        await page.evaluate(scrollToBottom);
         await checkButtonAvailability(page);
         await ignoreMenuContainer(page);
 
@@ -147,13 +143,13 @@ test.describe('Integration test with visual testing - doppelrollo configurator',
         });
     });
 
+
     test('Doppelrollo ohne Kassette', async function ({ page }) {
 
         // ******************* Doppelrollo ohne Kassette *******************
         await page.locator('#type-selector-top > ul > :nth-child(3)').click();
-
-        await page.evaluate(scrollToBottom);
         await page.waitForFunction(() => document.fonts.ready);
+        await page.evaluate(scrollToBottom);
         await checkButtonAvailability(page);
         await ignoreMenuContainer(page);
 
@@ -249,13 +245,13 @@ test.describe('Integration test with visual testing - doppelrollo configurator',
         });
     });
 
+
     test('Doppelrollo mit Kassette', async function ({ page }) {
 
         // ******************* Doppelrollo mit Kassette *******************
         await page.locator('#type-selector-top > ul > :nth-child(4)').click();
-
-        await page.evaluate(scrollToBottom);
         await page.waitForFunction(() => document.fonts.ready);
+        await page.evaluate(scrollToBottom);
         await checkButtonAvailability(page);
         await ignoreMenuContainer(page);
 
