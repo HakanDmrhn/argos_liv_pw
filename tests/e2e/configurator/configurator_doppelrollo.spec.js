@@ -22,6 +22,11 @@ test.describe('Integration test with visual testing - doppelrollo configurator',
 
         // ******************* Doppelrollo Mini zum Klemmen *******************
 
+        await page.evaluate(scrollToBottom);
+        await page.waitForFunction(() => document.fonts.ready);
+        await checkButtonAvailability(page);
+        await ignoreMenuContainer(page);
+
         // take argos screenshot
         await argosScreenshot(page, 'Doppelrollo mini zum Klemmen', {
             viewports: [
@@ -32,6 +37,7 @@ test.describe('Integration test with visual testing - doppelrollo configurator',
 
         // ******************* Doppelrollo-Farbe & Eigenschaften wählen *******************
         await page.locator('.configurator-button-subsection').click();
+
         // take argos screenshot
         await argosScreenshot(page, 'Doppelrollo - mini - Stoff ändern', {
             viewports: [
@@ -128,7 +134,9 @@ test.describe('Integration test with visual testing - doppelrollo configurator',
         await page.locator('#type-selector-top > ul > :nth-child(2)').click();
 
         await page.evaluate(scrollToBottom);
-        await ignoreMenuContainer(page)
+        await page.waitForFunction(() => document.fonts.ready);
+        await checkButtonAvailability(page);
+        await ignoreMenuContainer(page);
 
         // take argos screenshot
         await argosScreenshot(page, 'Doppelrollo mini mit Kassette zum Kleben', {
@@ -146,7 +154,8 @@ test.describe('Integration test with visual testing - doppelrollo configurator',
 
         await page.evaluate(scrollToBottom);
         await page.waitForFunction(() => document.fonts.ready);
-        await ignoreMenuContainer(page)
+        await checkButtonAvailability(page);
+        await ignoreMenuContainer(page);
 
         // take argos screenshot
         await argosScreenshot(page, 'Doppelrollo ohne Kassette', {
@@ -246,7 +255,9 @@ test.describe('Integration test with visual testing - doppelrollo configurator',
         await page.locator('#type-selector-top > ul > :nth-child(4)').click();
 
         await page.evaluate(scrollToBottom);
-        await ignoreMenuContainer(page)
+        await page.waitForFunction(() => document.fonts.ready);
+        await checkButtonAvailability(page);
+        await ignoreMenuContainer(page);
 
         // take argos screenshot
         await argosScreenshot(page, 'Doppelrollo - mit Kassette', {
