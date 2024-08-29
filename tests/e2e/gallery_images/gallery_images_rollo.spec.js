@@ -51,10 +51,12 @@ test.describe('Integration test with visual testing - image popups Rollo-Konfigu
     test('argos snapshots of rollo picture galleries - Konfigurator', async function ({ page }) {
 
         await page.goto('/rollo/rollo-konfigurator');
-        await page.evaluate(scrollToBottom);
         await page.waitForFunction(() => document.fonts.ready);
+        await page.evaluate(scrollToBottom);
+        await checkButtonAvailability(page);
         await ignoreMenuContainer(page);
         await ignoreFreshChat(page);
+        await ignoreYoutube(page);
 
         // scroll the big image into view
         await page.locator('div[class="box"]').scrollIntoViewIfNeeded();

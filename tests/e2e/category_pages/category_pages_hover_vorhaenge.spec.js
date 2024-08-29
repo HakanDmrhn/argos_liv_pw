@@ -55,8 +55,12 @@ test.describe('Integration test with visual testing - hover on vorhaenge categor
 
         // load category page
         await page.goto('/vorhaenge-kinderzimmer');
+        await page.waitForFunction(() => document.fonts.ready);
         await page.evaluate(scrollToBottom);
+        await checkButtonAvailability(page);
+        await ignoreMenuContainer(page);
         await ignoreFreshChat(page);
+        await ignoreYoutube(page);
 
 
         //------------------------------------- TOOLTIP -----------------------------------//
@@ -66,10 +70,10 @@ test.describe('Integration test with visual testing - hover on vorhaenge categor
 
         await lavelloVorhang.scrollIntoViewIfNeeded()
 
-        await lavelloVorhang.locator('..').locator('.item__colors > label>>nth=8').click() // ACHTUNG: Position der gewünschten Farbe Rose kann sich ändern
+        await lavelloVorhang.locator('..').locator('.item__colors > label>>nth=8').click() // ACHTUNG: Position der gewünschten Farbe  kann sich ändern
 
         // take argos screenshot of tooltip
-        await argosScreenshot(page, 'hover - Lavello Vorhang Rose', {
+        await argosScreenshot(page, 'hover - Lavello Vorhang Grün', {
             fullPage: false,
             disableHover: false
         });
@@ -79,7 +83,7 @@ test.describe('Integration test with visual testing - hover on vorhaenge categor
         //------------------------------------- TOOLTIP -----------------------------------//
         //------------------------------ Bovino Vorhang Hellgelb ---------------------------//
 
-        const bovinoVorhang = page.getByRole('link', { name: "Bovino Vorhang Grün" });
+        const bovinoVorhang = page.getByRole('link', { name: "Bovino Vorhang Hellgelb" });
 
         await bovinoVorhang.scrollIntoViewIfNeeded()
 
