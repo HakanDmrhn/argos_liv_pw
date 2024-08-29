@@ -1,3 +1,5 @@
+import { ignoreFreshChat, ignoreYoutube, ignoreMenuContainer, checkButtonAvailability } from '../../support/helpers';
+
 import { expect } from '@playwright/test';
 
 export async function configure_zubehoer_rollo(page) {

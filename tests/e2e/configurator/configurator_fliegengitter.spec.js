@@ -1,6 +1,6 @@
 import { argosScreenshot } from "@argos-ci/playwright";
 import { test, expect } from '@playwright/test';
-import { ignoreFreshChat, ignoreYoutube, ignoreMenuContainer } from '../../support/helpers';
+import { ignoreFreshChat, ignoreYoutube, ignoreMenuContainer, checkButtonAvailability } from '../../support/helpers';
 
 let scrollToBottom = require("scroll-to-bottomjs");
 
@@ -11,11 +11,11 @@ test.describe('Integration test with visual testing - Fliegengitter configurator
 
         // ******************* Fliegengitter - Farbe Weiß *******************
         await page.goto("/insektenschutz/fliegengitter", { waitUntil: 'load' });
-        await page.evaluate(scrollToBottom);
         await page.waitForFunction(() => document.fonts.ready);
+        await page.evaluate(scrollToBottom);
+        await checkButtonAvailability(page);
         await ignoreMenuContainer(page);
         await ignoreFreshChat(page);
-        await ignoreYoutube(page);
 
         // ensure that the page has fully loaded by waiting for one of the last elements in network traffic
         const lastlink = page.getByRole('link', { name: 'Impressum' });
