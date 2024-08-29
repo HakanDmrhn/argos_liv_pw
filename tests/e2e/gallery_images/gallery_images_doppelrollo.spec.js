@@ -10,10 +10,12 @@ test.describe('Integration test with visual testing - image popups Doppelrollo-K
     test('argos snapshots of doppelrollo gallery images - PDP', async function ({ page }) {
 
         await page.goto('/doppelrollo/remsa-5067', { waitUntil: 'load' });
-        await page.evaluate(scrollToBottom);
         await page.waitForFunction(() => document.fonts.ready);
+        await page.evaluate(scrollToBottom);
+        await checkButtonAvailability(page);
         await ignoreMenuContainer(page);
         await ignoreFreshChat(page);
+        await ignoreYoutube(page);
 
         await page.locator('#big-img').waitFor();
         await page.locator('#big-img').click();

@@ -23,6 +23,7 @@ test.describe('Integration test with visual testing - doppelrollo configurator',
         await checkButtonAvailability(page);
         await ignoreMenuContainer(page);
         await ignoreFreshChat(page);
+        await ignoreYoutube(page);
 
         // take argos screenshot
         await argosScreenshot(page, 'Doppelrollo mini zum Klemmen', {

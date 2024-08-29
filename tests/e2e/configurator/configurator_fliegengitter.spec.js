@@ -16,6 +16,7 @@ test.describe('Integration test with visual testing - Fliegengitter configurator
         await checkButtonAvailability(page);
         await ignoreMenuContainer(page);
         await ignoreFreshChat(page);
+        await ignoreYoutube(page);
 
         // ensure that the page has fully loaded by waiting for one of the last elements in network traffic
         const lastlink = page.getByRole('link', { name: 'Impressum' });
