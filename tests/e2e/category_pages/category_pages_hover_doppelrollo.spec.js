@@ -10,11 +10,12 @@ test.describe('Integration test with visual testing - hover on doppelrollo categ
 
         // load category page
         await page.goto('/doppelrollo/doppelrollo-grau', { waitUntil: 'load' });
-        await page.evaluate(scrollToBottom);
         await page.waitForFunction(() => document.fonts.ready);
+        await page.evaluate(scrollToBottom);
+        await checkButtonAvailability(page);
+        await ignoreMenuContainer(page);
         await ignoreFreshChat(page);
         await ignoreYoutube(page);
-        await ignoreMenuContainer(page);
 
 
         //------------------------------------- TOOLTIP -----------------------------------//

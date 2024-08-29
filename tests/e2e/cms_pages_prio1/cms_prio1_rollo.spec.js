@@ -13,11 +13,12 @@ test.describe('Integration test with visual testing - Rollo CMS Prio1 pages', fu
         test('Load page: ' + link + ' & take argos snapshot', async function ({ page }) {
 
             await page.goto(link, { waitUntil: 'load' });
-            await page.evaluate(scrollToBottom);
             await page.waitForFunction(() => document.fonts.ready);
+            await page.evaluate(scrollToBottom);
+            await checkButtonAvailability(page);
+            await ignoreMenuContainer(page);
             await ignoreFreshChat(page);
             await ignoreYoutube(page);
-            await ignoreMenuContainer(page);
 
             // take argos screenshot
             await argosScreenshot(page, link, {
