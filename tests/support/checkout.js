@@ -1,7 +1,8 @@
 
-import { ignoreFreshChat, ignoreYoutube, ignoreMenuContainer, checkButtonAvailability } from '../../support/helpers';
 import { expect, test } from '@playwright/test';
 import { argosScreenshot } from "@argos-ci/playwright";
+import { ignoreFreshChat, ignoreYoutube, ignoreMenuContainer, checkButtonAvailability } from '../support/helpers';
+
 
 let scrollToBottom = require("scroll-to-bottomjs");
 
