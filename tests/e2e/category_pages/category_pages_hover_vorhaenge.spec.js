@@ -81,16 +81,16 @@ test.describe('Integration test with visual testing - hover on vorhaenge categor
 
 
         //------------------------------------- TOOLTIP -----------------------------------//
-        //------------------------------ Bovino Vorhang Hellgelb ---------------------------//
+        //------------------------------ Bovino Vorhang Grün ---------------------------//
 
-        const bovinoVorhang = page.getByRole('link', { name: "Bovino Vorhang Hellgelb" });
+        const bovinoVorhang = page.getByRole('link', { name: "Bovino Vorhang Grün" });
 
         await bovinoVorhang.scrollIntoViewIfNeeded()
 
         await bovinoVorhang.locator('..').locator('.item__colors > label>>nth=3').click() // ACHTUNG: Position der gewünschten Farbe Hellgelb kann sich ändern
 
         // take argos screenshot of tooltip
-        await argosScreenshot(page, 'hover - Bovino Vorhang Hellgelb', {
+        await argosScreenshot(page, 'hover - Bovino Vorhang Grün', {
             fullPage: false,
             disableHover: false
         });
