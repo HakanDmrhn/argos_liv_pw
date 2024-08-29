@@ -1,6 +1,6 @@
 import { argosScreenshot } from "@argos-ci/playwright";
 import { test, expect } from '@playwright/test';
-import { ignoreFreshChat, ignoreYoutube, ignoreMenuContainer } from '../../support/helpers';
+import { ignoreFreshChat, ignoreYoutube, ignoreMenuContainer, checkButtonAvailability } from '../../support/helpers';
 
 let scrollToBottom = require("scroll-to-bottomjs");
 
@@ -9,11 +9,6 @@ test.describe('Integration test with visual testing - jalousie configurator', fu
     test.beforeEach(async function ({ page }) {
 
         await page.goto('/jalousie/holz-jalousie-konfigurator', { waitUntil: 'load' });
-        await page.evaluate(scrollToBottom);
-        await page.waitForFunction(() => document.fonts.ready);
-        await ignoreMenuContainer(page);
-        await ignoreFreshChat(page);
-        await ignoreYoutube(page);
 
         // ensure that the page has fully loaded by waiting for one of the last elements in network traffic
         const lastlink = page.getByRole('link', { name: 'Impressum' });
@@ -25,8 +20,9 @@ test.describe('Integration test with visual testing - jalousie configurator', fu
 
         // ******************* Holzjalousie 25mm *******************
         await page.locator('.blinds-type > ul > :nth-child(1)').click();
-
+        await page.waitForFunction(() => document.fonts.ready);
         await page.evaluate(scrollToBottom);
+        await checkButtonAvailability(page);
         await ignoreMenuContainer(page);
         await ignoreFreshChat(page);
 
@@ -88,10 +84,12 @@ test.describe('Integration test with visual testing - jalousie configurator', fu
 
         // ******************* Holzjalousie - 50mm *******************
         await page.locator('.blinds-type > ul > :nth-child(2)').click();
-
+        await page.waitForFunction(() => document.fonts.ready);
         await page.evaluate(scrollToBottom);
+        await checkButtonAvailability(page);
         await ignoreMenuContainer(page);
         await ignoreFreshChat(page);
+
 
         // take argos screenshot
         await argosScreenshot(page, 'Holzjalousie - 50mm', {
@@ -132,8 +130,9 @@ test.describe('Integration test with visual testing - jalousie configurator', fu
 
         // ******************* Holzjalousie 70mm *******************
         await page.locator('.blinds-type > ul > :nth-child(3)').click();
-
+        await page.waitForFunction(() => document.fonts.ready);
         await page.evaluate(scrollToBottom);
+        await checkButtonAvailability(page);
         await ignoreMenuContainer(page);
         await ignoreFreshChat(page);
 

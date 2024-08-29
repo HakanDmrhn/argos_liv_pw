@@ -1,3 +1,5 @@
+import { ignoreFreshChat, ignoreYoutube, ignoreMenuContainer, checkButtonAvailability } from '../support/helpers';
+
 
 export async function configure_muster(page) {
 

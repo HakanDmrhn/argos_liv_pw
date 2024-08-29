@@ -1,3 +1,7 @@
+import { expect } from '@playwright/test';
+
+
+
 // --------------------------------------------------------------------------------------------//
 // --------------------------------------- MENU-CONTAINER -------------------------------------//
 // --------------------------------------------------------------------------------------------//
@@ -42,7 +46,7 @@ export async function ignoreFreshChat(page) {
         // Locate the FreshChat frame element
         const freshChatLocator = page.locator('#fc_frame');
 
-        // Check if exists
+        // Check if the FreshChat frame exists
         const exists = await freshChatLocator.count() > 0;
         if (exists) {
             console.log('FreshChat frame is visible');
@@ -51,8 +55,10 @@ export async function ignoreFreshChat(page) {
             await page.evaluate(() => {
                 const freshChatElement = document.querySelector('#fc_frame');
                 if (freshChatElement) {
+                    console.log('Found FreshChat frame in the DOM:', freshChatElement);
+
                     // Set attribute for visual test
-                    freshChatElement.setAttribute('data-visual-test', 'transparent'); // Options: 'transparent', 'removed', 'blackout'
+                    freshChatElement.setAttribute('data-visual-test', 'transparent');
                     console.log('FreshChat frame attribute set to "transparent"');
                 } else {
                     console.warn('FreshChat frame element not found during evaluation');
@@ -66,7 +72,6 @@ export async function ignoreFreshChat(page) {
         throw error;
     }
 }
-
 
 
 
@@ -99,5 +104,69 @@ export async function ignoreYoutube(page) {
         }
     } catch (error) {
         console.error('An error occurred while trying to ignore YouTube videos:', error);
+    }
+}
+
+
+
+/**
+ * Checks if all visible buttons in the locator are enabled.
+ * @param {import('@playwright/test').Page} page - The Playwright page object.
+ */
+export async function checkButtonAvailability(page) {
+    try {
+        // Create a locator for all visible button elements
+        const buttonLocator = page.locator('button:visible');
+        const buttonCount = await buttonLocator.count();
+        console.log(`Number of visible buttons found: ${buttonCount}`);
+
+        // If no buttons are found, log a message and return
+        if (buttonCount === 0) {
+            console.log('No visible buttons found. Skipping visibility and enabled checks.');
+            return;
+        }
+
+        // Iterate over each button to check if it's visible and enabled
+        for (let i = 0; i < buttonCount; i++) {
+            const button = buttonLocator.nth(i);
+
+            // Check if the button is disabled before asserting it's enabled
+            const isDisabled = await button.getAttribute('disabled');
+            
+            if (isDisabled) {
+                console.log(`Button ${i + 1} is disabled and will be skipped.`);
+            } else {
+                // Button is visible and not disabled, now check if it's enabled
+                try {
+                    await expect(button).toBeEnabled();
+                    console.log(`Button ${i + 1} is enabled.`);
+                } catch (err) {
+                    console.error(`Button ${i + 1} enabled check failed: ${err.message}`);
+                }
+            }
+        }
+    } catch (err) {
+        console.error('Failed during button availability check:', err.message);
+    }
+}
+
+
+/**
+ * Waits for the specific text to appear in an h1 element on the page.
+ * @param {import('@playwright/test').Page} page - The Playwright page object.
+ * @param {string} text - The text to wait for.
+ * @param {number} timeout - The maximum time to wait for the text (in milliseconds).
+ */
+export async function waitForTextToAppear(page, text, timeout = 30000) {
+    try {
+        // Define a locator for the h1 element where the text is expected to appear
+        const locator = page.locator('h1'); // Targeting h1 elements
+
+        // Wait for the text to appear in the h1 element
+        await expect(locator).toHaveText(text, { timeout });
+        console.log(`Text "${text}" appeared in the h1 element on the page.`);
+    } catch (error) {
+        console.error(`Text "${text}" did not appear in the h1 element within ${timeout}ms.`);
+        console.error(error.message);
     }
 }

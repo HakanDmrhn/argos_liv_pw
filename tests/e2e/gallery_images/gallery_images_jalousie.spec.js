@@ -1,6 +1,6 @@
 import { argosScreenshot } from "@argos-ci/playwright";
 import { test, expect } from '@playwright/test';
-import { ignoreFreshChat, ignoreYoutube, ignoreMenuContainer } from '../../support/helpers';
+import { ignoreFreshChat, ignoreYoutube, ignoreMenuContainer, checkButtonAvailability } from '../../support/helpers';
 
 let scrollToBottom = require("scroll-to-bottomjs");
 
@@ -10,10 +10,12 @@ test.describe('Integration test with visual testing - gallery images Jalousie-Ko
     test.beforeEach(async function ({ page }) {
 
         await page.goto('/jalousie/jalousie-konfigurator', { waitUntil: 'load' });
-        await page.evaluate(scrollToBottom);
         await page.waitForFunction(() => document.fonts.ready);
+        await page.evaluate(scrollToBottom);
+        await checkButtonAvailability(page);
         await ignoreMenuContainer(page);
         await ignoreFreshChat(page);
+        await ignoreYoutube(page);
     });
 
     test('argos snapshots of product picture galleries - jalousie 16 mm', async function ({ page }) {

@@ -1,6 +1,6 @@
 import { test } from '@playwright/test';
 import { argosScreenshot } from "@argos-ci/playwright";
-import { ignoreFreshChat, ignoreYoutube } from '../../support/helpers'
+import { ignoreFreshChat, ignoreYoutube, ignoreMenuContainer, checkButtonAvailability } from '../../support/helpers';
 let scrollToBottom = require("scroll-to-bottomjs");
 
 
@@ -11,8 +11,10 @@ test.describe('Integration test with visual testing - opened menus', function ()
 
         // load main page
         await page.goto('/', { waitUntil: 'load' });
-        await page.evaluate(scrollToBottom);
         await page.waitForFunction(() => document.fonts.ready);
+        await page.evaluate(scrollToBottom);
+        await checkButtonAvailability(page);
+        await ignoreMenuContainer(page);
         await ignoreFreshChat(page);
         await ignoreYoutube(page);
 
@@ -73,8 +75,10 @@ test.describe('Integration test with visual testing - opened menus', function ()
 
         // load main page
         await page.goto('/', { waitUntil: 'load' });
-        await page.evaluate(scrollToBottom);
         await page.waitForFunction(() => document.fonts.ready);
+        await page.evaluate(scrollToBottom);
+        await checkButtonAvailability(page);
+        await ignoreMenuContainer(page);
         await ignoreFreshChat(page);
         await ignoreYoutube(page);
 
@@ -142,8 +146,10 @@ test.describe('Integration test with visual testing - opened menus', function ()
 
         // load main page
         await page.goto('/', { waitUntil: 'load' });
-        await page.evaluate(scrollToBottom);
         await page.waitForFunction(() => document.fonts.ready);
+        await page.evaluate(scrollToBottom);
+        await checkButtonAvailability(page);
+        await ignoreMenuContainer(page);
         await ignoreFreshChat(page);
         await ignoreYoutube(page);
 
@@ -171,8 +177,10 @@ test.describe('Integration test with visual testing - opened menus', function ()
 
         // load main page
         await page.goto('/', { waitUntil: 'load' });
-        await page.evaluate(scrollToBottom);
         await page.waitForFunction(() => document.fonts.ready);
+        await page.evaluate(scrollToBottom);
+        await checkButtonAvailability(page);
+        await ignoreMenuContainer(page);
         await ignoreFreshChat(page);
         await ignoreYoutube(page);
 
@@ -302,6 +310,11 @@ test.describe('Integration test with visual testing - opened menus', function ()
         // load main page
         await page.goto('/', { waitUntil: 'load' });
         await page.waitForFunction(() => document.fonts.ready);
+        await page.evaluate(scrollToBottom);
+        await checkButtonAvailability(page);
+        await ignoreMenuContainer(page);
+        await ignoreFreshChat(page);
+        await ignoreYoutube(page);
 
         // go to tab 'Schiebegardinen'
         await page.locator("li.nav-7 span").click()
@@ -342,6 +355,11 @@ test.describe('Integration test with visual testing - opened menus', function ()
         // load main page
         await page.goto('/', { waitUntil: 'load' });
         await page.waitForFunction(() => document.fonts.ready);
+        await page.evaluate(scrollToBottom);
+        await checkButtonAvailability(page);
+        await ignoreMenuContainer(page);
+        await ignoreFreshChat(page);
+        await ignoreYoutube(page);
 
         // go to tab 'Raffrollos'
         await page.locator("ol > li:nth-of-type(8) span").click()

@@ -1,6 +1,6 @@
 import { argosScreenshot } from "@argos-ci/playwright";
 import { test } from '@playwright/test';
-import { ignoreFreshChat, ignoreYoutube } from '../../support/helpers';
+import { ignoreFreshChat, ignoreYoutube, ignoreMenuContainer, checkButtonAvailability } from '../../support/helpers';
 var data = require("../../fixtures/product_pages_service.json");
 var pages = data.URLS;
 let scrollToBottom = require("scroll-to-bottomjs");
@@ -13,10 +13,12 @@ test.describe('Integration test with visual testing - Service product pages', fu
         test('Load page: ' + link + ' & take argos snapshot', async function ({ page }) {
 
             await page.goto(link, { waitUntil: 'load' });
-            await page.evaluate(scrollToBottom);
             await page.waitForFunction(() => document.fonts.ready);
+            await page.evaluate(scrollToBottom);
+            await checkButtonAvailability(page);
+            await ignoreMenuContainer(page);
             await ignoreFreshChat(page);
-            await ignoreYoutube(page)
+            await ignoreYoutube(page);
 
             // take argos screenshot
             await argosScreenshot(page, link, {

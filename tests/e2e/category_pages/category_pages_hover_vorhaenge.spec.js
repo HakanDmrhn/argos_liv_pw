@@ -1,6 +1,6 @@
 import { argosScreenshot } from "@argos-ci/playwright";
 import { test, expect } from '@playwright/test';
-import { ignoreFreshChat, ignoreYoutube, ignoreMenuContainer } from '../../support/helpers';
+import { ignoreFreshChat, ignoreYoutube, ignoreMenuContainer, checkButtonAvailability } from '../../support/helpers';
 let scrollToBottom = require("scroll-to-bottomjs");
 
 
@@ -10,11 +10,12 @@ test.describe('Integration test with visual testing - hover on vorhaenge categor
 
         // load category page
         await page.goto('/oesenschal', { waitUntil: 'load' });
-        await page.evaluate(scrollToBottom);
         await page.waitForFunction(() => document.fonts.ready);
+        await page.evaluate(scrollToBottom);
+        await checkButtonAvailability(page);
+        await ignoreMenuContainer(page);
         await ignoreFreshChat(page);
         await ignoreYoutube(page);
-        await ignoreMenuContainer(page);
 
 
         //------------------------------------- TOOLTIP -----------------------------------//
@@ -54,8 +55,12 @@ test.describe('Integration test with visual testing - hover on vorhaenge categor
 
         // load category page
         await page.goto('/vorhaenge-kinderzimmer');
+        await page.waitForFunction(() => document.fonts.ready);
         await page.evaluate(scrollToBottom);
+        await checkButtonAvailability(page);
+        await ignoreMenuContainer(page);
         await ignoreFreshChat(page);
+        await ignoreYoutube(page);
 
 
         //------------------------------------- TOOLTIP -----------------------------------//
@@ -65,10 +70,10 @@ test.describe('Integration test with visual testing - hover on vorhaenge categor
 
         await lavelloVorhang.scrollIntoViewIfNeeded()
 
-        await lavelloVorhang.locator('..').locator('.item__colors > label>>nth=8').click() // ACHTUNG: Position der gewünschten Farbe Rose kann sich ändern
+        await lavelloVorhang.locator('..').locator('.item__colors > label>>nth=8').click() // ACHTUNG: Position der gewünschten Farbe  kann sich ändern
 
         // take argos screenshot of tooltip
-        await argosScreenshot(page, 'hover - Lavello Vorhang Rose', {
+        await argosScreenshot(page, 'hover - Lavello Vorhang Grün', {
             fullPage: false,
             disableHover: false
         });
@@ -76,7 +81,7 @@ test.describe('Integration test with visual testing - hover on vorhaenge categor
 
 
         //------------------------------------- TOOLTIP -----------------------------------//
-        //------------------------------ Bovino Vorhang Hellgelb ---------------------------//
+        //------------------------------ Bovino Vorhang Grün ---------------------------//
 
         const bovinoVorhang = page.getByRole('link', { name: "Bovino Vorhang Grün" });
 
@@ -85,7 +90,7 @@ test.describe('Integration test with visual testing - hover on vorhaenge categor
         await bovinoVorhang.locator('..').locator('.item__colors > label>>nth=3').click() // ACHTUNG: Position der gewünschten Farbe Hellgelb kann sich ändern
 
         // take argos screenshot of tooltip
-        await argosScreenshot(page, 'hover - Bovino Vorhang Hellgelb', {
+        await argosScreenshot(page, 'hover - Bovino Vorhang Grün', {
             fullPage: false,
             disableHover: false
         });

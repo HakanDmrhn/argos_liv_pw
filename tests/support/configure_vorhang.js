@@ -1,5 +1,6 @@
 import { add2Cart } from "./checkout";
 import { expect } from '@playwright/test';
+import { ignoreFreshChat, ignoreYoutube, ignoreMenuContainer, checkButtonAvailability } from '../support/helpers';
 
 export async function configure_vorhang(page) {
 
