@@ -46,7 +46,7 @@ export async function ignoreFreshChat(page) {
         // Locate the FreshChat frame element
         const freshChatLocator = page.locator('#fc_frame');
 
-        // Check if exists
+        // Check if the FreshChat frame exists
         const exists = await freshChatLocator.count() > 0;
         if (exists) {
             console.log('FreshChat frame is visible');
@@ -55,8 +55,10 @@ export async function ignoreFreshChat(page) {
             await page.evaluate(() => {
                 const freshChatElement = document.querySelector('#fc_frame');
                 if (freshChatElement) {
+                    console.log('Found FreshChat frame in the DOM:', freshChatElement);
+
                     // Set attribute for visual test
-                    freshChatElement.setAttribute('data-visual-test', 'transparent'); // Options: 'transparent', 'removed', 'blackout'
+                    freshChatElement.setAttribute('data-visual-test', 'transparent');
                     console.log('FreshChat frame attribute set to "transparent"');
                 } else {
                     console.warn('FreshChat frame element not found during evaluation');
@@ -70,7 +72,6 @@ export async function ignoreFreshChat(page) {
         throw error;
     }
 }
-
 
 
 
