@@ -2,11 +2,19 @@ import {add2Cart} from "./checkout";
 import { expect } from '@playwright/test';
 import { ignoreFreshChat, ignoreYoutube, ignoreMenuContainer, checkButtonAvailability } from '../support/helpers';
 
+let scrollToBottom = require("scroll-to-bottomjs");
+
 export async function configure_doppelrollo(page) {
 
     //load configurator
     await page.goto('/doppelrollo/rayure-5014', { waitUntil: 'load' });
     await page.waitForFunction(() => document.fonts.ready);
+    await page.evaluate(scrollToBottom);
+    await checkButtonAvailability(page);
+    await ignoreMenuContainer(page);
+    await ignoreFreshChat(page);
+    await ignoreYoutube(page);
+
     
     // ensure that the page has fully loaded by waiting for one of the last elements in network traffic
     const lastlink = page.getByRole('link', { name: 'Impressum' });

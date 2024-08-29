@@ -1,10 +1,18 @@
 import { ignoreFreshChat, ignoreYoutube, ignoreMenuContainer, checkButtonAvailability } from '../support/helpers';
 
+let scrollToBottom = require("scroll-to-bottomjs");
+
 export async function configure_zubehoer_plissee(page) {
 
         //load zubehör page
         await page.goto('/sockelplatten', { waitUntil: 'load' });
         await page.waitForFunction(() => document.fonts.ready);
+        await page.evaluate(scrollToBottom);
+        await checkButtonAvailability(page);
+        await ignoreMenuContainer(page);
+        await ignoreFreshChat(page);
+        await ignoreYoutube(page);
+
 
         // Warte auf die Antwort für js-Dateien und überprüfe den Statuscode 200
         // sonst entsteht JS-Error: opConfig not defined
@@ -16,7 +24,7 @@ export async function configure_zubehoer_plissee(page) {
 
         // promise not sufficient here!
         // workaround
-        await page.waitForTimeout(2000);
+        //await page.waitForTimeout(2000);
 
         //change color
         await page.locator('.input-box select').selectOption({ label: 'weiß' });
