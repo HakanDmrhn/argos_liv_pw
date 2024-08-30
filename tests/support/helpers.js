@@ -35,30 +35,43 @@ export async function ignoreMenuContainer(page) {
 }
 
 
-
 // --------------------------------------------------------------------------------------------//
 // --------------------------------------- FRESHCHAT ------------------------------------------//
 // --------------------------------------------------------------------------------------------//
 
-
-/**
- * Blocks the FreshChat widget from loading by intercepting the network request for the FreshChat frame.
- *
- * @param {import('@playwright/test').Page} page - The Playwright Page object representing the browser page.
- * @returns {Promise<void>} - A promise that resolves when the FreshChat widget is successfully blocked.
- */
 export async function ignoreFreshChat(page) {
     try {
-        // Intercept and block network requests for FreshChat
-        await page.route('**/fc_frame*', route => route.abort());
+        console.log('Starting ignoreFreshChat function');
 
-        // Continue with the test logic
-        console.log('FreshChat frame loading is blocked');
+        // Wait for the FreshChat frame to be present in the DOM
+        await page.waitForFunction(() => document.querySelector('#fc_frame') !== null, {
+            timeout: 5000 // Adjust the timeout as needed
+        });
+        
+        // Wait for the FreshChat frame to be visible and then force the attribute change
+        await page.waitForFunction(() => {
+            const freshChatElement = document.querySelector('#fc_frame');
+            if (freshChatElement) {
+                // Forcefully set the attribute for visual test
+                freshChatElement.setAttribute('data-visual-test', 'transparent');
+                console.log('FreshChat frame attribute set to "transparent"');
+                // Return true to indicate that the attribute was set
+                return true;
+            } else {
+                // Return false to indicate that the element was not found
+                console.warn('FreshChat frame element not found during attribute setting');
+                return false;
+            }
+        }, {
+            timeout: 5000 // Adjust the timeout as needed
+        });
     } catch (error) {
-        console.error('An error occurred while blocking FreshChat:', error);
+        console.error('An error occurred in ignoreFreshChat function:', error);
         throw error;
     }
 }
+
+
 
 
 
@@ -66,18 +79,10 @@ export async function ignoreFreshChat(page) {
 // --------------------------------------- YOUTUBE --------------------------------------------//
 // --------------------------------------------------------------------------------------------//
 
-/**
- * Function to set a custom attribute on YouTube videos to ignore them during visual tests.
- * This function locates all elements with the class `.video` (YouTube videos) on the page
- * and sets their `data-visual-test` attribute to 'transparent'.
- *
- * @param {import('@playwright/test').Page} page - The Playwright page object representing the browser page.
- * @returns {Promise<void>} - A promise that resolves when the function completes.
- */
 export async function ignoreYoutube(page) {
     try {
         console.log('Starting ignoreYoutube function');
-
+        
         // Define a locator for YouTube video elements
         const youtubeLocator = page.locator('.video');
 
@@ -102,9 +107,6 @@ export async function ignoreYoutube(page) {
 }
 
 
-// --------------------------------------------------------------------------------------------//
-// --------------------------------------- BUTTONS --------------------------------------------//
-// --------------------------------------------------------------------------------------------//
 
 /**
  * Checks if all visible buttons in the locator are enabled.
@@ -148,11 +150,6 @@ export async function checkButtonAvailability(page) {
 }
 
 
-
-// --------------------------------------------------------------------------------------------//
-// --------------------------------------- TEXTCHECK-------------------------------------------//
-// --------------------------------------------------------------------------------------------//
-
 /**
  * Waits for the specific text to appear in an h1 element on the page.
  * @param {import('@playwright/test').Page} page - The Playwright page object.
@@ -172,6 +169,3 @@ export async function waitForTextToAppear(page, text, timeout = 30000) {
         console.error(error.message);
     }
 }
-
-
-
