@@ -360,7 +360,6 @@ test.describe('Integration test with visual testing - opened menus', function ()
         await ignoreMenuContainer(page);
         await ignoreFreshChat(page);
         await ignoreYoutube(page);
-        await page.evaluate(scrollToBottom);
 
         // go to tab 'Raffrollos'
         await page.locator("ol > li:nth-of-type(8) span").click()
