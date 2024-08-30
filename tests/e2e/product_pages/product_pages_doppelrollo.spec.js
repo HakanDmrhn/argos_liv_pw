@@ -19,6 +19,7 @@ test.describe('Integration test with visual testing - Doppelrollo product pages'
             await ignoreMenuContainer(page);
             await ignoreFreshChat(page);
             await ignoreYoutube(page);
+            await page.evaluate(scrollToBottom);
 
             // take argos screenshot
             await argosScreenshot(page, link, {

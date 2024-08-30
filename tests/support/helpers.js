@@ -43,35 +43,34 @@ export async function ignoreFreshChat(page) {
     try {
         console.log('Starting ignoreFreshChat function');
 
-        // Locate the FreshChat frame element
-        const freshChatLocator = page.locator('#fc_frame');
-
-        // Check if the FreshChat frame exists
-        const exists = await freshChatLocator.count() > 0;
-        if (exists) {
-            console.log('FreshChat frame is visible');
-
-            // Evaluate the page to set the attribute
-            await page.evaluate(() => {
-                const freshChatElement = document.querySelector('#fc_frame');
-                if (freshChatElement) {
-                    console.log('Found FreshChat frame in the DOM:', freshChatElement);
-
-                    // Set attribute for visual test
-                    freshChatElement.setAttribute('data-visual-test', 'transparent');
-                    console.log('FreshChat frame attribute set to "transparent"');
-                } else {
-                    console.warn('FreshChat frame element not found during evaluation');
-                }
-            });
-        } else {
-            console.log('FreshChat frame not found on the page');
-        }
+        // Wait for the FreshChat frame to be present in the DOM
+        await page.waitForFunction(() => document.querySelector('#fc_frame') !== null, {
+            timeout: 5000 // Adjust the timeout as needed
+        });
+        
+        // Wait for the FreshChat frame to be visible and then force the attribute change
+        await page.waitForFunction(() => {
+            const freshChatElement = document.querySelector('#fc_frame');
+            if (freshChatElement) {
+                // Forcefully set the attribute for visual test
+                freshChatElement.setAttribute('data-visual-test', 'transparent');
+                console.log('FreshChat frame attribute set to "transparent"');
+                // Return true to indicate that the attribute was set
+                return true;
+            } else {
+                // Return false to indicate that the element was not found
+                console.warn('FreshChat frame element not found during attribute setting');
+                return false;
+            }
+        }, {
+            timeout: 5000 // Adjust the timeout as needed
+        });
     } catch (error) {
         console.error('An error occurred in ignoreFreshChat function:', error);
         throw error;
     }
 }
+
 
 
 
