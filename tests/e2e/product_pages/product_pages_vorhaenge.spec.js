@@ -1,6 +1,7 @@
 import { argosScreenshot } from "@argos-ci/playwright";
 import { test } from '@playwright/test';
 import { ignoreFreshChat, ignoreYoutube, ignoreMenuContainer, checkButtonAvailability } from '../../support/helpers';
+
 var data = require("../../fixtures/product_pages_vorhaenge.json");
 var pages = data.URLS;
 let scrollToBottom = require("scroll-to-bottomjs");
