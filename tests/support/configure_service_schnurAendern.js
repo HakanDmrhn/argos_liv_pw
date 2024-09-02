@@ -8,7 +8,7 @@ const data =
     "breite": "800",
     "hoehe": "1200",
     "wunschlaenge": "1800",
-    "produkt": "Cadena 2278"
+    "produkt": "Cadena 2002"
 };
 
 export async function configure_service_aenderungSchnur(page) {
