@@ -77,7 +77,7 @@ on:
 
 jobs:
   manual-playwright-run-ubuntu:
-    timeout-minutes: 40
+    timeout-minutes: 60
     runs-on: ubuntu-latest
     if: github.event_name == 'workflow_dispatch' # run only manually
     container:
@@ -92,16 +92,16 @@ jobs:
     - name: Run Playwright tests - manually
       run: |
         if [ "${{ github.event.inputs.TEST_FILE }}" = "ALL" ]; then
-          npx playwright test --workers=2
+          npx playwright test
         else
-          DEBUG=pw:api,pw:browser npx playwright test ${{ github.event.inputs.TEST_FILE }}
+          npx playwright test ${{ github.event.inputs.TEST_FILE }}
         fi
       env: 
         BASE_URL: ${{ secrets.BASE_URL }}
         ARGOS_TOKEN: ${{ secrets.ARGOS_TOKEN }}
 
   scheduled-playwright-run-ubuntu:
-      timeout-minutes: 40
+      timeout-minutes: 60
       runs-on: ubuntu-latest
       if: github.event_name == 'schedule' # run only scheduled
       container:
