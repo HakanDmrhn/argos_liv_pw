@@ -13,12 +13,12 @@ test.describe('Integration test with visual testing - simulated mobile testing o
         await page.setViewportSize({ width: 375, height: 667 });
 
         // load category page
+        await ignoreFreshChat(page);
         await page.goto('/raffrollo/raffrollo-beige', { waitUntil: 'load' });
         await page.waitForFunction(() => document.fonts.ready);
         await page.evaluate(scrollToBottom);
         await checkButtonAvailability(page);
         await ignoreMenuContainer(page);
-        await ignoreFreshChat(page);
         await ignoreYoutube(page);
 
         // take argos screenshot

@@ -9,12 +9,12 @@ test.describe('Integration test with visual testing - hover on plissee category 
     test('hover on plissee category page', async function ({ page }) {
 
         // load category page
+        await ignoreFreshChat(page);
         await page.goto('/plissee/plissee-gelb', { waitUntil: 'load' });
         await page.waitForFunction(() => document.fonts.ready);
         await page.evaluate(scrollToBottom);
         await checkButtonAvailability(page);
         await ignoreMenuContainer(page);
-        await ignoreFreshChat(page);
         await ignoreYoutube(page);
 
 

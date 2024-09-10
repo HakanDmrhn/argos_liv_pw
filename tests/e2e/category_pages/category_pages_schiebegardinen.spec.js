@@ -12,13 +12,13 @@ test.describe('Integration test with visual testing - Schiebegardinen category p
 
         test('Load page: ' + link + ' & take argos snapshot', async function ({ page }) {
 
+            await ignoreFreshChat(page);
             await page.goto(link, { waitUntil: 'load' });
             await ignoreFreshChat(page);
             await page.waitForFunction(() => document.fonts.ready);
             await page.evaluate(scrollToBottom);
             await checkButtonAvailability(page);
             await ignoreMenuContainer(page);
-            await ignoreFreshChat(page);
             await ignoreYoutube(page);
 
             // take argos screenshot
