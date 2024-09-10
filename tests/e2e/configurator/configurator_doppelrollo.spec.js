@@ -9,6 +9,7 @@ test.describe('Integration test with visual testing - doppelrollo configurator',
 
     test.beforeEach(async function ({ page }) {
 
+        await ignoreFreshChat(page);
         await page.goto('/doppelrollo/doppelrollo-konfigurator', { waitUntil: 'load' });
 
     });

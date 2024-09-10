@@ -7,12 +7,12 @@ let scrollToBottom = require("scroll-to-bottomjs");
 export async function configure_vorhang(page) {
 
     //load configurator
-    await page.goto('/vorhaenge/dekoschal/bovino', { waitUntil: 'load' });
+    await ignoreFreshChat(page);
+    await page.goto('/vorhaenge/dekoschal/cervo', { waitUntil: 'load' });
     await page.waitForFunction(() => document.fonts.ready);
     await page.evaluate(scrollToBottom);
     await checkButtonAvailability(page);
     await ignoreMenuContainer(page);
-    await ignoreFreshChat(page);
     await ignoreYoutube(page);
 
     // ensure that the page has fully loaded by waiting for one of the last elements in network traffic

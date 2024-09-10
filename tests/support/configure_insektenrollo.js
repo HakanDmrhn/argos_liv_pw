@@ -6,12 +6,12 @@ let scrollToBottom = require("scroll-to-bottomjs");
 export async function configure_insektenrollo(page) {
 
   //load configurator
+  await ignoreFreshChat(page);
   await page.goto('/insektenschutz/insektenschutz-rollo', { waitUntil: 'load' });
   await page.waitForFunction(() => document.fonts.ready);
   await page.evaluate(scrollToBottom);
   await checkButtonAvailability(page);
   await ignoreMenuContainer(page);
-  await ignoreFreshChat(page);
   await ignoreYoutube(page);
 
 

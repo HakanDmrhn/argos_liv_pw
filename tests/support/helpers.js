@@ -35,40 +35,23 @@ export async function ignoreMenuContainer(page) {
 }
 
 
-// --------------------------------------------------------------------------------------------//
-// --------------------------------------- FRESHCHAT ------------------------------------------//
-// --------------------------------------------------------------------------------------------//
-
+/**
+ * Blocks the FreshChat script from loading by intercepting and aborting its network requests.
+ *
+ * @param {import('@playwright/test').Page} page - The Playwright Page object representing the browser page.
+ * @returns {Promise<void>} - A promise that resolves when the FreshChat script is successfully blocked.
+ */
 export async function ignoreFreshChat(page) {
     try {
-        console.log('Starting ignoreFreshChat function');
+        // Intercept network requests and abort those for FreshChat widget script
+        await page.route('**/wchat.eu.freshchat.com/js/widget.js', route => {
+            console.log('Blocking FreshChat script:', route.request().url());
+            route.abort(); // Abort requests matching the pattern
+        });
 
-        // Locate the FreshChat frame element
-        const freshChatLocator = page.locator('#fc_frame');
 
-        // Check if the FreshChat frame exists
-        const exists = await freshChatLocator.count() > 0;
-        if (exists) {
-            console.log('FreshChat frame is visible');
-
-            // Evaluate the page to set the attribute
-            await page.evaluate(() => {
-                const freshChatElement = document.querySelector('#fc_frame');
-                if (freshChatElement) {
-                    console.log('Found FreshChat frame in the DOM:', freshChatElement);
-
-                    // Set attribute for visual test
-                    freshChatElement.setAttribute('data-visual-test', 'transparent');
-                    console.log('FreshChat frame attribute set to "transparent"');
-                } else {
-                    console.warn('FreshChat frame element not found during evaluation');
-                }
-            });
-        } else {
-            console.log('FreshChat frame not found on the page');
-        }
     } catch (error) {
-        console.error('An error occurred in ignoreFreshChat function:', error);
+        console.error('An error occurred while blocking FreshChat:', error);
         throw error;
     }
 }

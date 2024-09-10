@@ -8,12 +8,12 @@ test.describe('Integration test with visual testing - rollo configurator', funct
 
     test.beforeEach(async function ({ page }) {
 
+        await ignoreFreshChat(page);
         await page.goto('/rollo/rollo-konfigurator', { waitUntil: 'load' });
         await page.waitForFunction(() => document.fonts.ready);
         await page.evaluate(scrollToBottom);
         await checkButtonAvailability(page);
         await ignoreMenuContainer(page);
-        await ignoreFreshChat(page);
         await ignoreYoutube(page);
 
     });

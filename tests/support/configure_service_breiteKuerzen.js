@@ -15,12 +15,12 @@ const data =
 export async function configure_service_breiteKuerzen(page) {
 
   //load service page
+  await ignoreFreshChat(page);
   await page.goto('/aenderungsauftrag-breite', { waitUntil: 'load' });
   await page.waitForFunction(() => document.fonts.ready);
   await page.evaluate(scrollToBottom);
   await checkButtonAvailability(page);
   await ignoreMenuContainer(page);
-  await ignoreFreshChat(page);
   await ignoreYoutube(page);
 
   const lastlink = page.getByRole('link', { name: 'Impressum' });
