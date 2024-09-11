@@ -1,6 +1,8 @@
 import { expect } from '@playwright/test';
 import { ignoreFreshChat, ignoreYoutube, ignoreMenuContainer, checkButtonAvailability } from '../support/helpers';
 
+let scrollToBottom = require("scroll-to-bottomjs");
+
 const data =
 {
   "bestellnummer": "200000001",
@@ -13,8 +15,14 @@ const data =
 export async function configure_service_breiteKuerzen(page) {
 
   //load service page
+  await ignoreFreshChat(page);
   await page.goto('/aenderungsauftrag-breite', { waitUntil: 'load' });
-  // ensure that the page has fully loaded by waiting for one of the last elements in network traffic
+  await page.waitForFunction(() => document.fonts.ready);
+  await page.evaluate(scrollToBottom);
+  await checkButtonAvailability(page);
+  await ignoreMenuContainer(page);
+  await ignoreYoutube(page);
+
   const lastlink = page.getByRole('link', { name: 'Impressum' });
   await expect(lastlink).toBeVisible();
   await expect(lastlink).toBeEnabled();

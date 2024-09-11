@@ -9,14 +9,13 @@ test.describe('Integration test with visual testing - opened menus', function ()
 
     test('opened menus - Plissee', async function ({ page }) {
 
-        // load main page
+        await ignoreFreshChat(page);
         await page.goto('/', { waitUntil: 'load' });
         await page.waitForFunction(() => document.fonts.ready);
         await page.evaluate(scrollToBottom);
         await checkButtonAvailability(page);
         await ignoreMenuContainer(page);
-        await ignoreFreshChat(page);
-        await ignoreYoutube(page);
+         await ignoreYoutube(page);
 
         await page.locator("#colors > a > span").hover()
 
@@ -73,13 +72,12 @@ test.describe('Integration test with visual testing - opened menus', function ()
 
     test('opened menus - Rollo', async function ({ page }) {
 
-        // load main page
+        await ignoreFreshChat(page);
         await page.goto('/', { waitUntil: 'load' });
         await page.waitForFunction(() => document.fonts.ready);
         await page.evaluate(scrollToBottom);
         await checkButtonAvailability(page);
         await ignoreMenuContainer(page);
-        await ignoreFreshChat(page);
         await ignoreYoutube(page);
 
         // go to tab 'Rollos'
@@ -144,13 +142,12 @@ test.describe('Integration test with visual testing - opened menus', function ()
 
     test('opened menus - Doppelrollo', async function ({ page }) {
 
-        // load main page
+        await ignoreFreshChat(page);
         await page.goto('/', { waitUntil: 'load' });
         await page.waitForFunction(() => document.fonts.ready);
         await page.evaluate(scrollToBottom);
         await checkButtonAvailability(page);
         await ignoreMenuContainer(page);
-        await ignoreFreshChat(page);
         await ignoreYoutube(page);
 
         // go to tab 'Doppelrollo'
@@ -175,13 +172,12 @@ test.describe('Integration test with visual testing - opened menus', function ()
 
     test('opened menus - Vorhänge', async function ({ page }) {
 
-        // load main page
+        await ignoreFreshChat(page);
         await page.goto('/', { waitUntil: 'load' });
         await page.waitForFunction(() => document.fonts.ready);
         await page.evaluate(scrollToBottom);
         await checkButtonAvailability(page);
         await ignoreMenuContainer(page);
-        await ignoreFreshChat(page);
         await ignoreYoutube(page);
 
         // go to tab 'Vorhänge'
@@ -308,6 +304,7 @@ test.describe('Integration test with visual testing - opened menus', function ()
     test('opened menus - Schiebegardinen', async function ({ page }) {
 
         // load main page
+        await ignoreFreshChat(page);
         await page.goto('/', { waitUntil: 'load' });
         await page.waitForFunction(() => document.fonts.ready);
         await page.evaluate(scrollToBottom);
@@ -353,19 +350,21 @@ test.describe('Integration test with visual testing - opened menus', function ()
     test('opened menus - Raffrollos', async function ({ page }) {
 
         // load main page
+        await ignoreFreshChat(page);
         await page.goto('/', { waitUntil: 'load' });
         await page.waitForFunction(() => document.fonts.ready);
         await page.evaluate(scrollToBottom);
         await checkButtonAvailability(page);
         await ignoreMenuContainer(page);
-        await ignoreFreshChat(page);
         await ignoreYoutube(page);
 
         // go to tab 'Raffrollos'
-        await page.locator("ol > li:nth-of-type(8) span").click()
-
-        await page.evaluate(scrollToBottom);
+        await page.locator("ol > li:nth-of-type(8) span").click();
         await ignoreFreshChat(page);
+        await page.waitForFunction(() => document.fonts.ready);
+        await checkButtonAvailability(page);
+        await page.evaluate(scrollToBottom);
+        await ignoreMenuContainer(page);
         await ignoreYoutube(page);
 
         await page.locator("#colors > a > span").hover()

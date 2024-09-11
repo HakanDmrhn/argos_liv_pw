@@ -1,5 +1,7 @@
 import { ignoreFreshChat, ignoreYoutube, ignoreMenuContainer, checkButtonAvailability } from '../support/helpers';
 
+let scrollToBottom = require("scroll-to-bottomjs");
+
 const data =
 {
     "produkt": "Broza 1889",
@@ -15,8 +17,14 @@ const data =
 export async function configure_service_laengereSchnur(page) {
 
     //load service page
+    await ignoreFreshChat(page);
     await page.goto('/zusatzauftrag-laengere-fuehrungsschnuere', { waitUntil: 'load' });
     await page.waitForFunction(() => document.fonts.ready);
+    await page.evaluate(scrollToBottom);
+    await checkButtonAvailability(page);
+    await ignoreMenuContainer(page);
+    await ignoreYoutube(page);
+
 
     // input of data
     await page.locator("#configurator-options > dl > :nth-child(2) > .input-box > input").fill(data.produkt);

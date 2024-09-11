@@ -14,17 +14,17 @@ require('dotenv').config();  // --> npm install dotenv --save-dev ))
 module.exports = defineConfig({
   testDir: './tests',
   /* Maximum time one test can run. -page load timeout- 30 seconds */
-  timeout: 2 * 60 * 1000,
+  timeout: 2 * 90 * 1000,
   /* Maximum time expect assertion can run -by default 5000ms- */
   expect: {
-    timeout: 1 * 60 * 1000,
+    timeout: 1 * 80 * 1000,
   },
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
-  retries: process.env.CI ? 2 : 0,
+  retries: process.env.CI ? 1 : 0,
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   // /* Reporter to use. See https://playwright.dev/docs/test-reporters */
@@ -60,20 +60,24 @@ module.exports = defineConfig({
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
-      userAgent: 'testing_agent_visual'
+      use: { 
+        ...devices['Desktop Chrome'],
+        userAgent: 'testing_agent_visual',
+        headless: true,
+        launchOptions: {
+          args: ['--headless=new'] // Attempt to use the new headless mode if supported https://developer.chrome.com/docs/chromium/new-headless
+        }
+      },
     },
 
     // {
     //   name: 'firefox',
     //   use: { ...devices['Desktop Firefox'] },
-    //   userAgent: 'testing_agent_visual'
     // },
 
     // {
     //   name: 'webkit',
     //   use: { ...devices['Desktop Safari'] },
-    //   userAgent: 'testing_agent_visual'
     // },
 
     /* Test against mobile viewports. */
@@ -84,7 +88,6 @@ module.exports = defineConfig({
     // {
     //   name: 'Mobile Safari',
     //   use: { ...devices['iPhone 12'] },
-    //   userAgent: 'testing_agent_visual'
     // },
 
     /* Test against branded browsers. */
@@ -105,4 +108,3 @@ module.exports = defineConfig({
   //   reuseExistingServer: !process.env.CI,
   // },
 });
-

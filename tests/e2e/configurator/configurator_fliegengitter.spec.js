@@ -10,12 +10,12 @@ test.describe('Integration test with visual testing - Fliegengitter configurator
     test('Fliegengitter', async function ({ page }) {
 
         // ******************* Fliegengitter - Farbe Weiß *******************
+        await ignoreFreshChat(page);
         await page.goto("/insektenschutz/fliegengitter", { waitUntil: 'load' });
         await page.waitForFunction(() => document.fonts.ready);
         await page.evaluate(scrollToBottom);
         await checkButtonAvailability(page);
         await ignoreMenuContainer(page);
-        await ignoreFreshChat(page);
         await ignoreYoutube(page);
 
         // ensure that the page has fully loaded by waiting for one of the last elements in network traffic

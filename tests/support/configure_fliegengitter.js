@@ -1,11 +1,19 @@
 import { expect } from '@playwright/test';
 import { ignoreFreshChat, ignoreYoutube, ignoreMenuContainer, checkButtonAvailability } from '../support/helpers';
 
+let scrollToBottom = require("scroll-to-bottomjs");
+
 export async function configure_fliegengitter(page) {
 
   //load configurator
+  await ignoreFreshChat(page);
   await page.goto('/insektenschutz/fliegengitter', { waitUntil: 'load' });
   await page.waitForFunction(() => document.fonts.ready);
+  await page.evaluate(scrollToBottom);
+  await checkButtonAvailability(page);
+  await ignoreMenuContainer(page);
+  await ignoreYoutube(page);
+
   // ensure that the page has fully loaded by waiting for one of the last elements in network traffic
   const lastlink = page.getByRole('link', { name: 'Impressum' });
   await expect(lastlink).toBeVisible();

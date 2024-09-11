@@ -10,12 +10,12 @@ test.describe('Integration test with visual testing - Insektenschutzrollo config
     test('Insektenschutzrollo', async function ({ page }) {
 
         // ******************* Insektenschutzrollo - Hauswand *******************
+        await ignoreFreshChat(page);
         await page.goto("/insektenschutz/insektenschutz-rollo", { waitUntil: 'load' });
         await page.waitForFunction(() => document.fonts.ready);
         await page.evaluate(scrollToBottom);
         await checkButtonAvailability(page);
         await ignoreMenuContainer(page);
-        await ignoreFreshChat(page);
         await ignoreYoutube(page);
 
         // take argos screenshot

@@ -9,12 +9,12 @@ test.describe('Integration test with visual testing - hover on schiebegardine ca
     test('hover on schiebegardine category page', async function ({ page }) {
 
         // load category page
+        await ignoreFreshChat(page);
         await page.goto('/schiebegardinen/schiebegardinen-blau', { waitUntil: 'load' });
         await page.waitForFunction(() => document.fonts.ready);
         await page.evaluate(scrollToBottom);
         await checkButtonAvailability(page);
         await ignoreMenuContainer(page);
-        await ignoreFreshChat(page);
         await ignoreYoutube(page);
 
 

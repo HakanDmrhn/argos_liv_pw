@@ -9,12 +9,12 @@ test.describe('Integration test with visual testing - hover on raffrollo categor
     test('hover on raffrollo category page', async function ({ page }) {
 
         // load category page
+        await ignoreFreshChat(page);
         await page.goto('/raffrollo/raffrollo-beige', { waitUntil: 'load' });
         await page.waitForFunction(() => document.fonts.ready);
         await page.evaluate(scrollToBottom);
         await checkButtonAvailability(page);
         await ignoreMenuContainer(page);
-        await ignoreFreshChat(page);
         await ignoreYoutube(page);
 
 
