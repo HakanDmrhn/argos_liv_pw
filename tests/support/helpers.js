@@ -59,37 +59,30 @@ export async function ignoreFreshChat(page) {
 
 
 
-
-// --------------------------------------------------------------------------------------------//
-// --------------------------------------- YOUTUBE --------------------------------------------//
-// --------------------------------------------------------------------------------------------//
-
+/**
+ * Blocks all YouTube video requests on the page to prevent them from loading.
+ * This is useful for visual tests where YouTube videos should be ignored.
+ *
+ * @param {import('playwright').Page} page - The Playwright page object used to interact with the browser page.
+ * @returns {Promise<void>} A promise that resolves when YouTube requests are successfully blocked.
+ * @throws Will throw an error if the route interception or aborting the request fails.
+ */
 export async function ignoreYoutube(page) {
     try {
-        console.log('Starting ignoreYoutube function');
-        
-        // Define a locator for YouTube video elements
-        const youtubeLocator = page.locator('.video');
+        console.log('Blocking YouTube video requests');
 
-        // Check if any YouTube video elements exist
-        const exists = await youtubeLocator.count() > 0;
+        // Intercept network requests and block YouTube videos
+        await page.route('**youtube.com/**', (route) => {
+            route.abort(); // Abort requests matching the pattern
+            console.log('YouTube video request blocked:', route.request().url());
+        });
 
-        if (exists) {
-            // Perform operations in the browser context
-            await page.evaluate(() => {
-                const youtubeVideos = document.querySelectorAll('.video');
-                youtubeVideos.forEach(video => {
-                    video.setAttribute('data-visual-test', 'transparent'); // Set attribute to 'transparent'
-                    console.log('YouTube video attribute set to transparent.');
-                });
-            });
-        } else {
-            console.log('No YouTube video elements found on the page.');
-        }
+        console.log('YouTube video requests successfully blocked.');
     } catch (error) {
-        console.error('An error occurred while trying to ignore YouTube videos:', error);
+        console.error('Error blocking YouTube video requests:', error);
     }
 }
+
 
 
 

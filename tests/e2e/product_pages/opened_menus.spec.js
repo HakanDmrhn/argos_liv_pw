@@ -356,13 +356,15 @@ test.describe('Integration test with visual testing - opened menus', function ()
         await page.evaluate(scrollToBottom);
         await checkButtonAvailability(page);
         await ignoreMenuContainer(page);
-        await ignoreFreshChat(page);
         await ignoreYoutube(page);
 
         // go to tab 'Raffrollos'
-        await page.locator("ol > li:nth-of-type(8) span").click()
-
+        await page.locator("ol > li:nth-of-type(8) span").click();
+        await ignoreFreshChat(page);
+        await page.waitForFunction(() => document.fonts.ready);
+        await checkButtonAvailability(page);
         await page.evaluate(scrollToBottom);
+        await ignoreMenuContainer(page);
         await ignoreYoutube(page);
 
         await page.locator("#colors > a > span").hover()
