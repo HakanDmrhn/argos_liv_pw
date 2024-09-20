@@ -14,12 +14,13 @@ test.describe('Integration test with visual testing - simulated mobile testing o
 
         // load category page
         await ignoreFreshChat(page);
+        await ignoreYoutube(page);
         await page.goto('/doppelrollo/alle-doppelrollos', { waitUntil: 'load' });
         await page.waitForFunction(() => document.fonts.ready);
         await page.evaluate(scrollToBottom);
         await checkButtonAvailability(page);
         await ignoreMenuContainer(page);
-        await ignoreYoutube(page);
+
 
         // take argos screenshot
         await argosScreenshot(page, 'mobile view doppelrollo- /doppelrollo/alle-doppelrollos');

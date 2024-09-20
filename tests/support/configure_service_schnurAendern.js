@@ -15,12 +15,12 @@ export async function configure_service_aenderungSchnur(page) {
 
     //load service page
     await ignoreFreshChat(page);
+    await ignoreYoutube(page);
     await page.goto('/aenderungsauftrag-schnurlaenge', { waitUntil: 'load' });
     await page.waitForFunction(() => document.fonts.ready);
     await page.evaluate(scrollToBottom);
     await checkButtonAvailability(page);
     await ignoreMenuContainer(page);
-    await ignoreYoutube(page);
 
 
     // input of data

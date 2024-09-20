@@ -9,12 +9,12 @@ test.describe('Integration test with visual testing - plissee configurator dachf
     test('Plissee - Dachfensterplissees', async function ({ page }) {
 
         await ignoreFreshChat(page);
+        await ignoreYoutube(page);
         await page.goto('/plissee/plissee-konfigurator', { waitUntil: 'load' });
         await page.waitForFunction(() => document.fonts.ready);
         await page.evaluate(scrollToBottom);
         await checkButtonAvailability(page);
         await ignoreMenuContainer(page);
-        await ignoreYoutube(page);
 
         // ensure that the page has fully loaded by waiting for one of the last elements in network traffic
         const lastlink = page.getByRole('link', { name: 'Impressum' });
@@ -26,7 +26,7 @@ test.describe('Integration test with visual testing - plissee configurator dachf
         await page.locator('.tabs > :nth-child(2)').click();
         await page.evaluate(scrollToBottom);
         await ignoreMenuContainer(page);
-        await ignoreFreshChat(page);
+
 
 
         // preselected type is DF20 genormt 

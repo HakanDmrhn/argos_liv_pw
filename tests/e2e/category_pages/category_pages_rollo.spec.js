@@ -13,12 +13,13 @@ test.describe('Integration test with visual testing - Rollo category pages', fun
         test('Load page: ' + link + ' & take argos snapshot', async function ({ page }) {
 
             await ignoreFreshChat(page);
+            await ignoreYoutube(page);
             await page.goto(link, { waitUntil: 'load' });
             await page.waitForFunction(() => document.fonts.ready);
             await page.evaluate(scrollToBottom);
             await checkButtonAvailability(page);
             await ignoreMenuContainer(page);
-            await ignoreYoutube(page);
+
 
             // take argos screenshot
             await argosScreenshot(page, link, {

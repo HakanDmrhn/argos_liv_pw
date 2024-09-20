@@ -9,6 +9,7 @@ test.describe('Integration test with visual testing - jalousie configurator', fu
     test.beforeEach(async function ({ page }) {
 
         await ignoreFreshChat(page);
+        await ignoreYoutube(page);
         await page.goto('/jalousie/jalousie-konfigurator', { waitUntil: 'load' });
 
         // ensure that the page has fully loaded by waiting for one of the last elements in network traffic

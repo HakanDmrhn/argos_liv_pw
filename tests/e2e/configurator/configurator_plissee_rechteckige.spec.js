@@ -11,12 +11,13 @@ test.describe('Integration test with visual testing - plissee configurator recht
 
         // ******************* rechteckige Fenster *******************
         await ignoreFreshChat(page);
+        await ignoreYoutube(page);
         await page.goto('/plissee/plissee-konfigurator', { waitUntil: 'load' });
         await page.waitForFunction(() => document.fonts.ready);
         await page.evaluate(scrollToBottom);
         await checkButtonAvailability(page);
         await ignoreMenuContainer(page);
-         await ignoreYoutube(page);
+
 
 
         // select weitere Modelle

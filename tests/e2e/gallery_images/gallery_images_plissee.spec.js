@@ -9,12 +9,13 @@ test.describe('Integration test with visual testing - image popups Plissee-Konfi
     test('argos snapshots of plissee gallery images - PDP', async function ({ page }) {
 
         await ignoreFreshChat(page);
+        await ignoreYoutube(page);
         await page.goto('/plissee/basis-object-1504', { waitUntil: 'load' });
         await page.waitForFunction(() => document.fonts.ready);
         await page.evaluate(scrollToBottom);
         await checkButtonAvailability(page);
         await ignoreMenuContainer(page);
-        await ignoreYoutube(page);
+
 
         await page.locator('#big-img').waitFor();
         await page.locator('#big-img').click();

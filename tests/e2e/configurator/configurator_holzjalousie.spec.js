@@ -9,6 +9,7 @@ test.describe('Integration test with visual testing - jalousie configurator', fu
     test.beforeEach(async function ({ page }) {
 
         await ignoreFreshChat(page);
+        await ignoreYoutube(page);
         await page.goto('/jalousie/holz-jalousie-konfigurator', { waitUntil: 'load' });
 
         // ensure that the page has fully loaded by waiting for one of the last elements in network traffic
@@ -25,7 +26,7 @@ test.describe('Integration test with visual testing - jalousie configurator', fu
         await page.evaluate(scrollToBottom);
         await checkButtonAvailability(page);
         await ignoreMenuContainer(page);
-        await ignoreFreshChat(page);
+
 
         // take argos screenshot
         await argosScreenshot(page, 'Holzjalousie 25mm', {

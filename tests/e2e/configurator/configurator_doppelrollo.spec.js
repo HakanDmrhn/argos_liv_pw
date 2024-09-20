@@ -10,6 +10,7 @@ test.describe('Integration test with visual testing - doppelrollo configurator',
     test.beforeEach(async function ({ page }) {
 
         await ignoreFreshChat(page);
+        await ignoreYoutube(page);
         await page.goto('/doppelrollo/doppelrollo-konfigurator', { waitUntil: 'load' });
 
     });
@@ -23,8 +24,7 @@ test.describe('Integration test with visual testing - doppelrollo configurator',
         await page.evaluate(scrollToBottom);
         await checkButtonAvailability(page);
         await ignoreMenuContainer(page);
-        await ignoreFreshChat(page);
-        await ignoreYoutube(page);
+
 
         // take argos screenshot
         await argosScreenshot(page, 'Doppelrollo mini zum Klemmen', {

@@ -10,12 +10,12 @@ test.describe('Integration test with visual testing - hover on plissee category 
 
         // load category page
         await ignoreFreshChat(page);
+        await ignoreYoutube(page);
         await page.goto('/plissee/plissee-gelb', { waitUntil: 'load' });
         await page.waitForFunction(() => document.fonts.ready);
         await page.evaluate(scrollToBottom);
         await checkButtonAvailability(page);
         await ignoreMenuContainer(page);
-        await ignoreYoutube(page);
 
 
         //------------------------------------- TOOLTIP -----------------------------------//
