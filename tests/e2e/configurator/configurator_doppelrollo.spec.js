@@ -26,7 +26,7 @@ test.describe('Integration test with visual testing - doppelrollo configurator',
         await ignoreMenuContainer(page);
 
         // ensure that the page has fully loaded by waiting for the logo c
-         const imageElement = await page.getByRole('img', { name: 'Plissee und Sonnenschutz bei Livoneo®' });
+         const livoneoLogo = await page.getByRole('img', { name: 'Plissee und Sonnenschutz bei Livoneo®' });
         await expect(livoneoLogo).toBeVisible();
 
 
@@ -287,7 +287,7 @@ test.describe('Integration test with visual testing - doppelrollo configurator',
         await checkButtonAvailability(page);
         await ignoreMenuContainer(page);
         await ignoreFreshChat(page);
-         const imageElement = await page.getByRole('img', { name: 'Plissee und Sonnenschutz bei Livoneo®' });
+         const livoneoLogo = await page.getByRole('img', { name: 'Plissee und Sonnenschutz bei Livoneo®' });
         await expect(livoneoLogo).toBeVisible();
 
         // take argos screenshot
