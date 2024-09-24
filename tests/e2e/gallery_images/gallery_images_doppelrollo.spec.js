@@ -17,6 +17,13 @@ test.describe('Integration test with visual testing - image popups Doppelrollo-K
         await checkButtonAvailability(page);
         await ignoreMenuContainer(page);
 
+        // ensure that the page has fully loaded by waiting for the logo c
+        const livoneoLogo = await page.getByRole('img', { name: 'Plissee und Sonnenschutz bei Livoneo®' });
+        await expect(livoneoLogo).toBeVisible();
+        await livoneoLogo.hover();
+        await page.mouse.move(0, 0);
+
+
 
         await page.locator('#big-img').waitFor();
         await page.locator('#big-img').click();
@@ -55,6 +62,13 @@ test.describe('Integration test with visual testing - image popups Doppelrollo-K
         await page.evaluate(scrollToBottom);
         await page.waitForFunction(() => document.fonts.ready);
         await ignoreMenuContainer(page);
+
+                // ensure that the page has fully loaded by waiting for the logo c
+        const livoneoLogo = await page.getByRole('img', { name: 'Plissee und Sonnenschutz bei Livoneo®' });
+        await expect(livoneoLogo).toBeVisible();
+        await livoneoLogo.hover();
+        await page.mouse.move(0, 0);
+
 
 
         // scroll the big image into view
