@@ -72,7 +72,7 @@ export async function ignoreYoutube(page) {
         console.log('Blocking YouTube video requests');
 
         // Intercept network requests and block YouTube videos
-        await page.route('**youtube.com/**', (route) => {
+        await page.route('**youtube**', (route) => {
             route.abort(); // Abort requests matching the pattern
             console.log('YouTube video request blocked:', route.request().url());
         });

@@ -14,12 +14,13 @@ test.describe('Integration test with visual testing - Diverse CMS Prio1 pages (o
 
             // block FreshChat script execution
             await ignoreFreshChat(page);
+            await ignoreYoutube(page);
             await page.goto(link, { waitUntil: 'load' });
             await page.waitForFunction(() => document.fonts.ready);
             await page.evaluate(scrollToBottom);
             await checkButtonAvailability(page);
             await ignoreMenuContainer(page);
-            await ignoreYoutube(page);
+
 
             // take argos screenshot
             await argosScreenshot(page, link, {

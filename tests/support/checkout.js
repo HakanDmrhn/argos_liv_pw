@@ -140,6 +140,8 @@ export async function checkOut(page) {
 
     // ignore freshchat
     await ignoreFreshChat(page);
+    await page.waitForFunction(() => document.fonts.ready);
+    await page.evaluate(scrollToBottom);
 
     // take argos screenshot Versandkosten
     await argosScreenshot(page, 'checkout - Versandkosten', {

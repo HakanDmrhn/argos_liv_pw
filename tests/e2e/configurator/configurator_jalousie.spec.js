@@ -9,6 +9,7 @@ test.describe('Integration test with visual testing - jalousie configurator', fu
     test.beforeEach(async function ({ page }) {
 
         await ignoreFreshChat(page);
+        await ignoreYoutube(page);
         await page.goto('/jalousie/jalousie-konfigurator', { waitUntil: 'load' });
 
         // ensure that the page has fully loaded by waiting for one of the last elements in network traffic
@@ -26,6 +27,13 @@ test.describe('Integration test with visual testing - jalousie configurator', fu
         await page.evaluate(scrollToBottom);
         await checkButtonAvailability(page);
         await ignoreMenuContainer(page);
+
+        // ensure that the page has fully loaded by waiting for the logo c
+        const livoneoLogo = await page.getByRole('img', { name: 'Plissee und Sonnenschutz bei Livoneo®' });
+        await expect(livoneoLogo).toBeVisible();
+        await livoneoLogo.hover();
+        await page.mouse.move(0, 0);
+
 
         // take argos screenshot
         await argosScreenshot(page, 'Jalousie 16mm', {
@@ -90,6 +98,13 @@ test.describe('Integration test with visual testing - jalousie configurator', fu
         await ignoreMenuContainer(page);
         await ignoreFreshChat(page);
 
+        // ensure that the page has fully loaded by waiting for the logo c
+        const livoneoLogo = await page.getByRole('img', { name: 'Plissee und Sonnenschutz bei Livoneo®' });
+        await expect(livoneoLogo).toBeVisible();
+        await livoneoLogo.hover();
+        await page.mouse.move(0, 0);
+
+
 
         // take argos screenshot
         await argosScreenshot(page, 'Jalousie 25mm', {
@@ -153,6 +168,13 @@ test.describe('Integration test with visual testing - jalousie configurator', fu
         await checkButtonAvailability(page);
         await ignoreMenuContainer(page);
         await ignoreFreshChat(page);
+
+        // ensure that the page has fully loaded by waiting for the logo c
+        const livoneoLogo = await page.getByRole('img', { name: 'Plissee und Sonnenschutz bei Livoneo®' });
+        await expect(livoneoLogo).toBeVisible();
+        await livoneoLogo.hover();
+        await page.mouse.move(0, 0);
+
 
 
         // take argos screenshot

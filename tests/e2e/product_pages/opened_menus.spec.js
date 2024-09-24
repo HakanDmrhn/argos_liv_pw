@@ -10,12 +10,13 @@ test.describe('Integration test with visual testing - opened menus', function ()
     test('opened menus - Plissee', async function ({ page }) {
 
         await ignoreFreshChat(page);
+        await ignoreYoutube(page);
         await page.goto('/', { waitUntil: 'load' });
         await page.waitForFunction(() => document.fonts.ready);
         await page.evaluate(scrollToBottom);
         await checkButtonAvailability(page);
         await ignoreMenuContainer(page);
-         await ignoreYoutube(page);
+ 
 
         await page.locator("#colors > a > span").hover()
 

@@ -10,12 +10,13 @@ test.describe('Integration test with visual testing - image popups Schiebegardin
     test('argos snapshots of schiebegardine gallery images - PDP', async function ({ page }) {
 
         await ignoreFreshChat(page);
+        await ignoreYoutube(page);
         await page.goto('/schiebegardinen/philo-7324', { waitUntil: 'load' });
         await page.waitForFunction(() => document.fonts.ready);
         await page.evaluate(scrollToBottom);
         await checkButtonAvailability(page);
         await ignoreMenuContainer(page);
-        await ignoreYoutube(page);
+
 
         await page.locator('#big-img').waitFor();
         await page.locator('#big-img').click();

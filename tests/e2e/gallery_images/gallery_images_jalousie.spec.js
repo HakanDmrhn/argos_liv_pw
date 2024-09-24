@@ -10,12 +10,13 @@ test.describe('Integration test with visual testing - gallery images Jalousie-Ko
     test.beforeEach(async function ({ page }) {
 
         await ignoreFreshChat(page);
+        await ignoreYoutube(page);
         await page.goto('/jalousie/jalousie-konfigurator', { waitUntil: 'load' });
         await page.waitForFunction(() => document.fonts.ready);
         await page.evaluate(scrollToBottom);
         await checkButtonAvailability(page);
         await ignoreMenuContainer(page);
-        await ignoreYoutube(page);
+
     });
 
     test('argos snapshots of product picture galleries - jalousie 16 mm', async function ({ page }) {

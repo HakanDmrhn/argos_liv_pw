@@ -8,12 +8,13 @@ export async function configure_raffrollo(page) {
 
   //load configurator
   await ignoreFreshChat(page);
+  await ignoreYoutube(page);
   await page.goto('/raffrollo/yuna-9260', { waitUntil: 'load' });
   await page.waitForFunction(() => document.fonts.ready);
   await page.evaluate(scrollToBottom);
   await checkButtonAvailability(page);
   await ignoreMenuContainer(page);
-  await ignoreYoutube(page);
+
 
   
   // ensure that the page has fully loaded by waiting for one of the last elements in network traffic

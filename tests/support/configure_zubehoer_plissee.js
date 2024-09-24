@@ -6,12 +6,13 @@ export async function configure_zubehoer_plissee(page) {
 
         //load zubehör page
         await ignoreFreshChat(page);
+        await ignoreYoutube(page);
         await page.goto('/sockelplatten', { waitUntil: 'load' });
         await page.waitForFunction(() => document.fonts.ready);
         await page.evaluate(scrollToBottom);
         await checkButtonAvailability(page);
         await ignoreMenuContainer(page);
-        await ignoreYoutube(page);
+
 
 
         // Warte auf die Antwort für js-Dateien und überprüfe den Statuscode 200
