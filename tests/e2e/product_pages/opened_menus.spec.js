@@ -1,4 +1,4 @@
-import { test } from '@playwright/test';
+import { test, expect } from '@playwright/test';
 import { argosScreenshot } from "@argos-ci/playwright";
 import { ignoreFreshChat, ignoreYoutube, ignoreMenuContainer, checkButtonAvailability } from '../../support/helpers';
 let scrollToBottom = require("scroll-to-bottomjs");
@@ -16,8 +16,13 @@ test.describe('Integration test with visual testing - opened menus', function ()
         await page.evaluate(scrollToBottom);
         await checkButtonAvailability(page);
         await ignoreMenuContainer(page);
- 
 
+        // ensure that the page has fully loaded by waiting for the logo c
+        const livoneoLogo = await page.getByRole('img', { name: 'Plissee und Sonnenschutz bei Livoneo®' });
+        await expect(livoneoLogo).toBeVisible();
+        await livoneoLogo.hover();
+        await page.mouse.move(0, 0);
+ 
         await page.locator("#colors > a > span").hover()
 
         // iterate through all menu images and check if visible before taking screenshot

@@ -1,16 +1,15 @@
 import { argosScreenshot } from "@argos-ci/playwright";
-import { test } from '@playwright/test';
+import { test, expect } from '@playwright/test';
 import { ignoreFreshChat, ignoreYoutube, ignoreMenuContainer, checkButtonAvailability } from '../../support/helpers';
-var data = require("../../fixtures/cat_pages_rollo.json");
-var pages = data.URLS;
-let scrollToBottom = require("scroll-to-bottomjs");
+const data = require("../../fixtures/cat_pages_rollo.json");
+const pages = data.URLS;
+const scrollToBottom = require("scroll-to-bottomjs");
 
+test.describe('Integration test with visual testing - Rollo category pages', () => {
 
-test.describe('Integration test with visual testing - Rollo category pages', function () {
+    pages.forEach((link) => {
 
-    pages.forEach(function (link) {
-
-        test('Load page: ' + link + ' & take argos snapshot', async function ({ page }) {
+        test('Load page: ' + link + ' & take argos snapshot', async ({ page }) => {
 
             await ignoreFreshChat(page);
             await ignoreYoutube(page);
@@ -20,12 +19,17 @@ test.describe('Integration test with visual testing - Rollo category pages', fun
             await checkButtonAvailability(page);
             await ignoreMenuContainer(page);
 
+            // Ensure that the page has fully loaded by waiting for the logo 
+            const livoneoLogo = await page.getByRole('img', { name: 'Plissee und Sonnenschutz bei Livoneo®' });
+            await expect(livoneoLogo).toBeVisible();
+            await livoneoLogo.hover();
+            await page.mouse.move(0, 0);
 
-            // take argos screenshot
+            // Take Argos screenshot
             await argosScreenshot(page, link, {
                 viewports: [
                     "macbook-16", // Use device preset for macbook-16 --> 1536 x 960
-                    "iphone-6" // Use device preset for iphone-6 --> 375x667
+                    "iphone-6" // Use device preset for iphone-6 --> 375 x 667
                 ]
             });
         });
