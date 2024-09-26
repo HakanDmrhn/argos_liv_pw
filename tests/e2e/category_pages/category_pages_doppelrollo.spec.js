@@ -1,9 +1,9 @@
 import { argosScreenshot } from "@argos-ci/playwright";
-import { test } from '@playwright/test';
+import { test, expect } from '@playwright/test';
 import { ignoreFreshChat, ignoreYoutube, ignoreMenuContainer, checkButtonAvailability } from '../../support/helpers';
-var data = require("../../fixtures/cat_pages_doppelrollo.json");
-var pages = data.URLS;
-let scrollToBottom = require("scroll-to-bottomjs");
+const data = require("../../fixtures/cat_pages_doppelrollo.json");
+const pages = data.URLS;
+const scrollToBottom = require("scroll-to-bottomjs");
 
 
 test.describe('Integration test with visual testing - Doppelrollo category pages', function () {
@@ -19,6 +19,12 @@ test.describe('Integration test with visual testing - Doppelrollo category pages
             await page.evaluate(scrollToBottom);
             await checkButtonAvailability(page);
             await ignoreMenuContainer(page);
+
+            // ensure that the page has fully loaded by waiting for the logo 
+            const livoneoLogo = await page.getByRole('img', { name: 'Plissee und Sonnenschutz bei Livoneo®' });
+            await expect(livoneoLogo).toBeVisible();
+            await livoneoLogo.hover();
+            await page.mouse.move(0, 0);
 
 
             // take argos screenshot
