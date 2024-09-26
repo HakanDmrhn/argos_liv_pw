@@ -1,104 +1,94 @@
-import { argosScreenshot } from "@argos-ci/playwright";
-import { test, expect } from '@playwright/test';
-import { ignoreFreshChat, ignoreYoutube, ignoreMenuContainer, checkButtonAvailability } from '../../support/helpers';
-const scrollToBottom = require("scroll-to-bottomjs");
-
+import { argosScreenshot } from '@argos-ci/playwright'
+import { test, expect } from '@playwright/test'
+import { ignoreFreshChat, ignoreYoutube, ignoreMenuContainer, checkButtonAvailability } from '../../support/helpers'
+const scrollToBottom = require('scroll-to-bottomjs')
 
 test.describe('Integration test with visual testing - hover on vorhaenge category pages', function () {
+  test('hover on vorhaenge category page /oesenschal', async function ({ page }) {
+    // load category page
+    await ignoreFreshChat(page)
+    await ignoreYoutube(page)
+    await page.goto('/oesenschal', { waitUntil: 'load' })
+    await page.waitForFunction(() => document.fonts.ready)
+    await page.evaluate(scrollToBottom)
+    await checkButtonAvailability(page)
+    await ignoreMenuContainer(page)
 
-    test('hover on vorhaenge category page /oesenschal', async function ({ page }) {
+    // ensure that the page has fully loaded by waiting for the logo
+    const livoneoLogo = await page.getByRole('img', { name: 'Plissee und Sonnenschutz bei Livoneo®' })
+    await expect(livoneoLogo).toBeVisible()
+    await livoneoLogo.hover()
+    await page.mouse.move(0, 0)
 
-        // load category page
-        await ignoreFreshChat(page);
-        await ignoreYoutube(page);
-        await page.goto('/oesenschal', { waitUntil: 'load' });
-        await page.waitForFunction(() => document.fonts.ready);
-        await page.evaluate(scrollToBottom);
-        await checkButtonAvailability(page);
-        await ignoreMenuContainer(page);
+    // ------------------------------------- TOOLTIP -----------------------------------//
+    // ------------------------------ Sorrento Vorhang Farbe Rose ---------------------------//
 
-        // ensure that the page has fully loaded by waiting for the logo 
-        const livoneoLogo = await page.getByRole('img', { name: 'Plissee und Sonnenschutz bei Livoneo®' });
-        await expect(livoneoLogo).toBeVisible();
-        await livoneoLogo.hover();
-        await page.mouse.move(0, 0);
+    const sorrentoVorhang = page.getByRole('link', { name: 'Stella Vorhang Beere' })
 
+    await sorrentoVorhang.scrollIntoViewIfNeeded()
 
-        //------------------------------------- TOOLTIP -----------------------------------//
-        //------------------------------ Sorrento Vorhang Farbe Rose ---------------------------//
+    await sorrentoVorhang.locator('..').locator('.item__colors > label>>nth=3').click() // ACHTUNG: Position der gewünschten Farbe Rose kann sich ändern
 
-        const sorrentoVorhang = page.getByRole('link', { name: 'Stella Vorhang Beere'});
+    // take argos screenshot of tooltip
+    await argosScreenshot(page, 'hover - Stella Vorhang Beere', {
+      fullPage: false,
+      disableHover: false
+    })
 
-        await sorrentoVorhang.scrollIntoViewIfNeeded()
+    // ------------------------------------- TOOLTIP -----------------------------------//
+    // ------------------------------ Vorhang Velvet Farbe Jade ---------------------------//
 
-        await sorrentoVorhang.locator('..').locator('.item__colors > label>>nth=3').click() // ACHTUNG: Position der gewünschten Farbe Rose kann sich ändern
+    const velvetVorhang = page.getByRole('link', { name: 'Velvet Vorhang Weiß' })
 
-        // take argos screenshot of tooltip
-        await argosScreenshot(page, 'hover - Stella Vorhang Beere', {
-            fullPage: false,
-            disableHover: false
-        });
+    await velvetVorhang.scrollIntoViewIfNeeded()
 
+    await velvetVorhang.locator('..').locator('.item__colors > label>>nth=9').click() // ACHTUNG: Position der gewünschten Farbe Jade kann sich ändern
 
+    // take argos screenshot of tooltip
+    await argosScreenshot(page, 'hover - Vorhang Velvet Jade', {
+      fullPage: false,
+      disableHover: false
+    })
+  })
 
-        //------------------------------------- TOOLTIP -----------------------------------//
-        //------------------------------ Vorhang Velvet Farbe Jade ---------------------------//
+  test('hover on vorhaenge category page /vorhaenge-kinderzimmer', async function ({ page }) {
+    // load category page
+    await page.goto('/vorhaenge-kinderzimmer')
+    await page.waitForFunction(() => document.fonts.ready)
+    await page.evaluate(scrollToBottom)
+    await checkButtonAvailability(page)
+    await ignoreMenuContainer(page)
+    await ignoreFreshChat(page)
+    await ignoreYoutube(page)
 
-        const velvetVorhang = page.getByRole('link', { name: "Velvet Vorhang Weiß" });
+    // ------------------------------------- TOOLTIP -----------------------------------//
+    // ------------------------------ Lavello Vorhang Rose-- ---------------------------//
 
-        await velvetVorhang.scrollIntoViewIfNeeded()
+    const lavelloVorhang = page.getByRole('link', { name: 'Lavello Vorhang Grün' })
 
-        await velvetVorhang.locator('..').locator('.item__colors > label>>nth=9').click() // ACHTUNG: Position der gewünschten Farbe Jade kann sich ändern
+    await lavelloVorhang.scrollIntoViewIfNeeded()
 
-        // take argos screenshot of tooltip
-        await argosScreenshot(page, 'hover - Vorhang Velvet Jade', {
-            fullPage: false,
-            disableHover: false
-        });
-    });
+    await lavelloVorhang.locator('..').locator('.item__colors > label>>nth=8').click() // ACHTUNG: Position der gewünschten Farbe  kann sich ändern
 
-    test('hover on vorhaenge category page /vorhaenge-kinderzimmer', async function ({ page }) {
+    // take argos screenshot of tooltip
+    await argosScreenshot(page, 'hover - Lavello Vorhang Grün', {
+      fullPage: false,
+      disableHover: false
+    })
 
-        // load category page
-        await page.goto('/vorhaenge-kinderzimmer');
-        await page.waitForFunction(() => document.fonts.ready);
-        await page.evaluate(scrollToBottom);
-        await checkButtonAvailability(page);
-        await ignoreMenuContainer(page);
-        await ignoreFreshChat(page);
-        await ignoreYoutube(page);
+    // ------------------------------------- TOOLTIP -----------------------------------//
+    // ------------------------------ Bovino Vorhang Grün ---------------------------//
 
+    const bovinoVorhang = page.getByRole('link', { name: 'Tazio Verdunklungsvorhang Petrol', exact: true })
 
-        //------------------------------------- TOOLTIP -----------------------------------//
-        //------------------------------ Lavello Vorhang Rose-- ---------------------------//
+    await bovinoVorhang.scrollIntoViewIfNeeded()
 
-        const lavelloVorhang = page.getByRole('link', { name: "Lavello Vorhang Grün" });
+    await bovinoVorhang.locator('..').locator('.item__colors > label>>nth=3').click() // ACHTUNG: Position der gewünschten Farbe Hellgelb kann sich ändern
 
-        await lavelloVorhang.scrollIntoViewIfNeeded()
-
-        await lavelloVorhang.locator('..').locator('.item__colors > label>>nth=8').click() // ACHTUNG: Position der gewünschten Farbe  kann sich ändern
-
-        // take argos screenshot of tooltip
-        await argosScreenshot(page, 'hover - Lavello Vorhang Grün', {
-            fullPage: false,
-            disableHover: false
-        });
-
-
-
-        //------------------------------------- TOOLTIP -----------------------------------//
-        //------------------------------ Bovino Vorhang Grün ---------------------------//
-
-        const bovinoVorhang = page.getByRole('link', { name: "Tazio Verdunklungsvorhang Petrol", exact: true });
-
-        await bovinoVorhang.scrollIntoViewIfNeeded()
-
-        await bovinoVorhang.locator('..').locator('.item__colors > label>>nth=3').click() // ACHTUNG: Position der gewünschten Farbe Hellgelb kann sich ändern
-
-        // take argos screenshot of tooltip
-        await argosScreenshot(page, 'hover - Tazio Verdunklungsvorhang', {
-            fullPage: false,
-            disableHover: false
-        });
-    });
-});
+    // take argos screenshot of tooltip
+    await argosScreenshot(page, 'hover - Tazio Verdunklungsvorhang', {
+      fullPage: false,
+      disableHover: false
+    })
+  })
+})

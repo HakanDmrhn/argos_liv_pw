@@ -9,7 +9,8 @@
   "description": "",
   "devDependencies": {
     "@playwright/test": "^1.47.2",
-    "@types/node": "^22.5.5"
+    "@types/node": "^22.5.5",
+    "standard": "*"
   },
   "dependencies": {
     "@argos-ci/playwright": "^3.6.2",

@@ -1,116 +1,102 @@
-import { argosScreenshot } from "@argos-ci/playwright";
-import { test, expect } from '@playwright/test';
-import { ignoreFreshChat, ignoreYoutube, ignoreMenuContainer, checkButtonAvailability } from '../../support/helpers';
-const scrollToBottom = require("scroll-to-bottomjs");
-
+import { argosScreenshot } from '@argos-ci/playwright'
+import { test, expect } from '@playwright/test'
+import { ignoreFreshChat, ignoreYoutube, ignoreMenuContainer, checkButtonAvailability } from '../../support/helpers'
+const scrollToBottom = require('scroll-to-bottomjs')
 
 test.describe('Integration test with visual testing - simulated mobile testing on doppelrollo category page', function () {
+  test('mobile testing on doppelrollo category page', async function ({ page }) {
+    // iphone-6
+    // await page.setViewportSize('iphone-6');
+    await page.setViewportSize({ width: 375, height: 667 })
 
-    test('mobile testing on doppelrollo category page', async function ({ page }) {
+    // load category page
+    await ignoreFreshChat(page)
+    await ignoreYoutube(page)
+    await page.goto('/doppelrollo/alle-doppelrollos', { waitUntil: 'load' })
+    await page.waitForFunction(() => document.fonts.ready)
+    await page.evaluate(scrollToBottom)
+    await checkButtonAvailability(page)
+    await ignoreMenuContainer(page)
 
-        // iphone-6
-        // await page.setViewportSize('iphone-6');
-        await page.setViewportSize({ width: 375, height: 667 });
+    // ensure that the page has fully loaded by waiting for the logo
+    const livoneoLogo = await page.getByRole('img', { name: 'Plissee und Sonnenschutz bei Livoneo®' })
+    await expect(livoneoLogo).toBeVisible()
+    await livoneoLogo.hover()
+    await page.mouse.move(0, 0)
 
-        // load category page
-        await ignoreFreshChat(page);
-        await ignoreYoutube(page);
-        await page.goto('/doppelrollo/alle-doppelrollos', { waitUntil: 'load' });
-        await page.waitForFunction(() => document.fonts.ready);
-        await page.evaluate(scrollToBottom);
-        await checkButtonAvailability(page);
-        await ignoreMenuContainer(page);
+    // take argos screenshot
+    await argosScreenshot(page, 'mobile view doppelrollo- /doppelrollo/alle-doppelrollos')
 
-        // ensure that the page has fully loaded by waiting for the logo 
-        const livoneoLogo = await page.getByRole('img', { name: 'Plissee und Sonnenschutz bei Livoneo®' });
-        await expect(livoneoLogo).toBeVisible();
-        await livoneoLogo.hover();
-        await page.mouse.move(0, 0);
+    // -------------------------------- TOOLTIP ---------------------------------------//
+    // ------------------------------ RAYURE 5001 ------------------------------------//
 
+    // activate tooltip of Rayure 5001
+    await page.locator('img[alt="Rayure 5001"]').scrollIntoViewIfNeeded()
+    await page.locator('img[alt="Rayure 5001"]').click()
 
-        // take argos screenshot
-        await argosScreenshot(page, 'mobile view doppelrollo- /doppelrollo/alle-doppelrollos');
+    // wait till all 4 mini tooltip images are present
+    await expect(page.locator('.tooltip.active > .tooltip-info-container > ul li')).toHaveCount(4)
 
+    // iterate through all gallery images and check if visible
+    for (const element of await page.locator('.tooltip.active > .tooltip-info-container > ul > li img').all()) {
+      await element.waitFor()
+    }
 
-        //-------------------------------- TOOLTIP ---------------------------------------//
-        //------------------------------ RAYURE 5001 ------------------------------------//
+    // take argos screenshot
+    await argosScreenshot(page, 'mobile view doppelrollo - active tooltip - Rayure 5001', { fullPage: false })
 
-        // activate tooltip of Rayure 5001
-        await page.locator('img[alt="Rayure 5001"]').scrollIntoViewIfNeeded();
-        await page.locator('img[alt="Rayure 5001"]').click();
+    // deactivate tooltip of Rayure 5001
+    await page.locator('div.tooltip.active').click()
 
-        // wait till all 4 mini tooltip images are present
-        await expect(page.locator('.tooltip.active > .tooltip-info-container > ul li')).toHaveCount(4);
+    // take argos screenshot
+    await argosScreenshot(page, 'mobile view doppelrollo - tooltip closed - Rayure 5001', { fullPage: false })
 
-        // iterate through all gallery images and check if visible
-        for (const element of await page.locator('.tooltip.active > .tooltip-info-container > ul > li img').all()) {
-            await element.waitFor()
-        }
+    // -------------------------------- TOOLTIP ---------------------------------------//
+    // ------------------------------ JUSTE 5104 --------------------------------------//
 
-        // take argos screenshot
-        await argosScreenshot(page, 'mobile view doppelrollo - active tooltip - Rayure 5001', { fullPage: false });
+    // activate tooltip of Juste 5104
+    await page.locator('img[alt="Juste 5104"]').scrollIntoViewIfNeeded()
+    await page.locator('img[alt="Juste 5104"]').click()
 
-        // deactivate tooltip of Rayure 5001
-        await page.locator('div.tooltip.active').click();
+    // wait till all 5 mini tooltip images are present
+    await expect(page.locator('.tooltip.active > .tooltip-info-container > ul li')).toHaveCount(5)
 
-        // take argos screenshot
-        await argosScreenshot(page, 'mobile view doppelrollo - tooltip closed - Rayure 5001', { fullPage: false });
+    // iterate through all tooltip images and check if visible
+    for (const element of await page.locator('.tooltip.active > .tooltip-info-container > ul > li img').all()) {
+      await element.waitFor()
+    }
 
+    // take argos screenshot
+    await argosScreenshot(page, 'mobile view doppelrollo - active tooltip - Juste 5104', { fullPage: false })
 
+    // deactivate tooltip of Juste 5104
+    await page.locator('div.tooltip.active').click()
 
+    // take argos screenshot
+    await argosScreenshot(page, 'mobile view doppelrollo - tooltip closed - Juste 5104', { fullPage: false })
 
-        //-------------------------------- TOOLTIP ---------------------------------------//
-        //------------------------------ JUSTE 5104 --------------------------------------//
+    // -------------------------------- TOOLTIP ---------------------------------------//
+    // ------------------------------ AMELIO 5105 --------------------------------------//
 
+    // activate tooltip of Amelio 5105
+    await page.locator('img[alt="Amelio 5105"]').scrollIntoViewIfNeeded()
+    await page.locator('img[alt="Amelio 5105"]').click()
 
-        // activate tooltip of Juste 5104
-        await page.locator('img[alt="Juste 5104"]').scrollIntoViewIfNeeded();
-        await page.locator('img[alt="Juste 5104"]').click();
+    // wait till all 3 mini tooltip images are present
+    await expect(page.locator('.tooltip.active > .tooltip-info-container > ul li')).toHaveCount(3)
 
-        // wait till all 5 mini tooltip images are present
-        await expect(page.locator('.tooltip.active > .tooltip-info-container > ul li')).toHaveCount(5);
+    // iterate through all tooltip images and check if visible
+    for (const element of await page.locator('.tooltip.active > .tooltip-info-container > ul > li img').all()) {
+      await element.waitFor()
+    }
 
-        // iterate through all tooltip images and check if visible
-        for (const element of await page.locator('.tooltip.active > .tooltip-info-container > ul > li img').all()) {
-            await element.waitFor()
-        }
+    // take argos screenshot
+    await argosScreenshot(page, 'mobile view doppelrollo - active tooltip - Amelio 5105', { fullPage: false })
 
-        // take argos screenshot
-        await argosScreenshot(page, 'mobile view doppelrollo - active tooltip - Juste 5104', { fullPage: false });
+    // deactivate tooltip of Amelio 5105
+    await page.locator('div.tooltip.active').click()
 
-        // deactivate tooltip of Juste 5104
-        await page.locator('div.tooltip.active').click();
-
-        // take argos screenshot
-        await argosScreenshot(page, 'mobile view doppelrollo - tooltip closed - Juste 5104', { fullPage: false });
-
-
-
-
-
-        //-------------------------------- TOOLTIP ---------------------------------------//
-        //------------------------------ AMELIO 5105 --------------------------------------//
-
-
-        // activate tooltip of Amelio 5105
-        await page.locator('img[alt="Amelio 5105"]').scrollIntoViewIfNeeded();
-        await page.locator('img[alt="Amelio 5105"]').click();
-
-        // wait till all 3 mini tooltip images are present
-        await expect(page.locator('.tooltip.active > .tooltip-info-container > ul li')).toHaveCount(3);
-
-        // iterate through all tooltip images and check if visible
-        for (const element of await page.locator('.tooltip.active > .tooltip-info-container > ul > li img').all()) {
-            await element.waitFor()
-        }
-
-        // take argos screenshot
-        await argosScreenshot(page, 'mobile view doppelrollo - active tooltip - Amelio 5105', { fullPage: false });
-
-        // deactivate tooltip of Amelio 5105
-        await page.locator('div.tooltip.active').click();
-
-        // take argos screenshot
-        await argosScreenshot(page, 'mobile view doppelrollo - tooltip closed - Amelio 5105', { fullPage: false });
-    });
-});
+    // take argos screenshot
+    await argosScreenshot(page, 'mobile view doppelrollo - tooltip closed - Amelio 5105', { fullPage: false })
+  })
+})
