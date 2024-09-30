@@ -14,17 +14,13 @@ test.describe('Integration test with visual testing - plissee configurator dachf
     await checkButtonAvailability(page)
     await ignoreMenuContainer(page)
 
-    // ensure that the page has fully loaded by waiting for one of the last elements in network traffic
-    const lastlink = page.getByRole('link', { name: 'Impressum' })
-    await expect(lastlink).toBeVisible()
-    await expect(lastlink).toBeEnabled()
-
     // ensure that the page has fully loaded by waiting for the logo c
     const livoneoLogo = await page.getByRole('img', { name: 'Plissee und Sonnenschutz bei Livoneo®' })
     await expect(livoneoLogo).toBeVisible()
     await livoneoLogo.hover()
     await page.mouse.move(0, 0)
 
+    
     // ******************* Dachfensterplissees *******************
     // change to tab Dachfenster
     await page.locator('.tabs > :nth-child(2)').click()

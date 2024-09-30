@@ -19,51 +19,70 @@ test.describe('Integration test with visual testing - opened menus', function ()
     await livoneoLogo.hover()
     await page.mouse.move(0, 0)
 
-    await page.locator('#colors > a > span').hover()
+// Ensure the images in the menu are visible before taking a screenshot
+await page.locator('#colors > a > span').hover();
 
-    // iterate through all menu images and check if visible before taking screenshot
-    for (const element of await page.locator('#colors > a').all()) {
-      await element.waitFor()
-    }
+// Iterate through all menu images and ensure each is visible
+const menuItems = await page.locator('#colors > a img');  // assuming the images are inside the anchor tags
+const count = await menuItems.count();
 
-    // take argos screenshot
-    await argosScreenshot(page, 'Plissee-Menü - Plissee nach Farben', {
-      fullPage: false,
-      disableHover: false
-    })
+for (let i = 0; i < count; i++) {
+  await expect(menuItems.nth(i)).toBeVisible();  // ensure each image is visible
+}
+
+// Take Argos screenshot
+await argosScreenshot(page, 'Plissee-Menü - Plissee nach Farben', {
+  fullPage: false,
+  disableHover: false
+});
+
 
     await page.locator('#rooms > a > span').hover()
 
-    // iterate through all menu images and check if visible before taking screenshot
-    for (const element of await page.locator('#rooms > a').all()) {
-      await element.waitFor()
-    }
+// Iterate through all menu images and ensure each is visible
+const menuItemsRooms = await page.locator('#rooms > a img');  // assuming the images are inside the anchor tags
+const countRooms = await menuItemsRooms.count();
 
-    // take argos screenshot
-    await argosScreenshot(page, 'Plissee-Menü - Plissee für Räume', {
-      fullPage: false,
-      disableHover: false
-    })
+for (let i = 0; i < countRooms; i++) {
+  await expect(menuItemsRooms.nth(i)).toBeVisible();  // ensure each image is visible
+}
+
+// Take Argos screenshot
+await argosScreenshot(page, 'Plissee-Menü - Plissee nach Räumen', {
+  fullPage: false,
+  disableHover: false
+});
+
+
+    
 
     await page.locator('#characteristics > a > span').hover()
 
-    // iterate through all menu images and check if visible before taking screenshot
-    for (const element of await page.locator('#characteristics > a').all()) {
-      await element.waitFor()
-    }
+// Iterate through all menu images and ensure each is visible
+const menuItemsCharacteristics = await page.locator('#rooms > a img');  // assuming the images are inside the anchor tags
+const countCharacteristics = await menuItemsCharacteristics.count();
 
-    // take argos screenshot
-    await argosScreenshot(page, 'Plissee-Menü - Plissee nach Eigenschaften', {
-      fullPage: false,
-      disableHover: false
-    })
+for (let i = 0; i < countCharacteristics; i++) {
+  await expect(menuItemsCharacteristics.nth(i)).toBeVisible();  // ensure each image is visible
+}
+
+// Take Argos screenshot
+await argosScreenshot(page, 'Plissee-Menü - Plissee nach Eigenschaften', {
+  fullPage: false,
+  disableHover: false
+});
+
+
 
     await page.locator('#guide > a > span').hover()
 
-    // iterate through all menu images and check if visible before taking screenshot
-    for (const element of await page.locator('#guide > a').all()) {
-      await element.waitFor()
-    }
+// Iterate through all menu images and ensure each is visible
+const menuItemsGuide = await page.locator('#rooms > a img');  // assuming the images are inside the anchor tags
+const countGuide = await menuItemsGuide.count();
+
+for (let i = 0; i < countGuide; i++) {
+  await expect(menuItemsGuide.nth(i)).toBeVisible();  // ensure each image is visible
+}
 
     // take argos screenshot
     await argosScreenshot(page, 'Plissee-Menü - Ratgeber', {
@@ -71,6 +90,9 @@ test.describe('Integration test with visual testing - opened menus', function ()
       disableHover: false
     })
   })
+
+
+
 
   test('opened menus - Rollo', async function ({ page }) {
     await ignoreFreshChat(page)
