@@ -4,8 +4,7 @@ const scrollToBottom = require('scroll-to-bottomjs')
 
 export async function configure_zubehoer_vorhang (page) {
   // load zubehör page
-  await ignoreFreshChat(page)
-  await ignoreYoutube(page)
+
   await page.goto('/gardinenstangen/zylinder2', { waitUntil: 'load' })
   await page.waitForFunction(() => document.fonts.ready)
   await page.evaluate(scrollToBottom)

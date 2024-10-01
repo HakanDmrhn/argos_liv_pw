@@ -1,12 +1,11 @@
-import { expect } from '@playwright/test'
-import { ignoreFreshChat, ignoreYoutube, ignoreMenuContainer, checkButtonAvailability } from '../support/helpers'
+import { test, expect } from '../fixtures/youtube_freshchat_blocking_fixture.js'
+import { ignoreMenuContainer, checkButtonAvailability } from '../support/helpers'
 
 const scrollToBottom = require('scroll-to-bottomjs')
 
 export async function configure_insektenrollo (page) {
   // load configurator
-  await ignoreFreshChat(page)
-  await ignoreYoutube(page)
+
   await page.goto('/insektenschutz/insektenschutz-rollo', { waitUntil: 'load' })
   await page.waitForFunction(() => document.fonts.ready)
   await page.evaluate(scrollToBottom)

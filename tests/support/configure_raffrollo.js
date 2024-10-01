@@ -1,13 +1,11 @@
 import { add2Cart } from './checkout'
-import { expect } from '@playwright/test'
+import { test, expect } from '../fixtures/youtube_freshchat_blocking_fixture.js'
 import { ignoreFreshChat, ignoreYoutube, ignoreMenuContainer, checkButtonAvailability } from '../support/helpers'
 
 const scrollToBottom = require('scroll-to-bottomjs')
 
 export async function configure_raffrollo (page) {
-  // load configurator
-  await ignoreFreshChat(page)
-  await ignoreYoutube(page)
+
   await page.goto('/raffrollo/yuna-9260', { waitUntil: 'load' })
   await page.waitForFunction(() => document.fonts.ready)
   await page.evaluate(scrollToBottom)

@@ -1,6 +1,7 @@
 import { argosScreenshot } from '@argos-ci/playwright'
 //import { test } from '@playwright/test'
-import { ignoreFreshChat, ignoreYoutube, ignoreMenuContainer, checkButtonAvailability } from '../../support/helpers'
+import { test } from '../../fixtures/youtube_freshchat_blocking_fixture.js'
+import { ignoreMenuContainer, checkButtonAvailability } from '../../support/helpers'
 const data = require('../../fixtures/cms_prio2_rollo.json')
 const pages = data.URLS
 const scrollToBottom = require('scroll-to-bottomjs')

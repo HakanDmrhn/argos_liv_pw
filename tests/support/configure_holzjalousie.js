@@ -1,13 +1,12 @@
 import { add2Cart } from './checkout'
-import { expect } from '@playwright/test'
-import { ignoreFreshChat, ignoreYoutube, ignoreMenuContainer, checkButtonAvailability } from '../support/helpers'
+import { test, expect } from '../fixtures/youtube_freshchat_blocking_fixture.js'
+import { ignoreMenuContainer, checkButtonAvailability } from '../support/helpers'
 
 const scrollToBottom = require('scroll-to-bottomjs')
 
 export async function configure_holzjalousie (page) {
   // load configurator
-  await ignoreFreshChat(page)
-  await ignoreYoutube(page)
+
   await page.goto('/jalousie/holz-jalousie-konfigurator?lamellengroesse=50mm', { waitUntil: 'load' })
   await page.waitForFunction(() => document.fonts.ready)
   await page.evaluate(scrollToBottom)

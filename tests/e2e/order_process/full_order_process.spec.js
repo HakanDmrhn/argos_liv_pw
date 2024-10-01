@@ -1,4 +1,4 @@
-import { test } from '@playwright/test'
+import { test, expect } from '../../fixtures/youtube_freshchat_blocking_fixture.js'
 import { checkOut, emptyCart } from '../../support/checkout'
 import { configure_doppelrollo } from '../../support/configure_doppelrollo'
 import { configure_plissee } from '../../support/configure_plissee'

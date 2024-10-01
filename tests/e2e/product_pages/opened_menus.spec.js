@@ -95,7 +95,7 @@ for (let i = 0; i < countGuide; i++) {
 
 
   test('opened menus - Rollo', async function ({ page }) {
-    await ignoreFreshChat(page)
+
     await page.goto('/', { waitUntil: 'load' })
     await page.waitForFunction(() => document.fonts.ready)
     await page.evaluate(scrollToBottom)
@@ -107,8 +107,7 @@ for (let i = 0; i < countGuide; i++) {
     await page.locator('ol > li:nth-of-type(2) > a').click()
     await page.evaluate(scrollToBottom)
     await page.waitForFunction(() => document.fonts.ready)
-    await ignoreFreshChat(page)
-    await ignoreYoutube(page)
+
 
     await page.locator('#colors > a').hover()
 

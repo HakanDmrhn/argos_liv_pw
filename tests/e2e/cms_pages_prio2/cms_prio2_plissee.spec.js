@@ -1,6 +1,6 @@
 import { argosScreenshot } from '@argos-ci/playwright'
 //import { test, expect } from '@playwright/test'
-import { test, expect } from '../../fixtures/youtube_freshchat_blocking-fixture.js'
+import { test, expect } from '../../fixtures/youtube_freshchat_blocking_fixture.js'
 import { ignoreMenuContainer, checkButtonAvailability } from '../../support/helpers'
 const data = require('../../fixtures/cms_prio2_plissee.json')
 const pages = data.URLS

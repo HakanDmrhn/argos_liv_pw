@@ -1,11 +1,9 @@
-import { ignoreFreshChat, ignoreYoutube, ignoreMenuContainer, checkButtonAvailability } from '../support/helpers'
+import { ignoreMenuContainer, checkButtonAvailability } from '../support/helpers'
 
 const scrollToBottom = require('scroll-to-bottomjs')
 
 export async function configure_zubehoer_schiebegardinen (page) {
-  // load zubehör page
-  await ignoreFreshChat(page)
-  await ignoreYoutube(page)
+
   await page.goto('/schiebegardine-magnetclip', { waitUntil: 'load' })
   await page.waitForFunction(() => document.fonts.ready)
   await page.evaluate(scrollToBottom)
