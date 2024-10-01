@@ -59,7 +59,7 @@ export async function ignoreFreshChat (page) {
  * @returns {Promise<void>} A promise that resolves when YouTube requests are successfully blocked.
  * @throws Will throw an error if the route interception or aborting the request fails.
  */
-export async function ignoreYoutube (page) {
+export async function ignoreYoutube(page) {
   try {
     console.log('Blocking YouTube video requests')
 
@@ -69,11 +69,15 @@ export async function ignoreYoutube (page) {
       console.log('YouTube video request blocked:', route.request().url())
     })
 
+    // Scroll to bottom to trigger lazy-loaded videos
+    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight))
+
     console.log('YouTube video requests successfully blocked.')
   } catch (error) {
     console.error('Error blocking YouTube video requests:', error)
   }
 }
+
 
 /**
  * Checks if all visible buttons in the locator are enabled.
