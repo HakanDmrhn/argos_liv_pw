@@ -1,5 +1,5 @@
 import { argosScreenshot } from '@argos-ci/playwright'
-import { test, expect } from '@playwright/test'
+import { test, expect } from '../../fixtures/youtube_freshchat_blocking_fixture.js'
 import { ignoreFreshChat, ignoreYoutube, ignoreMenuContainer, checkButtonAvailability } from '../../support/helpers'
 const scrollToBottom = require('scroll-to-bottomjs')
 const data = require('../../fixtures/cat_pages_plissee.json')
