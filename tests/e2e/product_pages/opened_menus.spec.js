@@ -5,7 +5,6 @@ const scrollToBottom = require('scroll-to-bottomjs')
 
 test.describe('Integration test with visual testing - opened menus', function () {
   test('opened menus - Plissee', async function ({ page }) {
-    await ignoreFreshChat(page)
     await ignoreYoutube(page)
     await page.goto('/', { waitUntil: 'load' })
     await page.waitForFunction(() => document.fonts.ready)
@@ -163,7 +162,6 @@ for (let i = 0; i < countGuide; i++) {
   })
 
   test('opened menus - Doppelrollo', async function ({ page }) {
-    await ignoreFreshChat(page)
     await page.goto('/', { waitUntil: 'load' })
     await page.waitForFunction(() => document.fonts.ready)
     await page.evaluate(scrollToBottom)
@@ -175,7 +173,6 @@ for (let i = 0; i < countGuide; i++) {
     await page.locator('li.nav-3 span').click()
     await page.evaluate(scrollToBottom)
     await page.waitForFunction(() => document.fonts.ready)
-    await ignoreFreshChat(page)
     await ignoreYoutube(page)
     await page.locator('#colors > a').hover()
 
@@ -192,7 +189,6 @@ for (let i = 0; i < countGuide; i++) {
   })
 
   test('opened menus - Vorhänge', async function ({ page }) {
-    await ignoreFreshChat(page)
     await page.goto('/', { waitUntil: 'load' })
     await page.waitForFunction(() => document.fonts.ready)
     await page.evaluate(scrollToBottom)
@@ -204,7 +200,6 @@ for (let i = 0; i < countGuide; i++) {
     await page.locator('li.nav-6 span').click()
     await page.evaluate(scrollToBottom)
     await page.waitForFunction(() => document.fonts.ready)
-    await ignoreFreshChat(page)
     await ignoreYoutube(page)
 
     // await page.evaluate(scrollToBottom); // --> leads to error on github - unknown reason
@@ -318,13 +313,11 @@ for (let i = 0; i < countGuide; i++) {
 
   test('opened menus - Schiebegardinen', async function ({ page }) {
     // load main page
-    await ignoreFreshChat(page)
     await page.goto('/', { waitUntil: 'load' })
     await page.waitForFunction(() => document.fonts.ready)
     await page.evaluate(scrollToBottom)
     await checkButtonAvailability(page)
     await ignoreMenuContainer(page)
-    await ignoreFreshChat(page)
     await ignoreYoutube(page)
 
     // go to tab 'Schiebegardinen'
@@ -332,7 +325,6 @@ for (let i = 0; i < countGuide; i++) {
 
     await page.evaluate(scrollToBottom)
     await page.waitForFunction(() => document.fonts.ready)
-    await ignoreFreshChat(page)
     await ignoreYoutube(page)
 
     await page.locator('#colors > a > span').hover()
@@ -363,7 +355,6 @@ for (let i = 0; i < countGuide; i++) {
 
   test('opened menus - Raffrollos', async function ({ page }) {
     // load main page
-    await ignoreFreshChat(page)
     await page.goto('/', { waitUntil: 'load' })
     await page.waitForFunction(() => document.fonts.ready)
     await page.evaluate(scrollToBottom)
@@ -373,7 +364,6 @@ for (let i = 0; i < countGuide; i++) {
 
     // go to tab 'Raffrollos'
     await page.locator('ol > li:nth-of-type(8) span').click()
-    await ignoreFreshChat(page)
     await page.waitForFunction(() => document.fonts.ready)
     await checkButtonAvailability(page)
     await page.evaluate(scrollToBottom)

@@ -6,7 +6,6 @@ const scrollToBottom = require('scroll-to-bottomjs')
 test.describe('Integration test with visual testing - hover on schiebegardine category pages', function () {
   test('hover on schiebegardine category page', async function ({ page }) {
     // load category page
-    await ignoreFreshChat(page)
     await ignoreYoutube(page)
     await page.goto('/schiebegardinen/schiebegardinen-blau', { waitUntil: 'load' })
     await page.waitForFunction(() => document.fonts.ready)

@@ -31,7 +31,6 @@ test.describe('Integration test with visual testing - image popups Raffrollo-Kon
   })
 
   test('argos snapshots of raffrollo picture galleries - Konfigurator', async function ({ page }) {
-    await ignoreFreshChat(page)
     await page.goto('/raffrollo/raffrollo-konfigurator')
     await page.evaluate(scrollToBottom)
     await page.waitForFunction(() => document.fonts.ready)

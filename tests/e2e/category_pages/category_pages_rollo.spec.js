@@ -8,7 +8,6 @@ const scrollToBottom = require('scroll-to-bottomjs')
 test.describe('Integration test with visual testing - Rollo category pages', () => {
   pages.forEach((link) => {
     test('Load page: ' + link + ' & take argos snapshot', async ({ page }) => {
-      await ignoreFreshChat(page)
       await ignoreYoutube(page)
       await page.goto(link, { waitUntil: 'load' })
       await page.waitForFunction(() => document.fonts.ready)
