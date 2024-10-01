@@ -1,6 +1,7 @@
 import { argosScreenshot } from '@argos-ci/playwright'
-import { test } from '@playwright/test'
-import { ignoreFreshChat, ignoreYoutube, ignoreMenuContainer, checkButtonAvailability } from '../../support/helpers'
+//import { test } from '@playwright/test'
+import { test, expect } from '../../fixtures/youtube_freshchat_blocking_fixture.js'
+import { ignoreFreshChat, ignoreMenuContainer, checkButtonAvailability } from '../../support/helpers'
 const data = require('../../fixtures/cms_prio1_diverse_II.json')
 const pages = data.URLS
 const scrollToBottom = require('scroll-to-bottomjs')
@@ -9,8 +10,7 @@ test.describe('Integration test with visual testing - Diverse CMS Prio1 pages (o
   pages.forEach(function (link) {
     test('Load page: ' + link + ' & take argos snapshot', async function ({ page }) {
       // block FreshChat script execution
-      await ignoreFreshChat(page)
-      await ignoreYoutube(page)
+
       await page.goto(link, { waitUntil: 'load' })
       await page.waitForFunction(() => document.fonts.ready)
       await page.evaluate(scrollToBottom)
