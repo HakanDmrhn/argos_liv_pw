@@ -69,6 +69,16 @@ export async function ignoreYoutube(page) {
       console.log('YouTube video request blocked:', route.request().url())
     })
 
+
+    await page.route('https://www.youtube-nocookie.com/**', route => {
+      //const request = route.request()
+      //console.log(request.url(), JSON.stringify(request.headers()));
+      console.log(route.request().url())
+      return route.abort();
+    });
+
+
+
     // Scroll to bottom to trigger lazy-loaded videos
     await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight))
 
