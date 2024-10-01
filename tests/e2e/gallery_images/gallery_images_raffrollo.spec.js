@@ -1,13 +1,13 @@
 import { argosScreenshot } from '@argos-ci/playwright'
-import { test, expect } from '@playwright/test'
-import { ignoreFreshChat, ignoreYoutube, ignoreMenuContainer, checkButtonAvailability } from '../../support/helpers'
+//import { test, expect } from '@playwright/test'
+import { test, expect } from '../../fixtures/youtube_freshchat_blocking_fixture.js'
+import { ignoreMenuContainer, checkButtonAvailability } from '../../support/helpers'
 
 const scrollToBottom = require('scroll-to-bottomjs')
 
 test.describe('Integration test with visual testing - image popups Raffrollo-Konfigurator', function () {
   test('argos snapshots of raffrollo gallery images - PDP', async function ({ page }) {
-    await ignoreFreshChat(page)
-    await ignoreYoutube(page)
+
     await page.goto('/raffrollo/grada-9236', { waitUntil: 'load' })
     await page.waitForFunction(() => document.fonts.ready)
     await page.evaluate(scrollToBottom)

@@ -1,13 +1,13 @@
 import { argosScreenshot } from '@argos-ci/playwright'
-import { test, expect } from '@playwright/test'
-import { ignoreFreshChat, ignoreYoutube, ignoreMenuContainer, checkButtonAvailability } from '../../support/helpers'
+//import { test, expect } from '@playwright/test'
+import { test, expect } from '../../fixtures/youtube_freshchat_blocking_fixture.js'
+import { ignoreMenuContainer, checkButtonAvailability } from '../../support/helpers'
 
 const scrollToBottom = require('scroll-to-bottomjs')
 
 test.describe('Integration test with visual testing - rollo configurator', function () {
   test.beforeEach(async function ({ page }) {
-    await ignoreFreshChat(page)
-    await ignoreYoutube(page)
+
     await page.goto('/rollo/rollo-konfigurator', { waitUntil: 'load' })
     await page.waitForFunction(() => document.fonts.ready)
     await page.evaluate(scrollToBottom)
