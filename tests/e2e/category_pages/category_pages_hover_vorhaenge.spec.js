@@ -6,7 +6,6 @@ const scrollToBottom = require('scroll-to-bottomjs')
 test.describe('Integration test with visual testing - hover on vorhaenge category pages', function () {
   test('hover on vorhaenge category page /oesenschal', async function ({ page }) {
     // load category page
-    await ignoreYoutube(page)
     await page.goto('/oesenschal', { waitUntil: 'load' })
     await page.waitForFunction(() => document.fonts.ready)
     await page.evaluate(scrollToBottom)
@@ -52,7 +51,6 @@ test.describe('Integration test with visual testing - hover on vorhaenge categor
     await page.evaluate(scrollToBottom)
     await checkButtonAvailability(page)
     await ignoreMenuContainer(page)
-    await ignoreYoutube(page)
 
     // ------------------------------------- TOOLTIP -----------------------------------//
     // ------------------------------ Lavello Vorhang Rose-- ---------------------------//

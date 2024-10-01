@@ -27,7 +27,6 @@ test.describe('Integration test with visual testing - search function', function
   Object.entries(productSearchTerms).forEach(([link, searchTerm]) => {
     test(`Load page: ${link} - Enter search term "${searchTerm}" and take Argos snapshot`, async function ({ page }) {
       // visit url
-      await ignoreYoutube(page)
       await page.goto(link, { waitUntil: 'load' })
       await page.evaluate(scrollToBottom)
       await page.waitForFunction(() => document.fonts.ready)
@@ -40,7 +39,6 @@ test.describe('Integration test with visual testing - search function', function
       await page.getByRole('button', { name: 'Suchen' }).click()
       await page.evaluate(scrollToBottom)
       await page.waitForFunction(() => document.fonts.ready)
-      await ignoreYoutube(page)
       await ignoreMenuContainer(page)
 
       // take argos screenshot

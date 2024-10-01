@@ -8,7 +8,6 @@ const scrollToBottom = require('scroll-to-bottomjs')
 test.describe('Integration test with visual testing - Vorhänge category pages', function () {
   pages.forEach(function (link) {
     test('Load page: ' + link + ' & take Argos snapshot', async function ({ page }) {
-      await ignoreYoutube(page)
       await page.goto(link, { waitUntil: 'load' })
       await page.waitForFunction(() => document.fonts.ready)
       await page.evaluate(scrollToBottom)

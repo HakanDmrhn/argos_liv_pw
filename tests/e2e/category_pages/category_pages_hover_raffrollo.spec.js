@@ -6,7 +6,6 @@ const scrollToBottom = require('scroll-to-bottomjs')
 test.describe('Integration test with visual testing - hover on raffrollo category pages', function () {
   test('hover on raffrollo category page', async function ({ page }) {
     // load category page
-    await ignoreYoutube(page)
     await page.goto('/raffrollo/raffrollo-beige', { waitUntil: 'load' })
     await page.waitForFunction(() => document.fonts.ready)
     await page.evaluate(scrollToBottom)

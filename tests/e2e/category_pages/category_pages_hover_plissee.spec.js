@@ -6,7 +6,6 @@ const scrollToBottom = require('scroll-to-bottomjs')
 test.describe('Integration test with visual testing - hover on plissee category pages', function () {
   test('hover on plissee category page', async function ({ page }) {
     // load category page
-    await ignoreYoutube(page)
     await page.goto('/plissee/plissee-gelb', { waitUntil: 'load' })
     await page.waitForFunction(() => document.fonts.ready)
     await page.evaluate(scrollToBottom)

@@ -9,7 +9,6 @@ test.describe('Integration test with visual testing - simulated mobile testing o
     await page.setViewportSize({ width: 375, height: 667 })
 
     // Load category page
-    await ignoreYoutube(page)
     await page.goto('/schiebegardinen/schiebegardinen-beige', { waitUntil: 'load' })
     await page.waitForFunction(() => document.fonts.ready)
     await page.evaluate(scrollToBottom)
