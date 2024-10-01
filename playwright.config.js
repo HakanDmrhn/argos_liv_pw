@@ -13,7 +13,6 @@ require('dotenv').config() // --> npm install dotenv --save-dev ))
  */
 module.exports = defineConfig({
   testDir: './tests',
-  //globalSetup: require.resolve('./global-setup.js'), 
   /* Maximum time one test can run. -page load timeout- 30 seconds */
   timeout: 2 * 90 * 1000,
   /* Maximum time expect assertion can run -by default 5000ms- */
