@@ -1,7 +1,6 @@
 import { argosScreenshot } from '@argos-ci/playwright'
 import { test, expect } from '../../fixtures/youtube_freshchat_blocking_fixture.js'
-import { ignoreFreshChat, ignoreYoutube, ignoreMenuContainer, checkButtonAvailability } from '../../support/helpers'
-
+import { ignoreMenuContainer, checkButtonAvailability } from '../../support/helpers'
 const scrollToBottom = require('scroll-to-bottomjs')
 
 // Define search terms for each page
@@ -28,9 +27,16 @@ test.describe('Integration test with visual testing - search function', function
     test(`Load page: ${link} - Enter search term "${searchTerm}" and take Argos snapshot`, async function ({ page }) {
       // visit url
       await page.goto(link, { waitUntil: 'load' })
-      await page.evaluate(scrollToBottom)
       await page.waitForFunction(() => document.fonts.ready)
+      await page.evaluate(scrollToBottom)
+      await checkButtonAvailability(page)
       await ignoreMenuContainer(page)
+
+      // ensure that the page has fully loaded by waiting for the logo c
+      const livoneoLogo = await page.getByRole('img', { name: 'Plissee und Sonnenschutz bei Livoneo®' })
+      await expect(livoneoLogo).toBeVisible()
+      await livoneoLogo.hover()
+      await page.mouse.move(0, 0)
 
       // Enter the search term into the input field
       await page.fill('#search', searchTerm)

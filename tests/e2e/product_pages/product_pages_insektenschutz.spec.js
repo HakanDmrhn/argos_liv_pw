@@ -1,6 +1,6 @@
 import { argosScreenshot } from '@argos-ci/playwright'
 import { test, expect } from '../../fixtures/youtube_freshchat_blocking_fixture.js'
-import { ignoreFreshChat, ignoreYoutube, ignoreMenuContainer, checkButtonAvailability } from '../../support/helpers'
+import { ignoreMenuContainer, checkButtonAvailability } from '../../support/helpers'
 const data = require('../../fixtures/product_pages_insektenschutz.json')
 const pages = data.URLS
 const scrollToBottom = require('scroll-to-bottomjs')
@@ -8,6 +8,7 @@ const scrollToBottom = require('scroll-to-bottomjs')
 test.describe('Integration test with visual testing - Insektenschutz product pages', function () {
   pages.forEach(function (link) {
     test('Load page: ' + link + ' & take argos snapshot', async function ({ page }) {
+      
       await page.goto(link, { waitUntil: 'load' })
       await page.waitForFunction(() => document.fonts.ready)
       await page.evaluate(scrollToBottom)

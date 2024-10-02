@@ -1,5 +1,6 @@
+import { argosScreenshot } from '@argos-ci/playwright'
 import { test, expect } from '../../fixtures/youtube_freshchat_blocking_fixture.js'
-import { ignoreFreshChat, ignoreYoutube, ignoreMenuContainer, checkButtonAvailability } from '../../support/helpers'
+import { ignoreMenuContainer, checkButtonAvailability } from '../../support/helpers'
 const scrollToBottom = require('scroll-to-bottomjs')
 
 test.describe('Integration test with visual testing - opened menus', function () {

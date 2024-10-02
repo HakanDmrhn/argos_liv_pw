@@ -16,6 +16,12 @@ test.describe('Integration test with visual testing - Vorhänge CMS Prio1 pages'
       await checkButtonAvailability(page)
       await ignoreMenuContainer(page)
 
+      // ensure that the page has fully loaded by waiting for the logo c
+      const livoneoLogo = await page.getByRole('img', { name: 'Plissee und Sonnenschutz bei Livoneo®' })
+      await expect(livoneoLogo).toBeVisible()
+      await livoneoLogo.hover()
+      await page.mouse.move(0, 0)
+
       // take argos screenshot
       await argosScreenshot(page, link, {
         viewports: [
