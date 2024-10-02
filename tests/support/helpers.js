@@ -143,7 +143,7 @@ export async function waitForTextToAppear (page, text, timeout = 30000) {
 
 /**
  * Scrolls the specified element into view and ensures it's fully visible.
- * Uses 'block: start' and 'inline: start' to bring the element fully into the viewport.
+ * Uses 'block: center' and 'inline: center' to bring the element fully into the viewport.
  *
  * @param {import('playwright').Page} page - The Playwright page object.
  * @param {string} selector - The CSS selector of the element to scroll into view.
@@ -151,6 +151,6 @@ export async function waitForTextToAppear (page, text, timeout = 30000) {
  */
 export async function ensureFullVisibility(page, selector) {
   await page.locator(selector).evaluate((element) => {
-    element.scrollIntoView({ block: 'start', inline: 'start', behavior: 'smooth' });
+    element.scrollIntoView({ block: 'center', inline: 'center', behavior: 'auto' });
   });
 }
