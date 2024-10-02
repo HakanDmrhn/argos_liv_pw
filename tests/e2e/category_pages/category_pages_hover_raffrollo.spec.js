@@ -1,6 +1,6 @@
 import { argosScreenshot } from '@argos-ci/playwright'
 import { test, expect } from '../../fixtures/youtube_freshchat_blocking_fixture.js'
-import { ignoreMenuContainer, checkButtonAvailability } from '../../support/helpers'
+import { ignoreMenuContainer, checkButtonAvailability, ensureFullVisibility } from '../../support/helpers'
 const scrollToBottom = require('scroll-to-bottomjs')
 
 test.describe('Integration test with visual testing - hover on raffrollo category pages', function () {
@@ -23,7 +23,7 @@ test.describe('Integration test with visual testing - hover on raffrollo categor
     // ------------------------------ Raffrollo Zadar 9021 -----------------------//
 
     // activate tooltip of Raffrollo Zadar 9021
-    await page.locator('img[alt="Zadar 9021"]').scrollIntoViewIfNeeded()
+    await ensureFullVisibility(page, 'img[alt="Zadar 9021"]')
     await page.locator('img[alt="Zadar 9021"]').hover()
 
     // wait till all 4 mini tooltip images are present
@@ -44,7 +44,7 @@ test.describe('Integration test with visual testing - hover on raffrollo categor
     // ------------------------------ Raffrollo Luogo 9107 -----------------------//
 
     // activate tooltip of Raffrollo Luogo 9107
-    await page.locator('img[alt="Luogo 9107"]').scrollIntoViewIfNeeded()
+    await ensureFullVisibility(page, 'img[alt="Luogo 9107"]')
     await page.locator('img[alt="Luogo 9107"]').hover()
 
     // wait till all 4 mini tooltip images are present

@@ -1,6 +1,6 @@
 import { argosScreenshot } from '@argos-ci/playwright'
 import { test, expect } from '../../fixtures/youtube_freshchat_blocking_fixture.js'
-import { ignoreMenuContainer, checkButtonAvailability } from '../../support/helpers'
+import { ignoreMenuContainer, checkButtonAvailability, ensureFullVisibility } from '../../support/helpers'
 const scrollToBottom = require('scroll-to-bottomjs')
 
 test.describe('Integration test with visual testing - hover on schiebegardine category pages', function () {
@@ -23,7 +23,7 @@ test.describe('Integration test with visual testing - hover on schiebegardine ca
     // ------------------------------ Schiebegardine Bonito 7337 -----------------------//
 
     // activate tooltip of Schiebegardine Bonito 7337
-    await page.locator('img[alt="Schiebegardine Bonito 7337"]').scrollIntoViewIfNeeded()
+    await ensureFullVisibility(page, 'img[alt="Schiebegardine Bonito 7337"]')
     await page.locator('img[alt="Schiebegardine Bonito 7337"]').hover()
 
     // wait till all 5 mini tooltip images are present
@@ -44,7 +44,7 @@ test.describe('Integration test with visual testing - hover on schiebegardine ca
     // ------------------------------ Schiebegardine Shana 7334 -----------------------//
 
     // activate tooltip of Schiebegardine Shana 7334
-    await page.locator('img[alt="Schiebegardine Shana 7334"]').scrollIntoViewIfNeeded()
+    await ensureFullVisibility(page, 'img[alt="Schiebegardine Shana 7334"]')
     await page.locator('img[alt="Schiebegardine Shana 7334"]').hover()
 
     // wait till all 5 mini tooltip images are present

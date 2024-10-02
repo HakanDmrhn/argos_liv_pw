@@ -1,6 +1,6 @@
 import { argosScreenshot } from '@argos-ci/playwright'
 import { test, expect } from '../../fixtures/youtube_freshchat_blocking_fixture.js'
-import { ignoreFreshChat, ignoreYoutube, ignoreMenuContainer, checkButtonAvailability } from '../../support/helpers'
+import { ignoreMenuContainer, checkButtonAvailability, ensureFullVisibility } from '../../support/helpers'
 const scrollToBottom = require('scroll-to-bottomjs')
 
 test.describe('Integration test with visual testing - hover on doppelrollo category pages', function () {
@@ -23,7 +23,7 @@ test.describe('Integration test with visual testing - hover on doppelrollo categ
     // ------------------------------ doppelrollo Acorda 5090 -----------------------//
 
     // activate tooltip of Acorda 5090
-    await page.locator('img[alt="Acorda 5090"]').scrollIntoViewIfNeeded()
+    await ensureFullVisibility(page, 'img[alt="Acorda 5090"]')
     await page.locator('img[alt="Acorda 5090"]').hover()
 
     // wait till all 5 mini tooltip images are present
@@ -44,7 +44,7 @@ test.describe('Integration test with visual testing - hover on doppelrollo categ
     // ------------------------------ doppelrollo Lacinia 5053 -----------------------//
 
     // activate tooltip of Lacinia 5053
-    await page.locator('img[alt="Lacinia 5053"]').scrollIntoViewIfNeeded()
+    await ensureFullVisibility(page, 'img[alt="Lacinia 5053"]')
     await page.locator('img[alt="Lacinia 5053"]').hover()
 
     // wait till all 4 mini tooltip images are present
