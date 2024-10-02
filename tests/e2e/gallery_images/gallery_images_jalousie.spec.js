@@ -1,132 +1,122 @@
-import { argosScreenshot } from "@argos-ci/playwright";
-import { test, expect } from '@playwright/test';
-import { ignoreFreshChat, ignoreYoutube, ignoreMenuContainer, checkButtonAvailability } from '../../support/helpers';
+import { argosScreenshot } from '@argos-ci/playwright'
+//import { test, expect } from '@playwright/test'
+import { test, expect } from '../../fixtures/youtube_freshchat_blocking_fixture.js'
+import { ignoreMenuContainer, checkButtonAvailability } from '../../support/helpers'
 
-let scrollToBottom = require("scroll-to-bottomjs");
-
+const scrollToBottom = require('scroll-to-bottomjs')
 
 test.describe('Integration test with visual testing - gallery images Jalousie-Konfigurator', function () {
+  test.beforeEach(async function ({ page }) {
 
-    test.beforeEach(async function ({ page }) {
+    await page.goto('/jalousie/jalousie-konfigurator', { waitUntil: 'load' })
+    await page.waitForFunction(() => document.fonts.ready)
+    await page.evaluate(scrollToBottom)
+    await checkButtonAvailability(page)
+    await ignoreMenuContainer(page)
+  })
 
-        await ignoreFreshChat(page);
-        await ignoreYoutube(page);
-        await page.goto('/jalousie/jalousie-konfigurator', { waitUntil: 'load' });
-        await page.waitForFunction(() => document.fonts.ready);
-        await page.evaluate(scrollToBottom);
-        await checkButtonAvailability(page);
-        await ignoreMenuContainer(page);
+  test('argos snapshots of product picture galleries - jalousie 16 mm', async function ({ page }) {
+    // ******************* Jalousie 16mm *******************
+    await page.locator('.blinds-type > ul > :nth-child(1)').click()
+    await page.evaluate(scrollToBottom)
+    await page.waitForFunction(() => document.fonts.ready)
+    await ignoreMenuContainer(page)
 
-    });
+    // scroll the big image into view
+    await page.locator('img#bigImage').scrollIntoViewIfNeeded()
 
-    test('argos snapshots of product picture galleries - jalousie 16 mm', async function ({ page }) {
+    await page.locator('dd:nth-of-type(2) li:nth-of-type(1) > img').click()
+    // take argos screenshot
+    await argosScreenshot(page, '1st image of Jalousie-Konfigurator gallery 16 mm', {
+      fullPage: false
+    })
 
-        // ******************* Jalousie 16mm *******************
-        await page.locator('.blinds-type > ul > :nth-child(1)').click();
-        await page.evaluate(scrollToBottom);
-        await page.waitForFunction(() => document.fonts.ready);
-        await ignoreMenuContainer(page);
+    await page.locator('dd:nth-of-type(2) li:nth-of-type(2) > img').click()
+    // take argos screenshot
+    await argosScreenshot(page, '2nd image of Jalousie-Konfigurator gallery 16 mm', {
+      fullPage: false
+    })
 
+    await page.locator('dd:nth-of-type(2) li:nth-of-type(3) > img').click()
+    // take argos screenshot
+    await argosScreenshot(page, '3rd image of Jalousie-Konfigurator gallery 16 mm', {
+      fullPage: false
+    })
 
-        // scroll the big image into view
-        await page.locator('img#bigImage').scrollIntoViewIfNeeded();
+    await page.locator('dd:nth-of-type(2) li:nth-of-type(4) > img').click()
+    // take argos screenshot
+    await argosScreenshot(page, '4th image of Jalousie-Konfigurator gallery 16 mm', {
+      fullPage: false
+    })
+  })
 
-        await page.locator('dd:nth-of-type(2) li:nth-of-type(1) > img').click();
-        // take argos screenshot
-        await argosScreenshot(page, '1st image of Jalousie-Konfigurator gallery 16 mm', {
-            fullPage: false
-        });
+  test('argos snapshots of product picture galleries - jalousie 25 mm', async function ({ page }) {
+    // ******************* Jalousie 25mm *******************
+    await page.locator('.blinds-type > ul > :nth-child(2)').click()
+    await page.evaluate(scrollToBottom)
+    await page.waitForFunction(() => document.fonts.ready)
+    await ignoreMenuContainer(page)
 
-        await page.locator('dd:nth-of-type(2) li:nth-of-type(2) > img').click();
-        // take argos screenshot
-        await argosScreenshot(page, '2nd image of Jalousie-Konfigurator gallery 16 mm', {
-            fullPage: false
-        });
+    // scroll the big image into view
+    await page.locator('img#bigImage').scrollIntoViewIfNeeded()
 
-        await page.locator('dd:nth-of-type(2) li:nth-of-type(3) > img').click();
-        // take argos screenshot
-        await argosScreenshot(page, '3rd image of Jalousie-Konfigurator gallery 16 mm', {
-            fullPage: false
-        });
+    await page.locator('dd:nth-of-type(2) li:nth-of-type(1) > img').click()
+    // take argos screenshot
+    await argosScreenshot(page, '1st image of Jalousie-Konfigurator gallery 25 mm', {
+      fullPage: false
+    })
 
-        await page.locator('dd:nth-of-type(2) li:nth-of-type(4) > img').click();
-        // take argos screenshot
-        await argosScreenshot(page, '4th image of Jalousie-Konfigurator gallery 16 mm', {
-            fullPage: false
-        });
-    });   
+    await page.locator('dd:nth-of-type(2) li:nth-of-type(2) > img').click()
+    // take argos screenshot
+    await argosScreenshot(page, '2nd image of Jalousie-Konfigurator gallery 25 mm', {
+      fullPage: false
+    })
 
-    test('argos snapshots of product picture galleries - jalousie 25 mm', async function ({ page }) {
+    await page.locator('dd:nth-of-type(2) li:nth-of-type(3) > img').click()
+    // take argos screenshot
+    await argosScreenshot(page, '3rd image of Jalousie-Konfigurator gallery 25 mm', {
+      fullPage: false
+    })
 
-        // ******************* Jalousie 25mm *******************
-        await page.locator('.blinds-type > ul > :nth-child(2)').click();
-        await page.evaluate(scrollToBottom);
-        await page.waitForFunction(() => document.fonts.ready);
-        await ignoreMenuContainer(page);
+    await page.locator('dd:nth-of-type(2) li:nth-of-type(4) > img').click()
+    // take argos screenshot
+    await argosScreenshot(page, '4th image of Jalousie-Konfigurator gallery 25 mm', {
+      fullPage: false
+    })
+  })
 
+  test('argos snapshots of product picture galleries - jalousie 50 mm', async function ({ page }) {
+    // ******************* Jalousie 50mm *******************
+    await page.locator('.blinds-type > ul > :nth-child(3)').click()
+    await page.evaluate(scrollToBottom)
+    await page.waitForFunction(() => document.fonts.ready)
+    await ignoreMenuContainer(page)
 
-        // scroll the big image into view
-        await page.locator('img#bigImage').scrollIntoViewIfNeeded();
+    // scroll the big image into view
+    await page.locator('img#bigImage').scrollIntoViewIfNeeded()
 
-        await page.locator('dd:nth-of-type(2) li:nth-of-type(1) > img').click();
-        // take argos screenshot
-        await argosScreenshot(page, '1st image of Jalousie-Konfigurator gallery 25 mm', {
-            fullPage: false
-        });
+    await page.locator('dd:nth-of-type(2) li:nth-of-type(1) > img').click()
+    // take argos screenshot
+    await argosScreenshot(page, '1st image of Jalousie-Konfigurator gallery 50 mm', {
+      fullPage: false
+    })
 
-        await page.locator('dd:nth-of-type(2) li:nth-of-type(2) > img').click();
-        // take argos screenshot
-        await argosScreenshot(page, '2nd image of Jalousie-Konfigurator gallery 25 mm', {
-            fullPage: false
-        });
+    await page.locator('dd:nth-of-type(2) li:nth-of-type(2) > img').click()
+    // take argos screenshot
+    await argosScreenshot(page, '2nd image of Jalousie-Konfigurator gallery 50 mm', {
+      fullPage: false
+    })
 
-        await page.locator('dd:nth-of-type(2) li:nth-of-type(3) > img').click();
-        // take argos screenshot
-        await argosScreenshot(page, '3rd image of Jalousie-Konfigurator gallery 25 mm', {
-            fullPage: false
-        });
+    await page.locator('dd:nth-of-type(2) li:nth-of-type(3) > img').click()
+    // take argos screenshot
+    await argosScreenshot(page, '3rd image of Jalousie-Konfigurator gallery 50 mm', {
+      fullPage: false
+    })
 
-        await page.locator('dd:nth-of-type(2) li:nth-of-type(4) > img').click();
-        // take argos screenshot
-        await argosScreenshot(page, '4th image of Jalousie-Konfigurator gallery 25 mm', {
-            fullPage: false
-        });
-    });  
-
-    test('argos snapshots of product picture galleries - jalousie 50 mm', async function ({ page }) {
-
-        // ******************* Jalousie 50mm *******************
-        await page.locator('.blinds-type > ul > :nth-child(3)').click();
-        await page.evaluate(scrollToBottom);
-        await page.waitForFunction(() => document.fonts.ready);
-        await ignoreMenuContainer(page);
-
-
-        // scroll the big image into view
-        await page.locator('img#bigImage').scrollIntoViewIfNeeded();
-
-        await page.locator('dd:nth-of-type(2) li:nth-of-type(1) > img').click();
-        // take argos screenshot
-        await argosScreenshot(page, '1st image of Jalousie-Konfigurator gallery 50 mm', {
-            fullPage: false
-        });
-
-        await page.locator('dd:nth-of-type(2) li:nth-of-type(2) > img').click();
-        // take argos screenshot
-        await argosScreenshot(page, '2nd image of Jalousie-Konfigurator gallery 50 mm', {
-            fullPage: false
-        });
-
-        await page.locator('dd:nth-of-type(2) li:nth-of-type(3) > img').click();
-        // take argos screenshot
-        await argosScreenshot(page, '3rd image of Jalousie-Konfigurator gallery 50 mm', {
-            fullPage: false
-        });
-
-        await page.locator('dd:nth-of-type(2) li:nth-of-type(4) > img').click();
-        // take argos screenshot
-        await argosScreenshot(page, '4th image of Jalousie-Konfigurator gallery 50 mm', {
-            fullPage: false
-        });
-    });  
-});
+    await page.locator('dd:nth-of-type(2) li:nth-of-type(4) > img').click()
+    // take argos screenshot
+    await argosScreenshot(page, '4th image of Jalousie-Konfigurator gallery 50 mm', {
+      fullPage: false
+    })
+  })
+})
