@@ -193,8 +193,10 @@ for (let i = 0; i < countGuide; i++) {
 
     // go to tab 'Vorhänge'
     await page.locator('li.nav-6 span').click()
-    await page.evaluate(scrollToBottom)
     await page.waitForFunction(() => document.fonts.ready)
+    await checkButtonAvailability(page)
+    await page.evaluate(scrollToBottom)
+
 
     // await page.evaluate(scrollToBottom); // --> leads to error on github - unknown reason
     // workaround;
