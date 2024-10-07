@@ -7,10 +7,10 @@ test.describe('Integration test with visual testing - opened menus', function ()
   test('opened menus - Plissee', async function ({ page }) {
     await page.goto('/', { waitUntil: 'load' })
     await page.waitForFunction(() => document.fonts.ready)
-    await page.evaluate(scrollToBottom)
     await checkButtonAvailability(page)
+    await page.evaluate(scrollToBottom)
     await ignoreMenuContainer(page)
-
+    
     // ensure that the page has fully loaded by waiting for the logo c
     const livoneoLogo = await page.getByRole('img', { name: 'Plissee und Sonnenschutz bei Livoneo®' })
     await expect(livoneoLogo).toBeVisible()
@@ -193,8 +193,10 @@ for (let i = 0; i < countGuide; i++) {
 
     // go to tab 'Vorhänge'
     await page.locator('li.nav-6 span').click()
-    await page.evaluate(scrollToBottom)
     await page.waitForFunction(() => document.fonts.ready)
+    await checkButtonAvailability(page)
+    await page.evaluate(scrollToBottom)
+
 
     // await page.evaluate(scrollToBottom); // --> leads to error on github - unknown reason
     // workaround;
