@@ -15,7 +15,7 @@ const productSearchTerms = {
   '/insektenschutz/fliegengitter': 'fliegengitter',
   '/plissee-kleben': 'kleben',
   '/doppelrollo/remsa-5057': 'remsa',
-  plissee: 'perlex',
+  '/plissee': 'perlex',
   '/': 'ozean',
   '/': '1=1'
 }
