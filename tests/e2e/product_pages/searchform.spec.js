@@ -1,7 +1,6 @@
 import { argosScreenshot } from '@argos-ci/playwright'
 import { test, expect } from '../../fixtures/youtube_freshchat_blocking_fixture.js'
 import { ignoreMenuContainer, checkButtonAvailability } from '../../support/helpers'
-const scrollToBottom = require('scroll-to-bottomjs')
 
 // Define search terms for each page
 const productSearchTerms = {
@@ -21,14 +20,12 @@ const productSearchTerms = {
 }
 
 test.describe('Integration test with visual testing - search function', function () {
-  test.describe.configure({ retries: 2 })
 
   Object.entries(productSearchTerms).forEach(([link, searchTerm]) => {
     test(`Load page: ${link} - Enter search term "${searchTerm}" and take Argos snapshot`, async function ({ page }) {
       // visit url
       await page.goto(link, { waitUntil: 'load' })
       await page.waitForFunction(() => document.fonts.ready)
-      await page.evaluate(scrollToBottom)
       await checkButtonAvailability(page)
       await ignoreMenuContainer(page)
 
@@ -43,7 +40,6 @@ test.describe('Integration test with visual testing - search function', function
 
       // Submit the form
       await page.getByRole('button', { name: 'Suchen' }).click()
-      await page.evaluate(scrollToBottom)
       await page.waitForFunction(() => document.fonts.ready)
       await ignoreMenuContainer(page)
 
