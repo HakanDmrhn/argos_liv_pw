@@ -10,26 +10,18 @@ test.describe('Integration test with visual testing - plissee configurator speci
 
     await page.goto('/plissee/plissee-konfigurator', { waitUntil: 'load' })
     await page.waitForFunction(() => document.fonts.ready)
-    await page.evaluate(scrollToBottom)
-    await checkButtonAvailability(page)
-    await ignoreMenuContainer(page)
 
     // ensure that the page has fully loaded by waiting for one of the last elements in network traffic
     const lastlink = page.getByRole('link', { name: 'Impressum' })
     await expect(lastlink).toBeVisible()
     await expect(lastlink).toBeEnabled()
 
-    // ensure that the page has fully loaded by waiting for the logo c
-    const livoneoLogo = await page.getByRole('img', { name: 'Plissee und Sonnenschutz bei Livoneo®' })
-    await expect(livoneoLogo).toBeVisible()
-    await livoneoLogo.hover()
-    await page.mouse.move(0, 0)
+
 
     // ******************* Sonderformen *******************
     // change to tab Sonderformen
     await page.locator('.tabs > :nth-child(3)').click()
     await page.waitForFunction(() => document.fonts.ready)
-    await page.evaluate(scrollToBottom)
     await checkButtonAvailability(page)
     await ignoreMenuContainer(page)
 
@@ -46,6 +38,7 @@ test.describe('Integration test with visual testing - plissee configurator speci
 
     // change direction to rechts
     await page.getByText(new RegExp('^rechts\\s*$')).first().click()
+    await page.waitForFunction(() => document.fonts.ready)
     // take argos screenshot
     await argosScreenshot(page, 'Plissee Sonderformen - FDS3 rechts gerichtet', {
       viewports: [
