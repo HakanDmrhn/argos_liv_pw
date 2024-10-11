@@ -8,12 +8,12 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "@playwright/test": "^1.47.2",
+    "@playwright/test": "^1.48.0",
     "@types/node": "^22.5.5",
     "standard": "*"
   },
   "dependencies": {
-    "@argos-ci/playwright": "^3.6.2",
+    "@argos-ci/playwright": "^3.6.3",
     "dotenv": "^16.4.5",
     "scroll-to-bottomjs": "^1.1.0"
 
