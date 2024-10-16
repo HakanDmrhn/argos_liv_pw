@@ -12,7 +12,6 @@ const data =
 }
 
 export async function configure_service_aenderungSchnur (page) {
-
   await page.goto('/aenderungsauftrag-schnurlaenge', { waitUntil: 'load' })
   await page.waitForFunction(() => document.fonts.ready)
   await page.evaluate(scrollToBottom)

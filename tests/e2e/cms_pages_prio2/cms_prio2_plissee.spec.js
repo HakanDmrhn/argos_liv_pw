@@ -1,5 +1,5 @@
 import { argosScreenshot } from '@argos-ci/playwright'
-//import { test, expect } from '@playwright/test'
+// import { test, expect } from '@playwright/test'
 import { test, expect } from '../../fixtures/youtube_freshchat_blocking_fixture.js'
 import { ignoreMenuContainer, checkButtonAvailability } from '../../support/helpers'
 const data = require('../../fixtures/cms_prio2_plissee.json')
@@ -9,7 +9,6 @@ const scrollToBottom = require('scroll-to-bottomjs')
 test.describe('Integration test with visual testing - Plissee CMS Prio2 pages', function () {
   pages.forEach(function (link) {
     test('Load page: ' + link + ' & take argos snapshot', async function ({ page }) {
-
       await page.goto(link)
       // Scroll the page to trigger lazy-loaded content
       await page.evaluate(scrollToBottom)
@@ -17,7 +16,7 @@ test.describe('Integration test with visual testing - Plissee CMS Prio2 pages', 
       await checkButtonAvailability(page)
       await ignoreMenuContainer(page)
 
-      // ensure that the page has fully loaded by waiting for the logo 
+      // ensure that the page has fully loaded by waiting for the logo
       const livoneoLogo = await page.getByRole('img', { name: 'Plissee und Sonnenschutz bei Livoneo®' })
       await expect(livoneoLogo).toBeVisible()
       await livoneoLogo.hover()

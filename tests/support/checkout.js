@@ -1,7 +1,6 @@
 import { test, expect } from '../fixtures/youtube_freshchat_blocking_fixture.js'
 import { argosScreenshot } from '@argos-ci/playwright'
 
-
 const scrollToBottom = require('scroll-to-bottomjs')
 
 const data =
@@ -59,7 +58,6 @@ export async function checkOut (page) {
   await page.waitForFunction(() => document.fonts.ready)
   await page.evaluate(scrollToBottom)
 
-
   // ----------------------- CHECK URL OF CHECKOUT ----------------------------//
   // --------------------------------------------------------------------------//
 
@@ -68,7 +66,6 @@ export async function checkOut (page) {
 
   // set billing address information in Rechnungsinformation
   await setBillingData(page, data.company_name, data.vatID, data.first_name, data.last_name, data.email, data.street, data.postal_code, data.city, data.phone, data.state)
-
 
   // take argos screenshot Rechnungsinformation
   await argosScreenshot(page, 'checkout - Rechnungsinformation', {
@@ -95,8 +92,6 @@ export async function checkOut (page) {
   // set shipping address information
   await setShippingData(page, data.company_name2, data.vatID_2, data.first_name2, data.last_name2, data.street2, data.postal_code2, data.city2, data.phone2, data.state2)
 
-
-
   // take argos screenshot Versandinformation
   await argosScreenshot(page, 'checkout - Versandinformation', {
     viewports: [
@@ -117,7 +112,6 @@ export async function checkOut (page) {
         console.log('RESPONSE RECEIVED - /checkout/onepage/saveShipping')
     )
   ])
-
 
   await page.waitForFunction(() => document.fonts.ready)
   await page.evaluate(scrollToBottom)
@@ -152,7 +146,6 @@ export async function checkOut (page) {
   await page.locator('dt[class="ppp card"] img').waitFor()
   // await page.locator('dt[class="ppp sofort"] img').waitFor();
 
-
   // take argos screenshot Zahlungsinformation
   await argosScreenshot(page, 'checkout - Zahlungsinformation', {
     viewports: [
@@ -175,8 +168,6 @@ export async function checkOut (page) {
     )
   ])
 
-
-
   // wait for Paypal-Button
   await page.locator('iframe.component-frame.visible').waitFor()
 
@@ -196,7 +187,6 @@ export async function emptyCart (page) {
   await page.waitForFunction(() => document.fonts.ready)
   await page.evaluate(scrollToBottom)
 
-
   // ----------------------- CHECK URL OF CART --------------------------------//
   // --------------------------------------------------------------------------//
 
@@ -212,7 +202,6 @@ export async function emptyCart (page) {
   })
 
   await deleteProducts(page)
-
 
   // take argos screenshot full cart
   await argosScreenshot(page, 'checkout - Warenkorb geleert', {

@@ -1,5 +1,5 @@
 import { argosScreenshot } from '@argos-ci/playwright'
-//import { test } from '@playwright/test'
+// import { test } from '@playwright/test'
 import { test, expect } from '../../fixtures/youtube_freshchat_blocking_fixture.js'
 import { ignoreMenuContainer, checkButtonAvailability } from '../../support/helpers'
 const data = require('../../fixtures/cms_prio2_rollo.json')
@@ -9,7 +9,6 @@ const scrollToBottom = require('scroll-to-bottomjs')
 test.describe('Integration test with visual testing - Rollo CMS Prio2 pages', function () {
   pages.forEach(function (link) {
     test('Load page: ' + link + ' & take argos snapshot', async function ({ page }) {
-
       await page.goto(link, { waitUntil: 'load' })
       await page.evaluate(scrollToBottom)
       await page.waitForFunction(() => document.fonts.ready)
@@ -21,7 +20,7 @@ test.describe('Integration test with visual testing - Rollo CMS Prio2 pages', fu
       await expect(livoneoLogo).toBeVisible()
       await livoneoLogo.hover()
       await page.mouse.move(0, 0)
-      
+
       // take argos screenshot
       await argosScreenshot(page, link, {
         viewports: [

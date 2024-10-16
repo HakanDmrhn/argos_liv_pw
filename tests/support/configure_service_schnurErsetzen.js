@@ -12,7 +12,6 @@ const data =
 }
 
 export async function configure_service_schnurErsetzen (page) {
-
   await page.goto('/reparaturauftrag-schnur-ersetzen', { waitUntil: 'load' })
   await page.waitForFunction(() => document.fonts.ready)
   await page.evaluate(scrollToBottom)

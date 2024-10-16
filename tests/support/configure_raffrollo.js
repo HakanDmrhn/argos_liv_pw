@@ -5,7 +5,6 @@ import { ignoreFreshChat, ignoreYoutube, ignoreMenuContainer, checkButtonAvailab
 const scrollToBottom = require('scroll-to-bottomjs')
 
 export async function configure_raffrollo (page) {
-
   await page.goto('/raffrollo/yuna-9260', { waitUntil: 'load' })
   await page.waitForFunction(() => document.fonts.ready)
   await page.evaluate(scrollToBottom)

@@ -62,7 +62,7 @@ module.exports = defineConfig({
       name: 'chromium',
       use: {
         ...devices['Desktop Chrome'],
-        userAgent: 'testing_agent_visual',
+        userAgent: 'testing_agent_visual'
       }
     }
 

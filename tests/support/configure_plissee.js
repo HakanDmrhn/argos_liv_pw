@@ -5,7 +5,6 @@ import { ignoreFreshChat, ignoreYoutube, ignoreMenuContainer, checkButtonAvailab
 const scrollToBottom = require('scroll-to-bottomjs')
 
 export async function configure_plissee (page) {
-  
   // load configurator
   await page.goto('/plissee/lindura-1583', { waitUntil: 'load' })
   await page.waitForFunction(() => document.fonts.ready)

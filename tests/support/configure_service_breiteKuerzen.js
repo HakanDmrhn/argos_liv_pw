@@ -13,7 +13,6 @@ const data =
 }
 
 export async function configure_service_breiteKuerzen (page) {
-
   await page.goto('/aenderungsauftrag-breite', { waitUntil: 'load' })
   await page.waitForFunction(() => document.fonts.ready)
   await page.evaluate(scrollToBottom)

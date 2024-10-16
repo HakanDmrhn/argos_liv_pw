@@ -3,7 +3,6 @@ import { ignoreFreshChat, ignoreYoutube, ignoreMenuContainer, checkButtonAvailab
 const scrollToBottom = require('scroll-to-bottomjs')
 
 export async function configure_zubehoer_plissee (page) {
-
   await page.goto('/sockelplatten', { waitUntil: 'load' })
   await page.waitForFunction(() => document.fonts.ready)
   await page.evaluate(scrollToBottom)

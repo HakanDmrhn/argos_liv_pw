@@ -1,5 +1,5 @@
 import { argosScreenshot } from '@argos-ci/playwright'
-//import { test, expect } from '@playwright/test'
+// import { test, expect } from '@playwright/test'
 import { test, expect } from '../../fixtures/youtube_freshchat_blocking_fixture.js'
 import { ignoreMenuContainer, checkButtonAvailability } from '../../support/helpers'
 
@@ -166,7 +166,6 @@ test.describe('Integration test with visual testing - doppelrollo configurator',
     await checkButtonAvailability(page)
     await ignoreMenuContainer(page)
 
-
     // ensure that the page has fully loaded by waiting for the logo c
     const livoneoLogo = await page.getByRole('img', { name: 'Plissee und Sonnenschutz bei Livoneo®' })
     await expect(livoneoLogo).toBeVisible()
@@ -277,7 +276,6 @@ test.describe('Integration test with visual testing - doppelrollo configurator',
     await page.evaluate(scrollToBottom)
     await checkButtonAvailability(page)
     await ignoreMenuContainer(page)
-
 
     // ensure that the page has fully loaded by waiting for the logo c
     const livoneoLogo = await page.getByRole('img', { name: 'Plissee und Sonnenschutz bei Livoneo®' })

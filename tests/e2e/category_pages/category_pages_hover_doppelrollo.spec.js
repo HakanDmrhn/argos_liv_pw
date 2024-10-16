@@ -5,7 +5,6 @@ const scrollToBottom = require('scroll-to-bottomjs')
 
 test.describe('Integration test with visual testing - hover on doppelrollo category pages', function () {
   test('hover on doppelrollo category page', async function ({ page }) {
-
     await page.goto('/doppelrollo/doppelrollo-grau', { waitUntil: 'load' })
     await page.waitForFunction(() => document.fonts.ready)
     await page.evaluate(scrollToBottom)
@@ -17,7 +16,6 @@ test.describe('Integration test with visual testing - hover on doppelrollo categ
     await expect(livoneoLogo).toBeVisible()
     await livoneoLogo.hover()
     await page.mouse.move(0, 0)
-    
 
     // ------------------------------------- TOOLTIP -----------------------------------//
     // ------------------------------ doppelrollo Acorda 5090 -----------------------//

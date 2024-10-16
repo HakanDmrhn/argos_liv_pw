@@ -27,7 +27,6 @@ export async function configure_muster (page) {
   await checkButtonAvailability(page)
   await ignoreMenuContainer(page)
 
-
   await page.getByRole('button', { name: 'Gratis Stoffprobe anfordern' }).click()
 
   // muster raffrollo
@@ -65,7 +64,6 @@ export async function configure_muster (page) {
   await page.evaluate(scrollToBottom)
   await checkButtonAvailability(page)
   await ignoreMenuContainer(page)
-
 
   await page.getByRole('button', { name: 'Gratis Stoffprobe anfordern' }).click()
 }
