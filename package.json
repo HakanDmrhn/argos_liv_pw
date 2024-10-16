@@ -13,7 +13,7 @@
     "standard": "*"
   },
   "dependencies": {
-    "@argos-ci/playwright": "^3.6.3",
+    "@argos-ci/playwright": "^3.7.1",
     "dotenv": "^16.4.5",
     "scroll-to-bottomjs": "^1.1.0"
 
