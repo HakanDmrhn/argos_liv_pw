@@ -15,7 +15,6 @@ const data =
 }
 
 export async function configure_service_laengereSchnur (page) {
-
   await page.goto('/zusatzauftrag-laengere-fuehrungsschnuere', { waitUntil: 'load' })
   await page.waitForFunction(() => document.fonts.ready)
   await page.evaluate(scrollToBottom)

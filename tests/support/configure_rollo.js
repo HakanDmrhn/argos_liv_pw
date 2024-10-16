@@ -5,7 +5,6 @@ import { ignoreFreshChat, ignoreYoutube, ignoreMenuContainer, checkButtonAvailab
 const scrollToBottom = require('scroll-to-bottomjs')
 
 export async function configure_rollo (page) {
-
   await page.goto('/rollo/basic-3687', { waitUntil: 'load' })
   await page.waitForFunction(() => document.fonts.ready)
   await page.evaluate(scrollToBottom)

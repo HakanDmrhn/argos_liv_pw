@@ -1,5 +1,5 @@
 import { argosScreenshot } from '@argos-ci/playwright'
-//import { test, expect } from '@playwright/test'
+// import { test, expect } from '@playwright/test'
 import { test, expect } from '../../fixtures/youtube_freshchat_blocking_fixture.js'
 import { ignoreMenuContainer, checkButtonAvailability } from '../../support/helpers'
 
@@ -7,7 +7,6 @@ const scrollToBottom = require('scroll-to-bottomjs')
 
 test.describe('Integration test with visual testing - jalousie configurator', function () {
   test.beforeEach(async function ({ page }) {
-
     await page.goto('/jalousie/jalousie-konfigurator', { waitUntil: 'load' })
 
     // ensure that the page has fully loaded by waiting for one of the last elements in network traffic
@@ -86,7 +85,6 @@ test.describe('Integration test with visual testing - jalousie configurator', fu
     await page.evaluate(scrollToBottom)
     await checkButtonAvailability(page)
     await ignoreMenuContainer(page)
- 
 
     // ensure that the page has fully loaded by waiting for the logo c
     const livoneoLogo = await page.getByRole('img', { name: 'Plissee und Sonnenschutz bei Livoneo®' })
@@ -150,7 +148,6 @@ test.describe('Integration test with visual testing - jalousie configurator', fu
     await page.evaluate(scrollToBottom)
     await checkButtonAvailability(page)
     await ignoreMenuContainer(page)
-
 
     // ensure that the page has fully loaded by waiting for the logo c
     const livoneoLogo = await page.getByRole('img', { name: 'Plissee und Sonnenschutz bei Livoneo®' })

@@ -1,5 +1,5 @@
 import { argosScreenshot } from '@argos-ci/playwright'
-//import { test, expect } from '@playwright/test'
+// import { test, expect } from '@playwright/test'
 import { test, expect } from '../../fixtures/youtube_freshchat_blocking_fixture.js'
 import { ignoreMenuContainer, checkButtonAvailability } from '../../support/helpers'
 
@@ -7,7 +7,6 @@ const scrollToBottom = require('scroll-to-bottomjs')
 
 test.describe('Integration test with visual testing - schiebegardinen configurator', function () {
   test.beforeEach(async function ({ page }) {
-
     await page.goto('/schiebegardinen/schiebegardinen-konfigurator', { waitUntil: 'load' })
     await page.waitForFunction(() => document.fonts.ready)
     await page.evaluate(scrollToBottom)

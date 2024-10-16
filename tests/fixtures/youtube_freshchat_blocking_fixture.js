@@ -1,4 +1,4 @@
-import { test as base } from '@playwright/test';
+import { test as base } from '@playwright/test'
 
 /**
  * Custom test fixture that extends the base Playwright test.
@@ -22,26 +22,25 @@ export const test = base.extend({
    * @param {function} use - A function to use the page fixture.
    */
   page: async ({ page }, use) => {
-    console.log('Setting up page fixture...');
+    console.log('Setting up page fixture...')
 
     // Intercept and abort YouTube requests
-    await page.route('https://www.youtube-nocookie.com/**', route => { 
-      console.log('YouTube video request blocked:', route.request().url());
-      return route.abort();
-    });
-    
+    await page.route('https://www.youtube-nocookie.com/**', route => {
+      console.log('YouTube video request blocked:', route.request().url())
+      return route.abort()
+    })
+
     // Intercept and abort Freshchat requests
     await page.route('**/wchat.eu.freshchat.com/js/widget.js', route => {
-      console.log('FreshChat widget request blocked:', route.request().url());
-      return route.abort();
-    });
-    
+      console.log('FreshChat widget request blocked:', route.request().url())
+      return route.abort()
+    })
 
-    await use(page);
+    await use(page)
 
-    console.log('Page fixture setup complete.');
-  },
-});
+    console.log('Page fixture setup complete.')
+  }
+})
 
 // Re-export the expect function for assertions
-export { expect } from '@playwright/test';
+export { expect } from '@playwright/test'

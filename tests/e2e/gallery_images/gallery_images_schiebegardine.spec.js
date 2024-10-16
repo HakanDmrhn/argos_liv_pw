@@ -1,5 +1,5 @@
 import { argosScreenshot } from '@argos-ci/playwright'
-//import { test, expect } from '@playwright/test'
+// import { test, expect } from '@playwright/test'
 import { test, expect } from '../../fixtures/youtube_freshchat_blocking_fixture.js'
 import { ignoreMenuContainer, checkButtonAvailability } from '../../support/helpers'
 
@@ -7,7 +7,6 @@ const scrollToBottom = require('scroll-to-bottomjs')
 
 test.describe('Integration test with visual testing - image popups Schiebegardine-Konfigurator', function () {
   test('argos snapshots of schiebegardine gallery images - PDP', async function ({ page }) {
-
     await page.goto('/schiebegardinen/philo-7324', { waitUntil: 'load' })
     await page.waitForFunction(() => document.fonts.ready)
     await page.evaluate(scrollToBottom)
@@ -36,7 +35,6 @@ test.describe('Integration test with visual testing - image popups Schiebegardin
     await page.evaluate(scrollToBottom)
     await checkButtonAvailability(page)
     await ignoreMenuContainer(page)
-
 
     // scroll the big image into view
     await page.locator('div[class="box"]').scrollIntoViewIfNeeded()

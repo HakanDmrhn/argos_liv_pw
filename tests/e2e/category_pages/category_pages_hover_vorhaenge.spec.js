@@ -18,14 +18,11 @@ test.describe('Integration test with visual testing - hover on vorhaenge categor
     await livoneoLogo.hover()
     await page.mouse.move(0, 0)
 
-
     // ------------------------------------- TOOLTIP -----------------------------------//
     // ------------------------------ Sorrento Vorhang Farbe Rose ---------------------------//
 
     const sorrentoVorhang = page.getByRole('link', { name: 'Stella Vorhang Beere' })
-
     await sorrentoVorhang.scrollIntoViewIfNeeded()
-
     await sorrentoVorhang.locator('..').locator('.item__colors > label>>nth=3').click() // ACHTUNG: Position der gewünschten Farbe Rose kann sich ändern
 
     // take argos screenshot of tooltip
@@ -38,9 +35,7 @@ test.describe('Integration test with visual testing - hover on vorhaenge categor
     // ------------------------------ Vorhang Velvet Farbe Jade ---------------------------//
 
     const velvetVorhang = page.getByRole('link', { name: 'Velvet Vorhang Weiß' })
-
     await velvetVorhang.scrollIntoViewIfNeeded()
-
     await velvetVorhang.locator('..').locator('.item__colors > label>>nth=9').click() // ACHTUNG: Position der gewünschten Farbe Jade kann sich ändern
 
     // take argos screenshot of tooltip
@@ -68,9 +63,7 @@ test.describe('Integration test with visual testing - hover on vorhaenge categor
     // ------------------------------ Lavello Vorhang Rose-- ---------------------------//
 
     const lavelloVorhang = page.getByRole('link', { name: 'Lavello Vorhang Grün' })
-
     await lavelloVorhang.scrollIntoViewIfNeeded()
-
     await lavelloVorhang.locator('..').locator('.item__colors > label>>nth=8').click() // ACHTUNG: Position der gewünschten Farbe  kann sich ändern
 
     // take argos screenshot of tooltip
@@ -83,9 +76,7 @@ test.describe('Integration test with visual testing - hover on vorhaenge categor
     // ------------------------------ Bovino Vorhang Grün ---------------------------//
 
     const bovinoVorhang = page.getByRole('link', { name: 'Tazio Verdunklungsvorhang Petrol', exact: true })
-
     await bovinoVorhang.scrollIntoViewIfNeeded()
-
     await bovinoVorhang.locator('..').locator('.item__colors > label>>nth=3').click() // ACHTUNG: Position der gewünschten Farbe Hellgelb kann sich ändern
 
     // take argos screenshot of tooltip

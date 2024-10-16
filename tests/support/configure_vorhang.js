@@ -5,7 +5,6 @@ import { ignoreFreshChat, ignoreYoutube, ignoreMenuContainer, checkButtonAvailab
 const scrollToBottom = require('scroll-to-bottomjs')
 
 export async function configure_vorhang (page) {
-
   await page.goto('/vorhaenge/dekoschal/cervo', { waitUntil: 'load' })
   await page.waitForFunction(() => document.fonts.ready)
   await page.evaluate(scrollToBottom)

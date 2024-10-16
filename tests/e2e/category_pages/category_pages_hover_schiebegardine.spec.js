@@ -5,7 +5,6 @@ const scrollToBottom = require('scroll-to-bottomjs')
 
 test.describe('Integration test with visual testing - hover on schiebegardine category pages', function () {
   test('hover on schiebegardine category page', async function ({ page }) {
-
     await page.goto('/schiebegardinen/schiebegardinen-blau', { waitUntil: 'load' })
     await page.waitForFunction(() => document.fonts.ready)
     await page.evaluate(scrollToBottom)
@@ -17,7 +16,6 @@ test.describe('Integration test with visual testing - hover on schiebegardine ca
     await expect(livoneoLogo).toBeVisible()
     await livoneoLogo.hover()
     await page.mouse.move(0, 0)
-
 
     // ------------------------------------- TOOLTIP -----------------------------------//
     // ------------------------------ Schiebegardine Bonito 7337 -----------------------//

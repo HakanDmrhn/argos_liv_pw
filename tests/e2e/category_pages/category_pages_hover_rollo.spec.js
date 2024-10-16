@@ -5,7 +5,6 @@ const scrollToBottom = require('scroll-to-bottomjs')
 
 test.describe('Integration test with visual testing - hover on rollo category pages', function () {
   test('hover on rollo category page', async function ({ page }) {
-
     await page.goto('/rollo/rollo-beige', { waitUntil: 'load' })
     await page.waitForFunction(() => document.fonts.ready)
     await page.evaluate(scrollToBottom)
@@ -43,7 +42,7 @@ test.describe('Integration test with visual testing - hover on rollo category pa
     // ------------------------------ ROLLO Triangolo 3882 -----------------------//
 
     // activate tooltip of Triangolo 3882
-   await ensureFullVisibility(page, 'img[alt="Rollo Triangolo 3882"]')
+    await ensureFullVisibility(page, 'img[alt="Rollo Triangolo 3882"]')
     await page.locator('img[alt="Rollo Triangolo 3882"]').hover()
 
     // wait till all 5 mini tooltip images are present

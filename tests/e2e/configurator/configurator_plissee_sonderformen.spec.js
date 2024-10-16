@@ -1,5 +1,5 @@
 import { argosScreenshot } from '@argos-ci/playwright'
-//import { test, expect } from '@playwright/test'
+// import { test, expect } from '@playwright/test'
 import { test, expect } from '../../fixtures/youtube_freshchat_blocking_fixture.js'
 import { ignoreMenuContainer, checkButtonAvailability } from '../../support/helpers'
 
@@ -7,7 +7,6 @@ const scrollToBottom = require('scroll-to-bottomjs')
 
 test.describe('Integration test with visual testing - plissee configurator special shapes', function () {
   test('Plissee - Sonderformen', async function ({ page }) {
-
     await page.goto('/plissee/plissee-konfigurator', { waitUntil: 'load' })
     await page.waitForFunction(() => document.fonts.ready)
 
@@ -15,8 +14,6 @@ test.describe('Integration test with visual testing - plissee configurator speci
     const lastlink = page.getByRole('link', { name: 'Impressum' })
     await expect(lastlink).toBeVisible()
     await expect(lastlink).toBeEnabled()
-
-
 
     // ******************* Sonderformen *******************
     // change to tab Sonderformen

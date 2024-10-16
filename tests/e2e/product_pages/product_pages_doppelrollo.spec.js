@@ -8,7 +8,6 @@ const scrollToBottom = require('scroll-to-bottomjs')
 test.describe('Integration test with visual testing - Doppelrollo product pages', function () {
   pages.forEach(function (link) {
     test('Load page: ' + link + ' & take argos snapshot', async function ({ page }) {
-
       await page.goto(link, { waitUntil: 'load' })
       await page.evaluate(scrollToBottom)
       await page.waitForFunction(() => document.fonts.ready)

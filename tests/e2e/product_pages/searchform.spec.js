@@ -20,7 +20,6 @@ const productSearchTerms = {
 }
 
 test.describe('Integration test with visual testing - search function', function () {
-
   Object.entries(productSearchTerms).forEach(([link, searchTerm]) => {
     test(`Load page: ${link} - Enter search term "${searchTerm}" and take Argos snapshot`, async function ({ page }) {
       // visit url

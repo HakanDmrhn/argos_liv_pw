@@ -59,7 +59,7 @@ export async function ignoreFreshChat (page) {
  * @returns {Promise<void>} A promise that resolves when YouTube requests are successfully blocked.
  * @throws Will throw an error if the route interception or aborting the request fails.
  */
-export async function ignoreYoutube(page) {
+export async function ignoreYoutube (page) {
   try {
     console.log('Blocking YouTube video requests')
 
@@ -77,7 +77,6 @@ export async function ignoreYoutube(page) {
     console.error('Error blocking YouTube video requests:', error)
   }
 }
-
 
 /**
  * Checks if all visible buttons in the locator are enabled.
@@ -140,7 +139,6 @@ export async function waitForTextToAppear (page, text, timeout = 30000) {
   }
 }
 
-
 /**
  * Scrolls the specified element into view and ensures it's fully visible.
  * Uses 'block: center' and 'inline: center' to bring the element fully into the viewport.
@@ -149,8 +147,8 @@ export async function waitForTextToAppear (page, text, timeout = 30000) {
  * @param {string} selector - The CSS selector of the element to scroll into view.
  * @returns {Promise<void>} - A promise that resolves once the element is fully visible.
  */
-export async function ensureFullVisibility(page, selector) {
+export async function ensureFullVisibility (page, selector) {
   await page.locator(selector).evaluate((element) => {
-    element.scrollIntoView({ block: 'center', inline: 'center', behavior: 'auto' });
-  });
+    element.scrollIntoView({ block: 'center', inline: 'center', behavior: 'auto' })
+  })
 }

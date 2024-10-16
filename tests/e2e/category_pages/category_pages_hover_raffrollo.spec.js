@@ -5,7 +5,6 @@ const scrollToBottom = require('scroll-to-bottomjs')
 
 test.describe('Integration test with visual testing - hover on raffrollo category pages', function () {
   test('hover on raffrollo category page', async function ({ page }) {
-  
     await page.goto('/raffrollo/raffrollo-beige', { waitUntil: 'load' })
     await page.waitForFunction(() => document.fonts.ready)
     await page.evaluate(scrollToBottom)
@@ -17,7 +16,6 @@ test.describe('Integration test with visual testing - hover on raffrollo categor
     await expect(livoneoLogo).toBeVisible()
     await livoneoLogo.hover()
     await page.mouse.move(0, 0)
-
 
     // ------------------------------------- TOOLTIP -----------------------------------//
     // ------------------------------ Raffrollo Zadar 9021 -----------------------//

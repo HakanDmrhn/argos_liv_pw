@@ -1,5 +1,5 @@
 import { argosScreenshot } from '@argos-ci/playwright'
-//import { test, expect } from '@playwright/test'
+// import { test, expect } from '@playwright/test'
 import { test, expect } from '../../fixtures/youtube_freshchat_blocking_fixture.js'
 import { ignoreMenuContainer, checkButtonAvailability } from '../../support/helpers'
 
@@ -7,7 +7,6 @@ const scrollToBottom = require('scroll-to-bottomjs')
 
 test.describe('Integration test with visual testing - plissee configurator dachfenster', function () {
   test('Plissee - Dachfensterplissees', async function ({ page }) {
-
     await page.goto('/plissee/plissee-konfigurator', { waitUntil: 'load' })
     await page.waitForFunction(() => document.fonts.ready)
     await page.evaluate(scrollToBottom)
@@ -20,7 +19,6 @@ test.describe('Integration test with visual testing - plissee configurator dachf
     await livoneoLogo.hover()
     await page.mouse.move(0, 0)
 
-    
     // ******************* Dachfensterplissees *******************
     // change to tab Dachfenster
     await page.locator('.tabs > :nth-child(2)').click()
