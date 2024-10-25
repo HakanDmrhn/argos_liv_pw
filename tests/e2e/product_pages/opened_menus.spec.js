@@ -359,9 +359,7 @@ test.describe('Integration test with visual testing - opened menus', function ()
 
   test('opened menus - Raffrollos', async function ({ page }) {
     // load main page
-    await page.goto('/', {
-      waitUntil: 'load'
-    })
+    await page.goto('/', { waitUntil: 'load' })
     await page.waitForFunction(() => document.fonts.ready)
     await page.evaluate(scrollToBottom)
     await checkButtonAvailability(page)
@@ -378,11 +376,23 @@ test.describe('Integration test with visual testing - opened menus', function ()
     await page.locator('#colors > a > span').hover()
 
     // Wait for all images inside the hovered element to load
-    const colorImages = page.locator('.menu-wrapper-colours > a img')
-    for (let i = 0; i < await colorImages.count(); i++) {
-      const image = colorImages.nth(i)
-      await image.waitForElementState('visible') // Wait for the image to be visible
-      await page.evaluateHandle(img => img.complete && img.naturalHeight !== 0, image) // Ensure the image is fully loaded
+    const colorSelectors = [
+      '.white-mi',
+      '.beige-mi',
+      '.grey-mi',
+      '.brown-mi',
+      '.yellow-mi',
+      '.orange-mi',
+      '.red-mi',
+      '.blue-mi',
+      '.green-mi',
+      '.black-mi',
+      '.all-colors-mi'
+    ];
+
+    // Wait for each color element to be visible after hovering
+    for (const selector of colorSelectors) {
+      await page.waitForSelector(selector, { state: 'visible' });
     }
 
     // Take Argos screenshot
@@ -429,11 +439,15 @@ test.describe('Integration test with visual testing - opened menus', function ()
     await page.locator('#guide > a > span').hover()
 
     // Wait for all images in the guide menu to be visible and loaded
-    const guideImages = page.locator('#guide.menu-wrapper > a img')
-    for (let i = 0; i < await guideImages.count(); i++) {
-      const image = guideImages.nth(i)
-      await image.waitForElementState('visible') // Wait for the image to be visible
-      await page.evaluateHandle(img => img.complete && img.naturalHeight !== 0, image) // Ensure the image is fully loaded
+    const guideSelectors = [
+      '.measure-mi',
+      '.montage-mi',
+      '.contact-mi'
+    ];
+
+    // Wait for each color element to be visible after hovering
+    for (const select of guideSelectors) {
+      await page.waitForSelector(select, { state: 'visible' });
     }
 
     // Take Argos screenshot for 'Raffrollo Ratgeber'
