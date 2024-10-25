@@ -5,9 +5,7 @@ const scrollToBottom = require('scroll-to-bottomjs')
 
 test.describe('Integration test with visual testing - opened menus', function () {
   test('opened menus - Plissee', async function ({ page }) {
-    await page.goto('/', {
-      waitUntil: 'load'
-    })
+    await page.goto('/', { waitUntil: 'load' })
     await page.waitForFunction(() => document.fonts.ready)
     await checkButtonAvailability(page)
     await page.evaluate(scrollToBottom)
@@ -24,15 +22,28 @@ test.describe('Integration test with visual testing - opened menus', function ()
     // Ensure the images in the menu are visible before taking a screenshot
     await page.locator('#colors > a > span').hover()
 
-    // Iterate through all menu images and ensure each is visible and fully loaded
-    const menuItems = page.locator('#colors > a img') // assuming the images are inside the anchor tags
-    const count = await menuItems.count()
+    // Wait for all images inside the hovered element to load
+    const colorSelectors = [
+      '.white-mi',
+      '.beige-mi',
+      '.grey-mi',
+      '.brown-mi',
+      '.yellow-mi',
+      '.orange-mi',
+      '.red-mi',
+      '.lila-mi',
+      '.blue-mi',
+      '.green-mi',
+      '.black-mi',
+      '.all-colors-mi'
+    ];
 
-    for (let i = 0; i < count; i++) {
-      const image = menuItems.nth(i)
-      await image.waitForElementState('visible') // ensure the image is visible
-      await page.evaluateHandle(img => img.complete && img.naturalHeight !== 0, image) // ensure the image is fully loaded
+
+   // Wait for each color element to be visible after hovering
+    for (const selector of colorSelectors) {
+      await page.waitForSelector(selector, { state: 'visible' });
     }
+  
 
     // Take Argos screenshot
     await argosScreenshot(page, 'Plissee-Menü - Plissee nach Farben', {
@@ -40,17 +51,23 @@ test.describe('Integration test with visual testing - opened menus', function ()
       disableHover: false
     })
 
-    // Hover over the element
+    // Hover over the room element
     await page.locator('#rooms > a > span').hover()
 
-    // Iterate through all menu images and ensure each is visible and fully loaded
-    const menuItemsRooms = page.locator('#rooms > a img') // assuming the images are inside the anchor tags
-    const countRooms = await menuItemsRooms.count()
+    // Wait for all images inside the hovered element to load
+    const roomSelectors = [
+      '#livingroom-mi',
+      '#bedroom-mi',
+      '#nursery-mi',
+      '#kitchen-mi',
+      '#office-mi',
+      '#bathroom-mi',
+      '#wintergarden-mi'
+    ];
 
-    for (let i = 0; i < countRooms; i++) {
-      const image = menuItemsRooms.nth(i)
-      await image.waitForElementState('visible') // ensure the image is visible
-      await page.evaluateHandle(img => img.complete && img.naturalHeight !== 0, image) // ensure the image is fully loaded
+    // Wait for each color element to be visible after hovering
+    for (const sel of roomSelectors) {
+      await page.waitForSelector(sel, { state: 'visible' });
     }
 
     // Take Argos screenshot
@@ -61,13 +78,24 @@ test.describe('Integration test with visual testing - opened menus', function ()
 
     await page.locator('#characteristics > a > span').hover()
 
-    // Iterate through all menu images and ensure each is visible
-    const menuItemsCharacteristics = await page.locator('#rooms > a img') // assuming the images are inside the anchor tags
-    const countCharacteristics = await menuItemsCharacteristics.count()
+    // Wait for all images in the characteristics menu to be visible and loaded
+    const characteristicsSelectors = [
+      '.transparent-mi',
+      '.heat-reflecting-mi',
+      '.screen-mi',
+      '.damproom-mi',
+      '.dimout-mi',
+      '.workplace-mi',
+      '.blackout-mi',
+       '#waben-mi',
+       '#dirt-mi'
+    ];
 
-    for (let i = 0; i < countCharacteristics; i++) {
-      await expect(menuItemsCharacteristics.nth(i)).toBeVisible() // ensure each image is visible
+    // Wait for each color element to be visible after hovering
+    for (const slct of characteristicsSelectors) {
+       await page.waitForSelector(slct, { state: 'visible' });
     }
+    
 
     // Take Argos screenshot
     await argosScreenshot(page, 'Plissee-Menü - Plissee nach Eigenschaften', {
@@ -77,12 +105,19 @@ test.describe('Integration test with visual testing - opened menus', function ()
 
     await page.locator('#guide > a > span').hover()
 
-    // Iterate through all menu images and ensure each is visible
-    const menuItemsGuide = await page.locator('#rooms > a img') // assuming the images are inside the anchor tags
-    const countGuide = await menuItemsGuide.count()
+    // Wait for all images in the guide menu to be visible and loaded
+    const guideSelectors = [
+      '.measure-mi',
+      '.montage-mi',
+      '.plissee-types-mi',
+      '.heat-insulation-mi',
+      '.cloth-attributes-mi',
+      '.contact-mi'
+    ];
 
-    for (let i = 0; i < countGuide; i++) {
-      await expect(menuItemsGuide.nth(i)).toBeVisible() // ensure each image is visible
+    // Wait for each color element to be visible after hovering
+    for (const select of guideSelectors) {
+      await page.waitForSelector(select, { state: 'visible' });
     }
 
     // take argos screenshot
@@ -211,7 +246,6 @@ test.describe('Integration test with visual testing - opened menus', function ()
     }).waitFor()
 
     // -------------------------- VORHÄNGE ----------------------------------
-    // ----------------------------------------------------------------------
     const vorhaenge = page.locator('#vorhaenge-sub-menu li:nth-of-type(1)')
     await vorhaenge.hover()
 
@@ -233,7 +267,6 @@ test.describe('Integration test with visual testing - opened menus', function ()
     })
 
     // -------------------------- GARDINEN ----------------------------------
-    // ----------------------------------------------------------------------
     const gardinen = page.locator('#vorhaenge-sub-menu li:nth-of-type(2)')
     await gardinen.hover()
 
@@ -255,7 +288,6 @@ test.describe('Integration test with visual testing - opened menus', function ()
     })
 
     // -------------------------- ÖSENSCHAL ----------------------------------
-    // ----------------------------------------------------------------------
     const oesenschal = page.locator('#vorhaenge-sub-menu li:nth-of-type(3)')
     await oesenschal.hover()
 
@@ -277,7 +309,6 @@ test.describe('Integration test with visual testing - opened menus', function ()
     })
 
     // -------------------------- DEKOSCHAL ----------------------------------
-    // ----------------------------------------------------------------------
     const dekoschal = page.locator('#vorhaenge-sub-menu li:nth-of-type(4)')
     await dekoschal.hover()
 
@@ -299,7 +330,6 @@ test.describe('Integration test with visual testing - opened menus', function ()
     })
 
     // -------------------------- ZUBEHÖR -----------------------------------
-    // ----------------------------------------------------------------------
     const zubehoer = page.locator('#vorhaenge-sub-menu li:nth-of-type(7)')
     await zubehoer.hover()
 
@@ -317,9 +347,7 @@ test.describe('Integration test with visual testing - opened menus', function ()
 
   test('opened menus - Schiebegardinen', async function ({ page }) {
     // load main page
-    await page.goto('/', {
-      waitUntil: 'load'
-    })
+    await page.goto('/', { waitUntil: 'load' })
     await page.waitForFunction(() => document.fonts.ready)
     await page.evaluate(scrollToBottom)
     await checkButtonAvailability(page)
@@ -327,17 +355,32 @@ test.describe('Integration test with visual testing - opened menus', function ()
 
     // go to tab 'Schiebegardinen'
     await page.locator('li.nav-7 span').click()
-
     await page.evaluate(scrollToBottom)
     await page.waitForFunction(() => document.fonts.ready)
 
     await page.locator('#colors > a > span').hover()
 
-    // iterate through all menu images and check if visible before taking screenshot
-    for (const element of await page.locator('.menu-wrapper-colours > a').all()) {
-      await element.waitFor()
-    }
+    // Wait for all images inside the hovered element to load
+    const colorSelectors = [
+      '.white-mi',
+      '.beige-mi',
+      '.grey-mi',
+      '.brown-mi',
+      '.yellow-mi',
+      '.orange-mi',
+      '.red-mi',
+      '.blue-mi',
+      '.green-mi',
+      '.black-mi',
+      '.all-colors-mi'
+    ];
 
+
+    // Wait for each color element to be visible after hovering
+    for (const selector of colorSelectors) {
+      await page.waitForSelector(selector, { state: 'visible' });
+    }
+  
     // take argos screenshot
     await argosScreenshot(page, 'Schiebegardinen-Menü - Schiebegardinen nach Farben', {
       fullPage: false,
@@ -346,10 +389,18 @@ test.describe('Integration test with visual testing - opened menus', function ()
 
     await page.locator('#characteristics > a > span').hover()
 
-    // iterate through all menu images and check if visible before taking screenshot
-    for (const element of await page.locator('.menu-wrapper-attributes > a').all()) {
-      await element.waitFor()
+    // Wait for all images in the characteristics menu to be visible and loaded
+    const characteristicsSelectors = [
+      '.transparent-mi',
+      '.blickdicht-mi',
+      '.verdunklung-mi'
+    ];
+
+    // Wait for each color element to be visible after hovering
+    for (const slct of characteristicsSelectors) {
+       await page.waitForSelector(slct, { state: 'visible' });
     }
+    
     // take argos screenshot
     await argosScreenshot(page, 'Schiebegardinen-Menü - Schiebegardinen nach Eigenschaften', {
       fullPage: false,
@@ -359,9 +410,7 @@ test.describe('Integration test with visual testing - opened menus', function ()
 
   test('opened menus - Raffrollos', async function ({ page }) {
     // load main page
-    await page.goto('/', {
-      waitUntil: 'load'
-    })
+    await page.goto('/', { waitUntil: 'load' })
     await page.waitForFunction(() => document.fonts.ready)
     await page.evaluate(scrollToBottom)
     await checkButtonAvailability(page)
@@ -378,11 +427,23 @@ test.describe('Integration test with visual testing - opened menus', function ()
     await page.locator('#colors > a > span').hover()
 
     // Wait for all images inside the hovered element to load
-    const colorImages = page.locator('.menu-wrapper-colours > a img')
-    for (let i = 0; i < await colorImages.count(); i++) {
-      const image = colorImages.nth(i)
-      await image.waitForElementState('visible') // Wait for the image to be visible
-      await page.evaluateHandle(img => img.complete && img.naturalHeight !== 0, image) // Ensure the image is fully loaded
+    const colorSelectors = [
+      '.white-mi',
+      '.beige-mi',
+      '.grey-mi',
+      '.brown-mi',
+      '.yellow-mi',
+      '.orange-mi',
+      '.red-mi',
+      '.blue-mi',
+      '.green-mi',
+      '.black-mi',
+      '.all-colors-mi'
+    ];
+
+    // Wait for each color element to be visible after hovering
+    for (const selector of colorSelectors) {
+      await page.waitForSelector(selector, { state: 'visible' });
     }
 
     // Take Argos screenshot
@@ -395,12 +456,18 @@ test.describe('Integration test with visual testing - opened menus', function ()
     await page.locator('#rooms > a > span').hover()
 
     // Wait for all images inside the hovered element to load
-    const roomImages = page.locator('#rooms.menu-wrapper > a img')
-    for (let i = 0; i < await roomImages.count(); i++) {
-      const image = roomImages.nth(i)
-      await image.waitForElementState('visible') // Wait for the image to be visible
-      await page.evaluateHandle(img => img.complete && img.naturalHeight !== 0, image) // Ensure the image is fully loaded
+    const roomSelectors = [
+      '.raffrollo-wohnzimmer-mi',
+      '.raffrollo-schlafzimmer-mi',
+      '.raffrollo-kueche-mi',
+      '.raffrollo-kinderzimmer-mi',
+    ];
+
+    // Wait for each color element to be visible after hovering
+    for (const sel of roomSelectors) {
+      await page.waitForSelector(sel, { state: 'visible' });
     }
+
 
     // Take Argos screenshot for 'Raffrollo für Räume'
     await argosScreenshot(page, 'Raffrollo-Menü - Raffrollo für Räume', {
@@ -412,12 +479,17 @@ test.describe('Integration test with visual testing - opened menus', function ()
     await page.locator('#characteristics > a > span').hover()
 
     // Wait for all images in the characteristics menu to be visible and loaded
-    const characteristicImages = page.locator('#characteristics.menu-wrapper > a img')
-    for (let i = 0; i < await characteristicImages.count(); i++) {
-      const image = characteristicImages.nth(i)
-      await image.waitForElementState('visible') // Wait for the image to be visible
-      await page.evaluateHandle(img => img.complete && img.naturalHeight !== 0, image) // Ensure the image is fully loaded
+    const characteristicsSelectors = [
+      '.transparent-mi',
+      '.blickdicht-mi',
+      '.verdunklung-mi'
+    ];
+
+    // Wait for each color element to be visible after hovering
+    for (const slct of characteristicsSelectors) {
+       await page.waitForSelector(slct, { state: 'visible' });
     }
+    
 
     // Take Argos screenshot for 'Raffrollo nach Eigenschaften'
     await argosScreenshot(page, 'Raffrollo-Menü - Raffrollo nach Eigenschaften', {
@@ -429,11 +501,15 @@ test.describe('Integration test with visual testing - opened menus', function ()
     await page.locator('#guide > a > span').hover()
 
     // Wait for all images in the guide menu to be visible and loaded
-    const guideImages = page.locator('#guide.menu-wrapper > a img')
-    for (let i = 0; i < await guideImages.count(); i++) {
-      const image = guideImages.nth(i)
-      await image.waitForElementState('visible') // Wait for the image to be visible
-      await page.evaluateHandle(img => img.complete && img.naturalHeight !== 0, image) // Ensure the image is fully loaded
+    const guideSelectors = [
+      '.measure-mi',
+      '.montage-mi',
+      '.contact-mi'
+    ];
+
+    // Wait for each color element to be visible after hovering
+    for (const select of guideSelectors) {
+      await page.waitForSelector(select, { state: 'visible' });
     }
 
     // Take Argos screenshot for 'Raffrollo Ratgeber'
