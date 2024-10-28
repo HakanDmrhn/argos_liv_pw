@@ -36,14 +36,12 @@ test.describe('Integration test with visual testing - opened menus', function ()
       '.green-mi',
       '.black-mi',
       '.all-colors-mi'
-    ];
+    ]
 
-
-   // Wait for each color element to be visible after hovering
+    // Wait for each color element to be visible after hovering
     for (const selector of colorSelectors) {
-      await page.waitForSelector(selector, { state: 'visible' });
+      await page.waitForSelector(selector, { state: 'visible' })
     }
-  
 
     // Take Argos screenshot
     await argosScreenshot(page, 'Plissee-Menü - Plissee nach Farben', {
@@ -63,11 +61,11 @@ test.describe('Integration test with visual testing - opened menus', function ()
       '#office-mi',
       '#bathroom-mi',
       '#wintergarden-mi'
-    ];
+    ]
 
     // Wait for each color element to be visible after hovering
     for (const sel of roomSelectors) {
-      await page.waitForSelector(sel, { state: 'visible' });
+      await page.waitForSelector(sel, { state: 'visible' })
     }
 
     // Take Argos screenshot
@@ -87,15 +85,14 @@ test.describe('Integration test with visual testing - opened menus', function ()
       '.dimout-mi',
       '.workplace-mi',
       '.blackout-mi',
-       '#waben-mi',
-       '#dirt-mi'
-    ];
+      '#waben-mi',
+      '#dirt-mi'
+    ]
 
     // Wait for each color element to be visible after hovering
     for (const slct of characteristicsSelectors) {
-       await page.waitForSelector(slct, { state: 'visible' });
+      await page.waitForSelector(slct, { state: 'visible' })
     }
-    
 
     // Take Argos screenshot
     await argosScreenshot(page, 'Plissee-Menü - Plissee nach Eigenschaften', {
@@ -113,11 +110,11 @@ test.describe('Integration test with visual testing - opened menus', function ()
       '.heat-insulation-mi',
       '.cloth-attributes-mi',
       '.contact-mi'
-    ];
+    ]
 
     // Wait for each color element to be visible after hovering
     for (const select of guideSelectors) {
-      await page.waitForSelector(select, { state: 'visible' });
+      await page.waitForSelector(select, { state: 'visible' })
     }
 
     // take argos screenshot
@@ -373,14 +370,13 @@ test.describe('Integration test with visual testing - opened menus', function ()
       '.green-mi',
       '.black-mi',
       '.all-colors-mi'
-    ];
-
+    ]
 
     // Wait for each color element to be visible after hovering
     for (const selector of colorSelectors) {
-      await page.waitForSelector(selector, { state: 'visible' });
+      await page.waitForSelector(selector, { state: 'visible' })
     }
-  
+
     // take argos screenshot
     await argosScreenshot(page, 'Schiebegardinen-Menü - Schiebegardinen nach Farben', {
       fullPage: false,
@@ -394,13 +390,13 @@ test.describe('Integration test with visual testing - opened menus', function ()
       '.transparent-mi',
       '.blickdicht-mi',
       '.verdunklung-mi'
-    ];
+    ]
 
     // Wait for each color element to be visible after hovering
     for (const slct of characteristicsSelectors) {
-       await page.waitForSelector(slct, { state: 'visible' });
+      await page.waitForSelector(slct, { state: 'visible' })
     }
-    
+
     // take argos screenshot
     await argosScreenshot(page, 'Schiebegardinen-Menü - Schiebegardinen nach Eigenschaften', {
       fullPage: false,
@@ -439,11 +435,11 @@ test.describe('Integration test with visual testing - opened menus', function ()
       '.green-mi',
       '.black-mi',
       '.all-colors-mi'
-    ];
+    ]
 
     // Wait for each color element to be visible after hovering
     for (const selector of colorSelectors) {
-      await page.waitForSelector(selector, { state: 'visible' });
+      await page.waitForSelector(selector, { state: 'visible' })
     }
 
     // Take Argos screenshot
@@ -460,14 +456,13 @@ test.describe('Integration test with visual testing - opened menus', function ()
       '.raffrollo-wohnzimmer-mi',
       '.raffrollo-schlafzimmer-mi',
       '.raffrollo-kueche-mi',
-      '.raffrollo-kinderzimmer-mi',
-    ];
+      '.raffrollo-kinderzimmer-mi'
+    ]
 
     // Wait for each color element to be visible after hovering
     for (const sel of roomSelectors) {
-      await page.waitForSelector(sel, { state: 'visible' });
+      await page.waitForSelector(sel, { state: 'visible' })
     }
-
 
     // Take Argos screenshot for 'Raffrollo für Räume'
     await argosScreenshot(page, 'Raffrollo-Menü - Raffrollo für Räume', {
@@ -483,13 +478,12 @@ test.describe('Integration test with visual testing - opened menus', function ()
       '.transparent-mi',
       '.blickdicht-mi',
       '.verdunklung-mi'
-    ];
+    ]
 
     // Wait for each color element to be visible after hovering
     for (const slct of characteristicsSelectors) {
-       await page.waitForSelector(slct, { state: 'visible' });
+      await page.waitForSelector(slct, { state: 'visible' })
     }
-    
 
     // Take Argos screenshot for 'Raffrollo nach Eigenschaften'
     await argosScreenshot(page, 'Raffrollo-Menü - Raffrollo nach Eigenschaften', {
@@ -505,11 +499,11 @@ test.describe('Integration test with visual testing - opened menus', function ()
       '.measure-mi',
       '.montage-mi',
       '.contact-mi'
-    ];
+    ]
 
     // Wait for each color element to be visible after hovering
     for (const select of guideSelectors) {
-      await page.waitForSelector(select, { state: 'visible' });
+      await page.waitForSelector(select, { state: 'visible' })
     }
 
     // Take Argos screenshot for 'Raffrollo Ratgeber'
