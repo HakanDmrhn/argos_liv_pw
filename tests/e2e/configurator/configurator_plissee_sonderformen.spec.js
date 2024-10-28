@@ -3,8 +3,6 @@ import { argosScreenshot } from '@argos-ci/playwright'
 import { test, expect } from '../../fixtures/youtube_freshchat_blocking_fixture.js'
 import { ignoreMenuContainer, checkButtonAvailability } from '../../support/helpers'
 
-const scrollToBottom = require('scroll-to-bottomjs')
-
 test.describe('Integration test with visual testing - plissee configurator special shapes', function () {
   test('Plissee - Sonderformen', async function ({ page }) {
     await page.goto('/plissee/plissee-konfigurator', { waitUntil: 'load' })

@@ -1,69 +1,47 @@
-import { test, expect } from '../fixtures/youtube_freshchat_blocking_fixture.js'
-import { ignoreFreshChat, ignoreYoutube, ignoreMenuContainer, checkButtonAvailability } from '../support/helpers'
+import { expect } from '../fixtures/youtube_freshchat_blocking_fixture.js'
+import { ignoreMenuContainer, checkButtonAvailability } from '../support/helpers'
 
 const scrollToBottom = require('scroll-to-bottomjs')
 
+/**
+ * Configures and requests free fabric samples for various products.
+ *
+ * This function navigates to multiple product pages, waits for elements to load,
+ * and clicks the button to request free fabric samples for each product type.
+ *
+ * @async
+ * @function configure_muster
+ * @param {import('playwright').Page} page - The Playwright page instance for browser interaction.
+ */
 export async function configure_muster (page) {
-  // muster doppelrollo
+  // Define the product URLs and their corresponding sample request buttons
+  const productPages = [
+    '/doppelrollo/rayure-5007',
+    '/plissee/poesia-1824',
+    '/raffrollo/corsia-9135',
+    '/rollo/blackout-unicolor-3110',
+    '/schiebegardinen/hilko-7316',
+    '/vorhaenge/dekoschal/bosco'
+  ]
 
-  await page.goto('/doppelrollo/rayure-5007', { waitUntil: 'load' })
-  await page.waitForFunction(() => document.fonts.ready)
-  await page.evaluate(scrollToBottom)
-  await checkButtonAvailability(page)
-  await ignoreMenuContainer(page)
+  for (const url of productPages) {
+    // Load the product page
+    await page.goto(url, { waitUntil: 'load' })
+    await page.waitForFunction(() => document.fonts.ready)
 
-  // ensure that the page has fully loaded by waiting for one of the last elements in network traffic
-  const lastlink = page.getByRole('link', { name: 'Impressum' })
-  await expect(lastlink).toBeVisible()
-  await expect(lastlink).toBeEnabled()
+    // Scroll to the bottom to ensure all elements are visible
+    await page.evaluate(scrollToBottom)
 
-  await page.getByRole('button', { name: 'Gratis Stoffprobe anfordern' }).click()
+    // Check button availability and dismiss any menu overlays
+    await checkButtonAvailability(page)
+    await ignoreMenuContainer(page)
 
-  // muster plissee
+    // Ensure the page has fully loaded by checking for a specific element
+    const lastlink = page.getByRole('link', { name: 'Impressum' })
+    await expect(lastlink).toBeVisible()
+    await expect(lastlink).toBeEnabled()
 
-  await page.goto('/plissee/poesia-1824', { waitUntil: 'load' })
-  await page.waitForFunction(() => document.fonts.ready)
-  await page.evaluate(scrollToBottom)
-  await checkButtonAvailability(page)
-  await ignoreMenuContainer(page)
-
-  await page.getByRole('button', { name: 'Gratis Stoffprobe anfordern' }).click()
-
-  // muster raffrollo
-
-  await page.goto('/raffrollo/corsia-9135', { waitUntil: 'load' })
-  await page.waitForFunction(() => document.fonts.ready)
-  await page.evaluate(scrollToBottom)
-  await checkButtonAvailability(page)
-  await ignoreMenuContainer(page)
-
-  await page.getByRole('button', { name: 'Gratis Stoffprobe anfordern' }).click()
-
-  // muster rollo
-  await page.goto('/rollo/blackout-unicolor-3110', { waitUntil: 'load' })
-  await page.waitForFunction(() => document.fonts.ready)
-  await page.evaluate(scrollToBottom)
-  await checkButtonAvailability(page)
-  await ignoreMenuContainer(page)
-
-  await page.getByRole('button', { name: 'Gratis Stoffprobe anfordern' }).click()
-
-  // muster schiebegardine
-  await page.goto('/schiebegardinen/hilko-7316', { waitUntil: 'load' })
-  await page.waitForFunction(() => document.fonts.ready)
-  await page.evaluate(scrollToBottom)
-  await checkButtonAvailability(page)
-  await ignoreMenuContainer(page)
-
-  await page.getByRole('button', { name: 'Gratis Stoffprobe anfordern' }).click()
-
-  // muster vorhang
-
-  await page.goto('/vorhaenge/dekoschal/bosco', { waitUntil: 'load' })
-  await page.waitForFunction(() => document.fonts.ready)
-  await page.evaluate(scrollToBottom)
-  await checkButtonAvailability(page)
-  await ignoreMenuContainer(page)
-
-  await page.getByRole('button', { name: 'Gratis Stoffprobe anfordern' }).click()
+    // Request a free fabric sample
+    await page.getByRole('button', { name: 'Gratis Stoffprobe anfordern' }).click()
+  }
 }

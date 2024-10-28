@@ -1,10 +1,9 @@
-import { test, expect } from '../fixtures/youtube_freshchat_blocking_fixture.js'
+import { expect } from '../fixtures/youtube_freshchat_blocking_fixture.js'
 import { argosScreenshot } from '@argos-ci/playwright'
-
 const scrollToBottom = require('scroll-to-bottomjs')
 
-const data =
-{
+// User and address data
+const data = {
   login: 'guest',
   prefix: 'geschaeftskunde',
   company_name: 'Test GmbH',
@@ -33,226 +32,245 @@ const data =
   payment: 'bankpayment'
 }
 
+/**
+ * Adds the current product to the cart.
+ *
+ * @async
+ * @function add2Cart
+ * @param {import('playwright').Page} page - The Playwright page instance for browser interaction.
+ */
 export async function add2Cart (page) {
-  // add to cart
   await page.locator('#configurator-price-cart > .add-to-cart button').click()
 }
 
+/**
+ * Performs the checkout process, filling in billing and shipping information.
+ *
+ * @async
+ * @function checkOut
+ * @param {import('playwright').Page} page - The Playwright page instance for browser interaction.
+ */
 export async function checkOut (page) {
   // ----------------------- CHECK URL OF CART --------------------------------//
-  // --------------------------------------------------------------------------//
-
-  // check correct URL --> is cart loaded?
   await expect(page).toHaveURL(new RegExp('/checkout/cart'))
 
-  // take argos screenshot
+  // Take a screenshot of the cart
   await argosScreenshot(page, 'Alle Produkte im Warenkorb', {
-    viewports: [
-      'macbook-16', // Use device preset for macbook-16 --> 1536 x 960
-      'iphone-6' // Use device preset for iphone-6 --> 375x667
-    ]
+    viewports: ['macbook-16', 'iphone-6']
   })
 
-  // proceed to checkout
+  // Proceed to checkout
   await page.getByText(/zur Kasse gehen/).first().click()
   await page.waitForFunction(() => document.fonts.ready)
   await page.evaluate(scrollToBottom)
 
   // ----------------------- CHECK URL OF CHECKOUT ----------------------------//
-  // --------------------------------------------------------------------------//
-
-  // check correct URL --> is cart loaded?
   await expect(page).toHaveURL(new RegExp('/checkout/onepage'))
 
-  // set billing address information in Rechnungsinformation
-  await setBillingData(page, data.company_name, data.vatID, data.first_name, data.last_name, data.email, data.street, data.postal_code, data.city, data.phone, data.state)
+  // Set billing address information
+  await setBillingData(page, data)
 
-  // take argos screenshot Rechnungsinformation
+  // Take a screenshot of billing information
   await argosScreenshot(page, 'checkout - Rechnungsinformation', {
-    viewports: [
-      'macbook-16', // Use device preset for macbook-16 --> 1536 x 960
-      'iphone-6' // Use device preset for iphone-6 --> 375x667
-    ]
+    viewports: ['macbook-16', 'iphone-6']
   })
 
-  // select 'An andere Adresse verschicken' and go on
+  // Select 'An andere Adresse verschicken' and proceed
   await page.locator('input[title="An andere Adresse verschicken"]').check()
   await page.locator('#billing-buttons-container > button[title="Weiter"]').click()
 
   // ------------------------------- CHECK REQUEST ----------------------------//
-  // --------------------------------------------------------------------------//
-  await Promise.all([
-    page.waitForResponse(response =>
-      response.url().includes('/checkout/onepage/saveBilling') &&
-            response.status() === 200, { timeout: 2000 } &&
-        console.log('RESPONSE RECEIVED - /checkout/onepage/saveBilling')
-    )
-  ])
+  await checkResponse(page, '/checkout/onepage/saveBilling')
 
-  // set shipping address information
-  await setShippingData(page, data.company_name2, data.vatID_2, data.first_name2, data.last_name2, data.street2, data.postal_code2, data.city2, data.phone2, data.state2)
+  // Set shipping address information
+  await setShippingData(page, data)
 
-  // take argos screenshot Versandinformation
+  // Take a screenshot of shipping information
   await argosScreenshot(page, 'checkout - Versandinformation', {
-    viewports: [
-      'macbook-16', // Use device preset for macbook-16 --> 1536 x 960
-      'iphone-6' // Use device preset for iphone-6 --> 375x667
-    ]
+    viewports: ['macbook-16', 'iphone-6']
   })
 
-  // click 'Weiter'
+  // Click 'Weiter'
   await page.locator('#shipping-buttons-container button').click()
 
   // ------------------------------- CHECK REQUEST ----------------------------//
-  // --------------------------------------------------------------------------//
-  await Promise.all([
-    page.waitForResponse(response =>
-      response.url().includes('/checkout/onepage/saveShipping') &&
-            response.status() === 200, { timeout: 2000 } &&
-        console.log('RESPONSE RECEIVED - /checkout/onepage/saveShipping')
-    )
-  ])
+  await checkResponse(page, '/checkout/onepage/saveShipping')
 
   await page.waitForFunction(() => document.fonts.ready)
   await page.evaluate(scrollToBottom)
 
-  // take argos screenshot Versandkosten
+  // Take a screenshot of shipping costs
   await argosScreenshot(page, 'checkout - Versandkosten', {
-    viewports: [
-      'macbook-16', // Use device preset for macbook-16 --> 1536 x 960
-      'iphone-6' // Use device preset for iphone-6 --> 375x667
-    ]
+    viewports: ['macbook-16', 'iphone-6']
   })
 
-  // Button "Weiter" @Versandkosten
-  await expect(page.locator('#co-shipping-method-form > .buttons-set > .button')).toBeVisible() // Warte bis WEITER-Button sichtbar ist
-  await page.locator('#co-shipping-method-form > .buttons-set > .button').click() // und klicke dann
+  // Click "Weiter" @Versandkosten
+  await expect(page.locator('#co-shipping-method-form > .buttons-set > .button')).toBeVisible()
+  await page.locator('#co-shipping-method-form > .buttons-set > .button').click()
 
   // ------------------------------- CHECK REQUEST ----------------------------//
-  // --------------------------------------------------------------------------//
+  await checkResponse(page, '/checkout/onepage/saveShippingMethod')
 
-  await Promise.all([
-    page.waitForResponse(response =>
-      response.url().includes('/checkout/onepage/saveShippingMethod') &&
-            response.status() === 200, { timeout: 2000 } &&
-        console.log('RESPONSE RECEIVED - /checkout/onepage/saveShippingMethod')
-    )
-  ])
+  // Wait for payment options to load
+  await waitForPaymentOptions(page)
 
-  // WARTE AUF RESSOURCEN BEVOR AUFNAHME GEMACHT WIRD
-  // warte bis Images der vier verfügbaren Zahlungsarten sichtbar sind
-  await page.locator('dt[class="ppp bankpayment"] img').waitFor()
-  await page.locator('dt[class="ppp paypal ppp-selected"] img').waitFor()
-  await page.locator('dt[class="ppp card"] img').waitFor()
-  // await page.locator('dt[class="ppp sofort"] img').waitFor();
-
-  // take argos screenshot Zahlungsinformation
+  // Take a screenshot of payment information
   await argosScreenshot(page, 'checkout - Zahlungsinformation', {
-    viewports: [
-      'macbook-16', // Use device preset for macbook-16 --> 1536 x 960
-      'iphone-6' // Use device preset for iphone-6 --> 375x667
-    ]
+    viewports: ['macbook-16', 'iphone-6']
   })
 
   // Click "Weiter"
   await page.locator('#payment-buttons-container button').click()
 
   // ------------------------------- CHECK REQUEST ----------------------------//
-  // --------------------------------------------------------------------------//
+  await checkResponse(page, '/checkout/onepage/savePayment')
 
-  await Promise.all([
-    page.waitForResponse(response =>
-      response.url().includes('/checkout/onepage/savePayment') &&
-            response.status() === 200, { timeout: 2000 } &&
-        console.log('RESPONSE RECEIVED - /checkout/onepage/savePayment')
-    )
-  ])
-
-  // wait for Paypal-Button
+  // Wait for PayPal button to load
   await page.locator('iframe.component-frame.visible').waitFor()
 
-  // take argos screenshot Bestellübersicht
+  // Take a screenshot of order summary
   await argosScreenshot(page, 'checkout - Bestellübersicht', {
-    viewports: [
-      'macbook-16', // Use device preset for macbook-16 --> 1536 x 960
-      'iphone-6' // Use device preset for iphone-6 --> 375x667
-    ]
+    viewports: ['macbook-16', 'iphone-6']
   })
 }
 
+/**
+ * Empties the cart, taking screenshots before and after.
+ *
+ * @async
+ * @function emptyCart
+ * @param {import('playwright').Page} page - The Playwright page instance for browser interaction.
+ */
 export async function emptyCart (page) {
-  // await page.waitForTimeout(2000);
-  // click cart icon and delete articles  + take snapshots before and after
   await page.locator('.smallcartdiv').click()
   await page.waitForFunction(() => document.fonts.ready)
   await page.evaluate(scrollToBottom)
 
-  // ----------------------- CHECK URL OF CART --------------------------------//
-  // --------------------------------------------------------------------------//
-
-  // check correct URL --> is cart loaded?
   await expect(page).toHaveURL(new RegExp('/checkout/cart'))
 
-  // take argos screenshot full cart
+  // Take a screenshot of the cart
   await argosScreenshot(page, 'checkout - Warenkorb leeren', {
-    viewports: [
-      'macbook-16', // Use device preset for macbook-16 --> 1536 x 960
-      'iphone-6' // Use device preset for iphone-6 --> 375x667
-    ]
+    viewports: ['macbook-16', 'iphone-6']
   })
 
   await deleteProducts(page)
 
-  // take argos screenshot full cart
+  // Take a screenshot of the emptied cart
   await argosScreenshot(page, 'checkout - Warenkorb geleert', {
-    viewports: [
-      'macbook-16', // Use device preset for macbook-16 --> 1536 x 960
-      'iphone-6' // Use device preset for iphone-6 --> 375x667
-    ]
+    viewports: ['macbook-16', 'iphone-6']
   })
 }
 
-async function setBillingData (page, company, vatID, firstName, lastName, email, street, postalCode, city, phone, state) {
+/**
+ * Sets billing address information.
+ *
+ * @async
+ * @function setBillingData
+ * @param {import('playwright').Page} page - The Playwright page instance for browser interaction.
+ * @param {Object} data - The data object containing billing information.
+ */
+async function setBillingData (page, {
+  company_name,
+  vatID,
+  first_name,
+  last_name,
+  email,
+  street,
+  postal_code,
+  city,
+  phone,
+  state
+}) {
   await page.locator('#billing_anrede_geschaeftskunde').click()
-  await page.locator('[id="billing:company"]').fill(company)
+  await page.locator('[id="billing:company"]').fill(company_name)
   await page.locator('[id="billing:vat_id"]').fill(vatID)
-
-  // set prefix of contact person, if user is a company
   await page.locator('.anrede_frau[name="billing\\[prefix\\]"]').check()
-  await page.locator('[id="billing:firstname"]').fill(firstName)
-  await page.locator('[id="billing:lastname"]').fill(lastName)
+  await page.locator('[id="billing:firstname"]').fill(first_name)
+  await page.locator('[id="billing:lastname"]').fill(last_name)
   await page.locator('[id="billing:email"]').fill(email)
   await page.locator('[id="billing:street1"]').fill(street)
-  await page.locator('[id="billing:postcode"]').fill(postalCode)
+  await page.locator('[id="billing:postcode"]').fill(postal_code)
   await page.locator('[id="billing:city"]').fill(city)
   await page.locator('[id="billing:telephone"]').fill(phone)
   await page.selectOption('[id="billing:country_id"]', state)
 }
 
-async function setShippingData (page, company, vatID, firstName, lastName, street, postalCode, city, phone, state) {
+/**
+ * Sets shipping address information.
+ *
+ * @async
+ * @function setShippingData
+ * @param {import('playwright').Page} page - The Playwright page instance for browser interaction.
+ * @param {Object} data - The data object containing shipping information.
+ */
+async function setShippingData (page, {
+  company_name2,
+  vatID_2,
+  first_name2,
+  last_name2,
+  street2,
+  postal_code2,
+  city2,
+  phone2,
+  state2
+}) {
   await page.locator('#shipping_anrede_geschaeftskunde').click()
-  await page.locator('[id="shipping:company"]').fill(company)
-  // await page.locator('[id="shipping:vat_id"]').fill(vatID);  //Bulgarische VAT-ID macht oft Verifizierungsprobleme, was zum Abbruch führt
-
-  // set prefix of contact person, if user is a company
+  await page.locator('[id="shipping:company"]').fill(company_name2)
+  // Uncomment if VAT ID is needed: await page.locator('[id="shipping:vat_id"]').fill(vatID_2);
   await page.locator('.anrede_herr[name="shipping\\[prefix\\]"]').check()
-  await page.locator('[id="shipping:firstname"]').fill(firstName)
-  await page.locator('[id="shipping:lastname"]').fill(lastName)
-  await page.locator('[id="shipping:street1"]').fill(street)
-  await page.locator('[id="shipping:postcode"]').fill(postalCode)
-  await page.locator('[id="shipping:city"]').fill(city)
-  await page.locator('[id="shipping:telephone"]').fill(phone)
-  await page.selectOption('[id="shipping:country_id"]', state)
+  await page.locator('[id="shipping:firstname"]').fill(first_name2)
+  await page.locator('[id="shipping:lastname"]').fill(last_name2)
+  await page.locator('[id="shipping:street1"]').fill(street2)
+  await page.locator('[id="shipping:postcode"]').fill(postal_code2)
+  await page.locator('[id="shipping:city"]').fill(city2)
+  await page.locator('[id="shipping:telephone"]').fill(phone2)
+  await page.selectOption('[id="shipping:country_id"]', state2)
 }
 
+/**
+ * Deletes products from the cart.
+ *
+ * @async
+ * @function deleteProducts
+ * @param {import('playwright').Page} page - The Playwright page instance for browser interaction.
+ */
 async function deleteProducts (page) {
   await page.locator('.smallcartdiv').click()
   await page.locator('.remove-item').first().waitFor()
 
-  // bei mehreren produkten --> zB Kissen Sets
-  while (await page.isVisible('.remove-item')) { // solange das Element sichtbar ist
-    // Klicke auf das Element mit der Klasse 'remove-item'
-    await page.locator('.remove-item').first().click() // entferne immer das erste element
+  while (await page.isVisible('.remove-item')) {
+    await page.locator('.remove-item').first().click()
     await page.waitForTimeout(500)
   }
+}
+
+/**
+ * Waits for payment options to load.
+ *
+ * @async
+ * @function waitForPaymentOptions
+ * @param {import('playwright').Page} page - The Playwright page instance for browser interaction.
+ */
+async function waitForPaymentOptions (page) {
+  await page.locator('dt[class="ppp bankpayment"] img').waitFor()
+  await page.locator('dt[class="ppp paypal ppp-selected"] img').waitFor()
+  await page.locator('dt[class="ppp card"] img').waitFor()
+  // await page.locator('dt[class="ppp sofort"] img').waitFor(); // Uncomment if needed
+}
+
+/**
+ * Checks the response for a specific URL during the checkout process.
+ *
+ * @async
+ * @function checkResponse
+ * @param {import('playwright').Page} page - The Playwright page instance for browser interaction.
+ * @param {string} urlPart - The URL part to check for in the response.
+ */
+async function checkResponse (page, urlPart) {
+  await Promise.all([
+    page.waitForResponse(response =>
+      response.url().includes(urlPart) && response.status() === 200,
+    { timeout: 2000 }
+    ).then(() => console.log(`RESPONSE RECEIVED - ${urlPart}`))
+  ])
 }
