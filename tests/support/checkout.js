@@ -6,25 +6,25 @@ const scrollToBottom = require('scroll-to-bottomjs')
 const data = {
   login: 'guest',
   prefix: 'geschaeftskunde',
-  company_name: 'Test GmbH',
+  companyName: 'Test GmbH',
   vatID: 'ATU33803701',
-  prefix_business: 'Frau',
-  first_name: 'Maria',
-  last_name: 'Magdalena',
+  prefixBusiness: 'Frau',
+  firstName: 'Maria',
+  lastName: 'Magdalena',
   email: 'maria@delphinus-test.de',
   street: 'Karlsplatz 40',
-  postal_code: '1040',
+  postalCode: '1040',
   city: 'Wien',
   state: 'Österreich',
   phone: '222219',
   shipping: 'new',
   prefix2: 'geschaeftskunde',
-  company_name2: 'Chaimag Ltd',
-  prefix_business2: 'Herr',
-  first_name2: 'Mirco',
-  last_name2: 'Yanar',
+  companyName2: 'Chaimag Ltd',
+  prefixBusiness2: 'Herr',
+  firstName2: 'Mirco',
+  lastName2: 'Yanar',
   street2: '104 Bdin Str., Büro 12',
-  postal_code2: '1234',
+  postalCode2: '1234',
   city2: 'Sofia',
   state2: 'Bulgarien',
   phone2: '225588',
@@ -53,6 +53,7 @@ export async function add2Cart (page) {
 export async function checkOut (page) {
   // ----------------------- CHECK URL OF CART --------------------------------//
   await expect(page).toHaveURL(new RegExp('/checkout/cart'))
+  await page.waitForFunction(() => document.fonts.ready)
 
   // Take a screenshot of the cart
   await argosScreenshot(page, 'Alle Produkte im Warenkorb', {
@@ -69,6 +70,7 @@ export async function checkOut (page) {
 
   // Set billing address information
   await setBillingData(page, data)
+  await page.waitForFunction(() => document.fonts.ready)
 
   // Take a screenshot of billing information
   await argosScreenshot(page, 'checkout - Rechnungsinformation', {
@@ -78,12 +80,14 @@ export async function checkOut (page) {
   // Select 'An andere Adresse verschicken' and proceed
   await page.locator('input[title="An andere Adresse verschicken"]').check()
   await page.locator('#billing-buttons-container > button[title="Weiter"]').click()
+  await page.waitForFunction(() => document.fonts.ready)
 
   // ------------------------------- CHECK REQUEST ----------------------------//
   await checkResponse(page, '/checkout/onepage/saveBilling')
 
   // Set shipping address information
   await setShippingData(page, data)
+  await page.waitForFunction(() => document.fonts.ready)
 
   // Take a screenshot of shipping information
   await argosScreenshot(page, 'checkout - Versandinformation', {
@@ -92,6 +96,7 @@ export async function checkOut (page) {
 
   // Click 'Weiter'
   await page.locator('#shipping-buttons-container button').click()
+  await page.waitForFunction(() => document.fonts.ready)
 
   // ------------------------------- CHECK REQUEST ----------------------------//
   await checkResponse(page, '/checkout/onepage/saveShipping')
@@ -107,6 +112,7 @@ export async function checkOut (page) {
   // Click "Weiter" @Versandkosten
   await expect(page.locator('#co-shipping-method-form > .buttons-set > .button')).toBeVisible()
   await page.locator('#co-shipping-method-form > .buttons-set > .button').click()
+  await page.waitForFunction(() => document.fonts.ready)
 
   // ------------------------------- CHECK REQUEST ----------------------------//
   await checkResponse(page, '/checkout/onepage/saveShippingMethod')
@@ -121,6 +127,7 @@ export async function checkOut (page) {
 
   // Click "Weiter"
   await page.locator('#payment-buttons-container button').click()
+  await page.waitForFunction(() => document.fonts.ready)
 
   // ------------------------------- CHECK REQUEST ----------------------------//
   await checkResponse(page, '/checkout/onepage/savePayment')
@@ -170,26 +177,26 @@ export async function emptyCart (page) {
  * @param {Object} data - The data object containing billing information.
  */
 async function setBillingData (page, {
-  company_name,
+  companyName,
   vatID,
-  first_name,
-  last_name,
+  firstName,
+  lastName,
   email,
   street,
-  postal_code,
+  postalCode,
   city,
   phone,
   state
 }) {
   await page.locator('#billing_anrede_geschaeftskunde').click()
-  await page.locator('[id="billing:company"]').fill(company_name)
+  await page.locator('[id="billing:company"]').fill(companyName)
   await page.locator('[id="billing:vat_id"]').fill(vatID)
   await page.locator('.anrede_frau[name="billing\\[prefix\\]"]').check()
-  await page.locator('[id="billing:firstname"]').fill(first_name)
-  await page.locator('[id="billing:lastname"]').fill(last_name)
+  await page.locator('[id="billing:firstname"]').fill(firstName)
+  await page.locator('[id="billing:lastname"]').fill(lastName)
   await page.locator('[id="billing:email"]').fill(email)
   await page.locator('[id="billing:street1"]').fill(street)
-  await page.locator('[id="billing:postcode"]').fill(postal_code)
+  await page.locator('[id="billing:postcode"]').fill(postalCode)
   await page.locator('[id="billing:city"]').fill(city)
   await page.locator('[id="billing:telephone"]').fill(phone)
   await page.selectOption('[id="billing:country_id"]', state)
@@ -204,24 +211,24 @@ async function setBillingData (page, {
  * @param {Object} data - The data object containing shipping information.
  */
 async function setShippingData (page, {
-  company_name2,
+  companyName2,
   vatID_2,
-  first_name2,
-  last_name2,
+  firstName2,
+  lastName2,
   street2,
-  postal_code2,
+  postalCode2,
   city2,
   phone2,
   state2
 }) {
   await page.locator('#shipping_anrede_geschaeftskunde').click()
-  await page.locator('[id="shipping:company"]').fill(company_name2)
+  await page.locator('[id="shipping:company"]').fill(companyName2)
   // Uncomment if VAT ID is needed: await page.locator('[id="shipping:vat_id"]').fill(vatID2);
   await page.locator('.anrede_herr[name="shipping\\[prefix\\]"]').check()
-  await page.locator('[id="shipping:firstname"]').fill(first_name2)
-  await page.locator('[id="shipping:lastname"]').fill(last_name2)
+  await page.locator('[id="shipping:firstname"]').fill(firstName2)
+  await page.locator('[id="shipping:lastname"]').fill(lastName2)
   await page.locator('[id="shipping:street1"]').fill(street2)
-  await page.locator('[id="shipping:postcode"]').fill(postal_code2)
+  await page.locator('[id="shipping:postcode"]').fill(postalCode2)
   await page.locator('[id="shipping:city"]').fill(city2)
   await page.locator('[id="shipping:telephone"]').fill(phone2)
   await page.selectOption('[id="shipping:country_id"]', state2)
