@@ -31,8 +31,8 @@ export async function configure_holzjalousie (page) {
   await expect(lastlink).toBeEnabled()
 
   // Change lamellen color to "Natural Mahagoni 6523"
-  await page.getByText(/Natural Mahagoni 6523/).first().waitFor() // Ensure the element is present
-  await page.getByText(/Natural Mahagoni 6523/).first().click()
+  await page.getByText(/Natural Rotbraun 6522/).first().waitFor() // Ensure the element is present
+  await page.getByText(/Natural Rotbraun 6522/).first().click()
 
   // Input height and width
   await page.locator('#hoehe_in_mm input').fill('1650')
