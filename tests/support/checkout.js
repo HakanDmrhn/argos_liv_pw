@@ -216,7 +216,7 @@ async function setShippingData (page, {
 }) {
   await page.locator('#shipping_anrede_geschaeftskunde').click()
   await page.locator('[id="shipping:company"]').fill(company_name2)
-  // Uncomment if VAT ID is needed: await page.locator('[id="shipping:vat_id"]').fill(vatID_2);
+  // Uncomment if VAT ID is needed: await page.locator('[id="shipping:vat_id"]').fill(vatID2);
   await page.locator('.anrede_herr[name="shipping\\[prefix\\]"]').check()
   await page.locator('[id="shipping:firstname"]').fill(first_name2)
   await page.locator('[id="shipping:lastname"]').fill(last_name2)
