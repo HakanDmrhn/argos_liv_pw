@@ -1,6 +1,5 @@
 import { expect } from '../fixtures/youtube_freshchat_blocking_fixture.js'
 import { ignoreMenuContainer, checkButtonAvailability } from '../support/helpers'
-
 const scrollToBottom = require('scroll-to-bottomjs')
 
 /**

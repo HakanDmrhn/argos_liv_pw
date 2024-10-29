@@ -28,12 +28,6 @@ test.describe('Integration test with visual testing - search function', function
       await checkButtonAvailability(page)
       await ignoreMenuContainer(page)
 
-      // ensure that the page has fully loaded by waiting for the logo c
-      const livoneoLogo = await page.getByRole('img', { name: 'Plissee und Sonnenschutz bei Livoneo®' })
-      await expect(livoneoLogo).toBeVisible()
-      await livoneoLogo.hover()
-      await page.mouse.move(0, 0)
-
       // Enter the search term into the input field
       await page.fill('#search', searchTerm)
 
@@ -41,6 +35,12 @@ test.describe('Integration test with visual testing - search function', function
       await page.getByRole('button', { name: 'Suchen' }).click()
       await page.waitForFunction(() => document.fonts.ready)
       await ignoreMenuContainer(page)
+
+      // ensure that the page has fully loaded by waiting for the logo c
+      const livoneoLogo = await page.getByRole('img', { name: 'Plissee und Sonnenschutz bei Livoneo®' })
+      await expect(livoneoLogo).toBeVisible()
+      await livoneoLogo.hover()
+      await page.mouse.move(0, 0)
 
       // take argos screenshot
       await argosScreenshot(page, link, {
